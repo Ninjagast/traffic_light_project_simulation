@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Steven\\Desktop\\kut spul\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj": {}
+    "C:\\Users\\Steven\\Desktop\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Steven\\Desktop\\kut spul\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj": {
+    "C:\\Users\\Steven\\Desktop\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Steven\\Desktop\\kut spul\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj",
+        "projectUniqueName": "C:\\Users\\Steven\\Desktop\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj",
         "projectName": "traffic_light_simulation",
-        "projectPath": "C:\\Users\\Steven\\Desktop\\kut spul\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj",
+        "projectPath": "C:\\Users\\Steven\\Desktop\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj",
         "packagesPath": "C:\\Users\\Steven\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Steven\\Desktop\\kut spul\\simulatie_traffic\\traffic_light_simulation\\obj\\",
+        "outputPath": "C:\\Users\\Steven\\Desktop\\simulatie_traffic\\traffic_light_simulation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -52,6 +52,10 @@
             "MonoGame.Framework.DesktopGL": {
               "target": "Package",
               "version": "[3.8.0.1641, )"
+            },
+            "WebSocketSharp": {
+              "target": "Package",
+              "version": "[1.0.3-rc11, )"
             }
           },
           "imports": [
@@ -64,22 +68,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.10, 3.1.10]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.1.11, 3.1.11]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }

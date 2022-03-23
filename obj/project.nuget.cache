@@ -1,13 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "a2qie/lG4RqKesPV8h08LNE6a6LgT+VpWc/RmgevzctpAaQ19Y9gMxzibCPj59yNeqs9WKnUozsoCpDkn0RtHA==",
+  "dgSpecHash": "NJ+8Qzrl+aFA40LRJO4b1Ur7eoWIajbxTS0YM9PKu98LDc+Nv6L6RqP8xd0KjGpcrN4KXe2zrjWFK111EdUWZw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Steven\\Desktop\\kut spul\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj",
+  "projectFilePath": "C:\\Users\\Steven\\Desktop\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Steven\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
     "C:\\Users\\Steven\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\Steven\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\Steven\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.11\\microsoft.netcore.app.host.win-x64.3.1.11.nupkg.sha512"
+    "C:\\Users\\Steven\\.nuget\\packages\\websocketsharp\\1.0.3-rc11\\websocketsharp.1.0.3-rc11.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WebSocketSharp 1.0.3-rc11' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "WebSocketSharp",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

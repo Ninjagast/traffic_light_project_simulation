@@ -4,12 +4,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace traffic_light_simulation
 {
-    public class Game1 : Game
+    public class World : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Server _server;
 
-        public Game1()
+        public World()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -19,7 +20,8 @@ namespace traffic_light_simulation
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            _server = new Server();
+            _server.StartServer();
             base.Initialize();
         }
 
@@ -45,7 +47,6 @@ namespace traffic_light_simulation
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
             base.Draw(gameTime);
         }
     }

@@ -9,7 +9,8 @@
       "traffic_light_simulation/1.0.0": {
         "dependencies": {
           "MonoGame.Content.Builder.Task": "3.8.0.1641",
-          "MonoGame.Framework.DesktopGL": "3.8.0.1641"
+          "MonoGame.Framework.DesktopGL": "3.8.0.1641",
+          "WebSocketSharp": "1.0.3-rc11"
         },
         "runtime": {
           "traffic_light_simulation.dll": {}
@@ -65,6 +66,14 @@
             "fileVersion": "0.0.0.0"
           }
         }
+      },
+      "WebSocketSharp/1.0.3-rc11": {
+        "runtime": {
+          "lib/websocket-sharp.dll": {
+            "assemblyVersion": "1.0.2.59611",
+            "fileVersion": "1.0.2.59611"
+          }
+        }
       }
     }
   },
@@ -87,6 +96,13 @@
       "sha512": "sha512-rJQlrlHQbnOECYV6EcQ8GlGRQ2lzPTroXQcyyOZ0ki+BQRSJEN2zVBm9skqLiXya348aGAfTSSGTaSKjAy9NaA==",
       "path": "monogame.framework.desktopgl/3.8.0.1641",
       "hashPath": "monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
+    },
+    "WebSocketSharp/1.0.3-rc11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7VCF7f7zVMOvLGD8LeGS4DVXc8lOcB6kXnUMeTxigu+PMiU+6wW5Olq2gYrDU8vDRKOwFY+5RyBaLyzb8skEzA==",
+      "path": "websocketsharp/1.0.3-rc11",
+      "hashPath": "websocketsharp.1.0.3-rc11.nupkg.sha512"
     }
   }
 }

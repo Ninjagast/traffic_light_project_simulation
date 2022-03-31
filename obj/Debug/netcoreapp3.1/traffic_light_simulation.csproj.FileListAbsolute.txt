@@ -71,3 +71,4 @@ C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_simulation\obj\Debug\net
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_simulation\obj\Debug\netcoreapp3.1\traffic_light_simulation.dll
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_simulation\obj\Debug\netcoreapp3.1\traffic_light_simulation.pdb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_simulation\obj\Debug\netcoreapp3.1\traffic_light_simulation.genruntimeconfig.cache
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_simulation\bin\Debug\netcoreapp3.1\Content\dirt.xnb

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Net.Mime;
-using System.Numerics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using traffic_light_simulation.classes.enums;
 
 namespace traffic_light_simulation.classes.WorldPrefabs
 {
@@ -12,6 +13,9 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private Texture2D _textureGreen;
         private int _laneId;
         private Vector2 _pos;
+        private States _state; 
+        private SpriteFont _font;
+
         public void Update()
         {
             throw new NotImplementedException();
@@ -19,15 +23,31 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            if (_state == States.GREEN)
+            {
+                spriteBatch.Draw(_textureGreen, new Rectangle((int) _pos.X, (int)_pos.Y, 20, 50), Color.White);
+            }
+            else if (_state == States.ORANGE)
+            {
+                spriteBatch.Draw(_textureOrange, new Rectangle((int) _pos.X, (int)_pos.Y, 20, 50), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(_textureRed, new Rectangle((int) _pos.X, (int)_pos.Y, 20, 50), Color.White);
+            }
+
+            spriteBatch.DrawString(_font, _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 10), Color.Black);
         }
 
-        public void StateChange(int id, Enum state)
+        public void StateChange(int id, States state)
         {
-            throw new NotImplementedException();
+            if (_laneId == id)
+            {
+                _state = state;
+            }
         }
 
-        public static TrafficLight CreateInstance(Vector2 pos, int routeId, Texture2D textureRed, Texture2D textureOrange, Texture2D textureGreen)
+        public static TrafficLight CreateInstance(Vector2 pos, int routeId, Texture2D textureRed, Texture2D textureOrange, Texture2D textureGreen, SpriteFont font)
         {
             TrafficLight returnInstance = new TrafficLight();
             returnInstance._laneId = routeId;
@@ -35,6 +55,8 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             returnInstance._textureGreen = textureGreen;
             returnInstance._textureOrange = textureOrange;
             returnInstance._textureRed = textureRed;
+            returnInstance._state = States.RED;
+            returnInstance._font = font;
             return returnInstance;
         }
     }

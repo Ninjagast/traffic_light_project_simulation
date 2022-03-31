@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NJ+8Qzrl+aFA40LRJO4b1Ur7eoWIajbxTS0YM9PKu98LDc+Nv6L6RqP8xd0KjGpcrN4KXe2zrjWFK111EdUWZw==",
+  "dgSpecHash": "H+zYMX1KjrhRyFrPK/QpczdQna2Aa7Bghy1R6EUSmuwlq8169IqHs7sjANFxUINIcmHOvb2bE4Z7oTlwRPP9Cg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Steven\\Desktop\\simulatie_traffic\\traffic_light_simulation\\traffic_light_simulation.csproj",
+  "projectFilePath": "C:\\Users\\Steven\\Desktop\\simulatie_traffic\\traffic_light_project_simulation\\traffic_light_simulation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Steven\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
     "C:\\Users\\Steven\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512",

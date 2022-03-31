@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebSocketSharp;
+using System.Text.Json;
+using traffic_light_simulation.classes.enums;
+using traffic_light_simulation.classes.EventManagers;
 using WebSocket = WebSocketSharp.WebSocket;
+
 
 namespace traffic_light_simulation.classes.Communication
 {
@@ -9,7 +13,6 @@ namespace traffic_light_simulation.classes.Communication
     {
         private readonly string _address = "ws://keyslam.com:8080";
         private WebSocket _webSocket;
-        
         
         public List<MessageEventArgs> requestHistory = new List<MessageEventArgs>(); 
         
@@ -21,7 +24,7 @@ namespace traffic_light_simulation.classes.Communication
                 String json =
                     "{\"eventType\" : \"CONNECT_SIMULATOR\",  " +
                     "\"data\" : " +
-                    "{ \"sessionName\" : \"DubbleFF\", " +
+                    "{ \"sessionName\" : \"KFC\", " +
                     "\"sessionVersion\" : 1, " +
                     "\"discardParseErrors\" : false,  " +
                     "\"discardEventTypeErrors\" : false, " +
@@ -32,14 +35,58 @@ namespace traffic_light_simulation.classes.Communication
             };
             _webSocket.OnMessage += (sender, e) =>
             {
-                Console.WriteLine("Broker says:");
-                Console.WriteLine (e.Data);
-                requestHistory.Add(e);
+                ServerData? data = JsonSerializer.Deserialize<ServerData>(e.Data);
+
+                if (data.eventType == "SESSION_START")
+                {
+                    Console.WriteLine("Session start");
+                    return;
+                }
+
+                States state; 
+                switch (data.data.state)
+                {
+                    case "GREEN":
+                        state = States.GREEN;
+                        break;
+                    case "ORANGE":
+                        state = States.ORANGE;
+                        break;
+                    case "BLINKING":
+                        state = States.ORANGE;
+                        break;
+                    case "RED":
+                        state = States.RED;
+                        break;
+                    default:
+                        state = States.RED;
+                        Console.WriteLine($"wrong state type {data.data.state}");
+                        break;
+                }
+                
+                if (data.eventType == "SET_AUTOMOBILE_ROUTE_STATE")
+                {
+                    TrafficLightEm.Instance.OnStateChange(data.data.routeId, state);
+                    Console.WriteLine("SET_AUTOMOBILE_ROUTE_STATE");
+
+                }
+                else if (data.eventType == "SET_CYCLIST_ROUTE_STATE")
+                {
+                    BicycleLightEm.Instance.OnStateChange(data.data.routeId, state);
+                    Console.WriteLine("SET_CYCLIST_ROUTE_STATE");
+
+                }
+                else if (data.eventType == "SET_PEDESTRIAN_ROUTE_STATE")
+                {
+                    PedestrianLightEm.Instance.OnStateChange(data.data.routeId, state);
+                    Console.WriteLine("SET_PEDESTRIAN_ROUTE_STATE");
+                }
             };
             _webSocket.OnClose += (sender, e) =>
             {
                 Console.WriteLine ($"closed; Reason was: {e.Reason}");
             };
+            
             _webSocket.OnError += (sander, e) =>
             {
                 Console.WriteLine("error pik");

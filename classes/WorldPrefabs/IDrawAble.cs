@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
+using traffic_light_simulation.classes.enums;
 
 namespace traffic_light_simulation.classes.WorldPrefabs
 {
@@ -7,6 +8,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
     {
         public void Update();
         public void Draw(SpriteBatch spriteBatch);
-        public void StateChange(int id, Enum state);
+        public void StateChange(int id, States state);
     }
 }

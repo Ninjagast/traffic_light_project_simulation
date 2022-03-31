@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.WorldPrefabs;
 
 namespace traffic_light_simulation.classes.EventManagers
@@ -32,7 +33,7 @@ namespace traffic_light_simulation.classes.EventManagers
             _subscribed.Add(drawAble);
         }
 
-        public void OnStateChange(int id, Enum state)
+        public void OnStateChange(int id, States state)
         {
             foreach (var iDrawAble in _subscribed)
             {

@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Mail;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using traffic_light_simulation.classes.enums;
+using traffic_light_simulation.classes.WorldPrefabs;
 
 namespace traffic_light_simulation.classes.EventManagers
 {
-    public class EventManagerEm
+    public class PedestrianLightEm: IEventManager
     {
-        private static EventManagerEm _instance;
-        private List<IEventManager> _subscribed = new List<IEventManager>();
+        private static PedestrianLightEm _instance;
+        private List<IDrawAble> _subscribed = new List<IDrawAble>();
         private static readonly object Padlock = new object();
 
-        private EventManagerEm() {}
+        private PedestrianLightEm() {}
         
-        public static EventManagerEm Instance
+        public static PedestrianLightEm Instance
         {
             get
             {
@@ -21,21 +21,24 @@ namespace traffic_light_simulation.classes.EventManagers
                 {
                     if (_instance == null)
                     {
-                        _instance = new EventManagerEm();
+                        _instance = new PedestrianLightEm();
                     }
                     return _instance;
                 }
             }
         }
-
-        public void Subscribe(IEventManager inputObject)
+        
+        public void Subscribe(IDrawAble drawAble)
         {
-            _subscribed.Add(inputObject);
+            _subscribed.Add(drawAble);
         }
 
-        public void OnStateChange(IEventManager manager, int id, Enum state)
+        public void OnStateChange(int id, States state)
         {
-            manager.OnStateChange(id, state);
+            foreach (var subbed in _subscribed)
+            {
+                subbed.StateChange(id, state);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

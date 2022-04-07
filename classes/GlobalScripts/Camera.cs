@@ -21,6 +21,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             Bounds = viewport.Bounds;
             Zoom = 1f;
             Position = Vector2.Zero;
+            // Rotate = 0.80f;
         }
 
 
@@ -126,14 +127,12 @@ namespace traffic_light_simulation.classes.GlobalScripts
 
             if (currentMouseWheelValue > previousMouseWheelValue)
             {
-                Rotate += .01f;
-                // AdjustZoom(.05f);
+                AdjustZoom(.05f);
             }
 
             if (currentMouseWheelValue < previousMouseWheelValue)
             {
-                Rotate -= .01f;
-                // AdjustZoom(-.05f);
+                AdjustZoom(-.05f);
             }
 
             previousZoom = zoom;

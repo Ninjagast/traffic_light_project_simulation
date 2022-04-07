@@ -18,6 +18,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Update()
         {
+//          todo look if there is a car in the waypoint for this traffic light so we can stop the car and send a signal to the controller
             throw new NotImplementedException();
         }
 

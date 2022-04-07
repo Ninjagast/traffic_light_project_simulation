@@ -4,6 +4,8 @@
     {
         GREEN,
         ORANGE,
-        RED
+        RED,
+        DRIVING,
+        IDLE
     }
 }

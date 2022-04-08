@@ -18,7 +18,7 @@ namespace traffic_light_simulation.classes.EventManagers
         
         public void Update()
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         public void Draw(SpriteBatch spriteBatch)

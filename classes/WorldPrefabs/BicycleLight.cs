@@ -18,7 +18,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Update()
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public void Draw(SpriteBatch spriteBatch)

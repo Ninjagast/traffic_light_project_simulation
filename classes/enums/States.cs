@@ -6,6 +6,7 @@
         ORANGE,
         RED,
         DRIVING,
-        IDLE
+        IDLE,
+        TRANSIT
     }
 }

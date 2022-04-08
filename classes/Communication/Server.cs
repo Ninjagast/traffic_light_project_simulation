@@ -12,10 +12,29 @@ namespace traffic_light_simulation.classes.Communication
 {
     public class Server
     {
+        private static Server _instance;
+        private static readonly object Padlock = new object();
+
+        private Server() {}
+        
+        public static Server Instance
+        {
+            get
+            {
+                lock (Padlock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new Server();
+                    }
+                    return _instance;
+                }
+            }
+        }
+        
         private readonly string _address = "ws://keyslam.com:8080";
         private WebSocket _webSocket;
-        
-        public List<MessageEventArgs> requestHistory = new List<MessageEventArgs>(); 
+        public bool HasConnection = false; 
         
         public void StartServer()
         {
@@ -25,7 +44,7 @@ namespace traffic_light_simulation.classes.Communication
                 String json =
                     "{\"eventType\" : \"CONNECT_SIMULATOR\",  " +
                     "\"data\" : " +
-                    "{ \"sessionName\" : \"KFC\", " +
+                    "{ \"sessionName\" : \"burgerking\", " +
                     "\"sessionVersion\" : 1, " +
                     "\"discardParseErrors\" : false,  " +
                     "\"discardEventTypeErrors\" : false, " +
@@ -55,6 +74,7 @@ namespace traffic_light_simulation.classes.Communication
 
             if (data.eventType == "SESSION_START" || data.eventType == "SESSION_STOP")
             {
+                HasConnection = data.eventType == "SESSION_START";
                 Console.WriteLine($"{data.eventType}]");
                 return;
             }
@@ -100,6 +120,30 @@ namespace traffic_light_simulation.classes.Communication
                     Console.WriteLine($"unknown eventType {data.eventType}");
                     break;
             }
+        }
+
+        public void EntityEnteredZone(int routeId)
+        {
+            String json =
+                "{\"eventType\" : \"ENTITY_ENTERED_ZONE\",  " +
+                "\"data\" : " +
+                "{ \"routeId\" : "+ routeId + ", " +
+                "\"sensorId\" : 0}" +
+                "}";
+            
+            _webSocket.Send (json);
+        }
+
+        public void EntityExitedZone(int laneId)
+        {
+            String json =
+                "{\"eventType\" : \"ENTITY_EXITED_ZONE\",  " +
+                "\"data\" : " +
+                "{ \"routeId\" : "+ laneId + ", " +
+                "\"sensorId\" : 0}" +
+                "}";
+            
+            _webSocket.Send (json);
         }
     }
 }

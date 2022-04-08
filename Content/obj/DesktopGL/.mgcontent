@@ -4,19 +4,33 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BackGround (1).png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeOrange.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeRed.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/dirt.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/File.spritefont</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/gridTile.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightRed.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightYellow.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleRed.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_E.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_N.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_NE.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_NW.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_S.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_SE.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_SW.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_W.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

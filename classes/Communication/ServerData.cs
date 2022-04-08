@@ -1,4 +1,6 @@
-﻿namespace traffic_light_simulation.classes.Communication
+﻿using traffic_light_simulation.classes.dataClasses;
+
+namespace traffic_light_simulation.classes.Communication
 {
     public class ServerData
     {

@@ -1,0 +1,14 @@
+﻿[
+  {
+    "vector2": {
+      "x": 25,
+      "y": 95
+    },
+    "directions": {
+      "repeat_first": 26,
+      "directions": [
+        "DOWN"
+      ]
+    }
+  }
+]

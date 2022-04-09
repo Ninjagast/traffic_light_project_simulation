@@ -14,33 +14,25 @@
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightYellow.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleRed.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_E.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_N.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_NE.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_NW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_S.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_SE.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_SW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_W.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>BackGround.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File>LightOrange.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
+    <File>sedan_DOWN.png</File>
+    <File>sedan_RIGHT.png</File>
+    <File>sedan_LEFT.png</File>
+    <File>sedan_UP.png</File>
   </DestFiles>
 </SourceFileCollection>

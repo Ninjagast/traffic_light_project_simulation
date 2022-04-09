@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,20 +18,11 @@ namespace traffic_light_simulation
         private float _updateHrtz;
         private Camera _camera;
 
-        private Texture2D _lightGreen;
-        private Texture2D _lightOrange;
-        private Texture2D _lightRed;
-        private Texture2D _peopleRed;
-        private Texture2D _peopleGreen;
-        private Texture2D _lightBikeGreen;
-        private Texture2D _lightBikeOrange;
-        private Texture2D _lightBikeRed;
+        private SpriteFont _font;
         private Texture2D _backGround;
         
-        private SpriteFont _font;
-
         private List<string> _orientations;
-        private Dictionary<string, Texture2D> _sedanTextures;
+        private List<string> _ligtStates;
 
         public World()
         {
@@ -41,10 +33,14 @@ namespace traffic_light_simulation
 
             _orientations = new List<string>
             {
-                "E", "N", "NE", "NW", "S", "SE", "SW", "W"
+                "UP", "DOWN", "LEFT", "RIGHT"
             };
 
-            _sedanTextures = new Dictionary<string, Texture2D>();
+            _ligtStates = new List<string>
+            {
+                "Green", "Orange", "Red"
+            };
+            
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -64,59 +60,66 @@ namespace traffic_light_simulation
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            _lightGreen = Content.Load<Texture2D>("LightGreen");
-            _lightRed = Content.Load<Texture2D>("LightRed");
-            _lightOrange = Content.Load<Texture2D>("LightYellow");            
-            _lightBikeGreen = Content.Load<Texture2D>("BikeGreen");
-            _lightBikeRed = Content.Load<Texture2D>("BikeRed");
-            _lightBikeOrange = Content.Load<Texture2D>("BikeOrange");
-            _peopleGreen = Content.Load<Texture2D>("PeopleGreen");
-            _peopleRed = Content.Load<Texture2D>("PeopleRed");
+//          Loading the textures
+            _backGround = Content.Load<Texture2D>("BackGround");
             _font = Content.Load<SpriteFont>("File");
-            _backGround = Content.Load<Texture2D>("BackGround (1)");
+
+            Dictionary<string, Texture2D> sedanTextures = new Dictionary<string, Texture2D>();
+            Dictionary<string, Texture2D> trafficLightTextures = new Dictionary<string, Texture2D>();
+            Dictionary<string, Texture2D> pedestrianLightTextures = new Dictionary<string, Texture2D>();
+            Dictionary<string, Texture2D> bicycleLightTextures = new Dictionary<string, Texture2D>();
 
             foreach (var orientation in _orientations)
             {
-                _sedanTextures.Add($"sedan_{orientation}", Content.Load<Texture2D>($"sedan_{orientation}"));
+                 sedanTextures.Add($"sedan_{orientation}", Content.Load<Texture2D>($"sedan_{orientation}"));
             }
+            foreach (var color in _ligtStates)
+            {
+                trafficLightTextures.Add($"Light{color}", Content.Load<Texture2D>($"Light{color}"));
+                bicycleLightTextures.Add($"Bike{color}", Content.Load<Texture2D>($"Bike{color}"));
+            }
+            
+            pedestrianLightTextures.Add("PeopleGreen", Content.Load<Texture2D>("PeopleGreen"));
+            pedestrianLightTextures.Add("PeopleRed", Content.Load<Texture2D>("PeopleRed"));
+
+            TextureManager.Instance.SetTexture(sedanTextures, 0);
+            TextureManager.Instance.SetTexture(trafficLightTextures, 1);
+            TextureManager.Instance.SetTexture(bicycleLightTextures, 2);
+            TextureManager.Instance.SetTexture(pedestrianLightTextures, 3);
             
             // TODO: use this.Content to load your game content here
             
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(800,101), 1, _lightRed, _lightOrange, _lightGreen, _font));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(850,130), 2, _lightRed, _lightOrange, _lightGreen, _font));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(900,160), 2, _lightRed, _lightOrange, _lightGreen, _font));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(950,180), 3, _lightRed, _lightOrange, _lightGreen, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(800,101), 1, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(850,130), 2, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(900,160), 2, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(950,180), 3, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(380,520), 9, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(430,550), 8, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(480,570), 8, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(530,590), 7, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1400,500), 4, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1350,525), 4, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1300,550), 5, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(590,700), 15, _font));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(290,250), 10, _font));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(340,230), 11, _font, new Vector2(280, 222.5f)));
+            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(390,210), 12, _font));
 
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(380,520), 9, _lightRed, _lightOrange, _lightGreen, _font));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(430,550), 8, _lightRed, _lightOrange, _lightGreen, _font));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(480,570), 8, _lightRed, _lightOrange, _lightGreen, _font));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(530,590), 7, _lightRed, _lightOrange, _lightGreen, _font));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(600,200), 31, _font));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(600,600), 32, _font));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(500,650), 33, _font));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(250,650), 34, _font));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(100,600), 35, _font));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(100,200), 36, _font));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(250,100), 37, _font));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(500,100), 38, _font));
+            
+            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(550, 350), 21, _font));            
+            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(375, 550), 22, _font));            
+            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(150, 350), 23, _font));            
+            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(375, 150), 24, _font));            
 
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1400,500), 4, _lightRed, _lightOrange, _lightGreen, _font));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1350,525), 4, _lightRed, _lightOrange, _lightGreen, _font));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1300,550), 5, _lightRed, _lightOrange, _lightGreen, _font));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(590,700), 15, _lightRed, _lightOrange, _lightGreen, _font));
-            
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(290,250), 10, _lightRed, _lightOrange, _lightGreen, _font));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(340,230), 11, _lightRed, _lightOrange, _lightGreen, _font, new Vector2(280, 222.5f)));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(390,210), 12, _lightRed, _lightOrange, _lightGreen, _font));
-            
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(600,200), 31, _peopleRed, _peopleGreen, _font));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(600,600), 32, _peopleRed, _peopleGreen, _font));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(500,650), 33, _peopleRed, _peopleGreen, _font));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(250,650), 34, _peopleRed, _peopleGreen, _font));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(100,600), 35, _peopleRed, _peopleGreen, _font));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(100,200), 36, _peopleRed, _peopleGreen, _font));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(250,100), 37, _peopleRed, _peopleGreen, _font));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(500,100), 38, _peopleRed, _peopleGreen, _font));
-            
-            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(550, 350), 21, _lightBikeRed, _lightBikeOrange,_lightBikeGreen, _font));            
-            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(375, 550), 22, _lightBikeRed, _lightBikeOrange,_lightBikeGreen, _font));            
-            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(150, 350), 23, _lightBikeRed, _lightBikeOrange,_lightBikeGreen, _font));            
-            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(375, 150), 24, _lightBikeRed, _lightBikeOrange,_lightBikeGreen, _font));            
-
-            VehicleEm.Instance.Subscribe(Car.CreateInstance(_sedanTextures));
+            VehicleEm.Instance.Subscribe(Car.CreateInstance());
         }
 
         protected override void Update(GameTime gameTime)
@@ -124,10 +127,10 @@ namespace traffic_light_simulation
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (!Server.Instance.HasConnection)
-            {
-                return;
-            }
+            // if (!Server.Instance.HasConnection)
+            // {
+                // return;
+            // }
             
             _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
             EventManagerEm.Instance.Update();
@@ -137,10 +140,10 @@ namespace traffic_light_simulation
 
         protected override void Draw(GameTime gameTime)
         {
-            if (!Server.Instance.HasConnection)
-            {
-                return;
-            }
+            // if (!Server.Instance.HasConnection)
+            // {
+                // return;
+            // }
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);

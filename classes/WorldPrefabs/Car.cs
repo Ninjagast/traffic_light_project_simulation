@@ -11,7 +11,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 {
     public class Car: IDrawAble
     {
-        private Dictionary<string, Texture2D> _textures;
         private Vector2 _pos;
         private States _state;
         private directionMap _directionMap;
@@ -25,25 +24,25 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         
         public void Update()
         {
-            if (_state == States.IDLE)
+            if (_state == States.Idle)
             {
                 return;
             }
             
-            if(_state == States.TRANSIT)
+            if(_state == States.Transit)
             {
                 _currentFrame += 1;
                 _pos += _orientation[_lastDirection];
                 if (_currentFrame > 50)
                 {
-                    _state = States.DRIVING;
+                    _state = States.Driving;
                     Console.WriteLine(_pos);
                     _currentFrame = 0;
                     VehicleEm.Instance.ClaimCell(_pos, _id);        
                 }
 
             }
-            else if (_state == States.DRIVING)
+            else if (_state == States.Driving)
             {
                 Vector2 targetPos = _pos + (_orientation[_lastDirection] * (60 - _currentFrame));
 //              todo some weirdness going on
@@ -57,7 +56,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 if (VehicleEm.Instance.IsCellFree(targetPos))
                 {
                     VehicleEm.Instance.UnClaimCell(_id);
-                    _state = States.TRANSIT;
+                    _state = States.Transit;
                     if (_step == 0)
                     {
                         if (_repetition < _directionMap.directions.repeat_first)
@@ -90,29 +89,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Draw(SpriteBatch spriteBatch)
         {
-//          todo need to change the size based on texture also add rotation to the draw parameter based on direction
-            switch (_lastDirection)
-            {
-                case "UP":
-                    spriteBatch.Draw(_textures["sedan_SW"], new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
-                    break;
-                
-                case "DOWN":
-                    spriteBatch.Draw(_textures["sedan_NE"], new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
-                    break;
-                
-                case "LEFT":
-                    spriteBatch.Draw(_textures["sedan_SE"], new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
-                    break;
-                
-                case "RIGHT":
-                    spriteBatch.Draw(_textures["sedan_NW"], new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
-                    break;
-                
-                default:
-                    break;
-                    
-            }
+            spriteBatch.Draw(TextureManager.Instance.GetTexture(0, "sedan_" + _lastDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
         }
 
         public void StateChange(int id, States state)
@@ -120,14 +97,13 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             _state = state;
         }
 
-        public static Car CreateInstance(Dictionary<string, Texture2D> texture2D)
+        public static Car CreateInstance()
         {
             Car returnObject = new Car();
             SpawnPoints.Instance.GetSpawnPoints();
             returnObject._directionMap = SpawnPoints.Instance.GetRandomLandSpawnPoint();
             returnObject._pos = new Vector2(returnObject._directionMap.vector2.x, returnObject._directionMap.vector2.y);
-            returnObject._textures = texture2D;
-            returnObject._state = States.DRIVING;
+            returnObject._state = States.Driving;
             returnObject._currentFrame = 0;
             returnObject._orientation = new Dictionary<string, Vector2>();
             returnObject._orientation.Add("LEFT", new Vector2(-1, 0.5f));

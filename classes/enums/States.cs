@@ -2,11 +2,11 @@
 {
     public enum States
     {
-        GREEN,
-        ORANGE,
-        RED,
-        DRIVING,
-        IDLE,
-        TRANSIT
+        Green,
+        Orange,
+        Red,
+        Driving,
+        Idle,
+        Transit
     }
 }

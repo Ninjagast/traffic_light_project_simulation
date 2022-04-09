@@ -23,7 +23,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:BackGround (1).png
+/build:BackGround (1).png;BackGround.png
 
 #begin BikeGreen.png
 /importer:TextureImporter
@@ -102,7 +102,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:LightYellow.png
+/build:LightYellow.png;LightOrange.png
 
 #begin PeopleGreen.png
 /importer:TextureImporter
@@ -128,30 +128,6 @@
 /processorParam:TextureFormat=Color
 /build:PeopleRed.png
 
-#begin sedan_E.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:sedan_E.png
-
-#begin sedan_N.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:sedan_N.png
-
 #begin sedan_NE.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -162,7 +138,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:sedan_NE.png
+/build:sedan_NE.png;sedan_DOWN.png
 
 #begin sedan_NW.png
 /importer:TextureImporter
@@ -174,19 +150,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:sedan_NW.png
-
-#begin sedan_S.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:sedan_S.png
+/build:sedan_NW.png;sedan_RIGHT.png
 
 #begin sedan_SE.png
 /importer:TextureImporter
@@ -198,7 +162,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:sedan_SE.png
+/build:sedan_SE.png;sedan_LEFT.png
 
 #begin sedan_SW.png
 /importer:TextureImporter
@@ -210,17 +174,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:sedan_SW.png
-
-#begin sedan_W.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:sedan_W.png
+/build:sedan_SW.png;sedan_UP.png
 

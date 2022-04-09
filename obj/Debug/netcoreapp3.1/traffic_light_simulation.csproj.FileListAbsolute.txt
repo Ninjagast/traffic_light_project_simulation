@@ -107,11 +107,13 @@ C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\D
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\BikeOrange.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\BikeRed.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\BackGround (1).xnb
-C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_E.xnb
-C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_N.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_NE.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_NW.xnb
-C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_S.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_SE.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_SW.xnb
-C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_W.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\BackGround.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\LightOrange.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_DOWN.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_LEFT.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_RIGHT.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_UP.xnb

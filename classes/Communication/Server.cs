@@ -84,19 +84,19 @@ namespace traffic_light_simulation.classes.Communication
             switch (data.data.state)
             {
                 case "GREEN":
-                    state = States.GREEN;
+                    state = States.Green;
                     break;
                 case "ORANGE":
-                    state = States.ORANGE;
+                    state = States.Orange;
                     break;
                 case "BLINKING":
-                    state = States.ORANGE;
+                    state = States.Orange;
                     break;
                 case "RED":
-                    state = States.RED;
+                    state = States.Red;
                     break;
                 default:
-                    state = States.RED;
+                    state = States.Red;
                     Console.WriteLine($"Unknown state type {data.data.state}");
                     break;
             }

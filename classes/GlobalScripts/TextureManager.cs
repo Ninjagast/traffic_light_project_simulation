@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace traffic_light_simulation.classes.WorldPrefabs
+namespace traffic_light_simulation.classes.GlobalScripts
 {
     public class TextureManager
     {

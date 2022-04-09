@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
+using traffic_light_simulation.classes.GlobalScripts;
 
 namespace traffic_light_simulation.classes.WorldPrefabs
 {

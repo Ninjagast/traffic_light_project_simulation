@@ -20,7 +20,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Update()
         {
-//          todo look if there is a car in the waypoint for this traffic light so we can stop the car and send a signal to the controller
             if (_state == States.Red)
             {
                 int id = VehicleEm.Instance.GetCellCarId(_targetArea);
@@ -31,14 +30,13 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     Server.Instance.EntityEnteredZone(_laneId);
                 }
             }
-
-            if (_stoppedCarId > -1)
+            else if (_state == States.Green)
             {
-                if (_state == States.Green)
+                if (_stoppedCarId > -1)
                 {
-                    _stoppedCarId = -1;
-                    VehicleEm.Instance.OnStateChange(_stoppedCarId, States.Driving);
+                    VehicleEm.Instance.OnStateChange(_stoppedCarId, States.Transit);
                     Server.Instance.EntityExitedZone(_laneId);
+                    _stoppedCarId = -1;
                 }
             }
         }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
+using traffic_light_simulation.classes.GlobalScripts;
 using traffic_light_simulation.classes.WorldPrefabs;
 
 namespace traffic_light_simulation.classes.EventManagers
@@ -9,9 +10,9 @@ namespace traffic_light_simulation.classes.EventManagers
     public class VehicleEm: IEventManager
     {
         private static VehicleEm _instance;
-        private List<IDrawAble> _subscribed = new List<IDrawAble>();
+        private Dictionary<int, IDrawAble> _subscribed = new Dictionary<int, IDrawAble>();
         private static readonly object Padlock = new object();
-        private Dictionary<int, Vector2> _claimedCells = new Dictionary<int, Vector2>();
+        private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
 
         private int _id = 0;
 
@@ -34,14 +35,14 @@ namespace traffic_light_simulation.classes.EventManagers
         
         public void Subscribe(IDrawAble drawAble)
         {
-            _subscribed.Add(drawAble);
+            _subscribed.Add(_id, drawAble);
         }
 
         public void OnStateChange(int id, States state)
         {
             foreach (var subbed in _subscribed)
             {
-                subbed.StateChange(id, state);
+                subbed.Value.StateChange(id, state);
             }
         }
 
@@ -49,7 +50,13 @@ namespace traffic_light_simulation.classes.EventManagers
         {
             foreach (var subbed in _subscribed)
             {
-                subbed.Draw(spriteBatch);
+                subbed.Value.Draw(spriteBatch);
+            }
+
+            foreach (var VARIABLE in _claimedCells)
+            {
+                spriteBatch.Draw(TextureManager.Instance.GetTexture(2, "BikeGreen"),
+                    new Rectangle((int) VARIABLE.Key.X, (int) VARIABLE.Key.Y, 20, 50), Color.White);
             }
         }
 
@@ -57,7 +64,7 @@ namespace traffic_light_simulation.classes.EventManagers
         {
             foreach (var subbed in _subscribed)
             {
-                subbed.Update();
+                subbed.Value.Update();
             }
         }
 
@@ -67,32 +74,32 @@ namespace traffic_light_simulation.classes.EventManagers
             return _id;
         }
 
-        public void UnClaimCell(int id)
+        public void UnClaimCell(Vector2 id)
         {
             _claimedCells.Remove(id);
         }
         public void ClaimCell(Vector2 targetPos, int id)
         {
-            _claimedCells.Add(id, targetPos);
+            _claimedCells.Add(targetPos, id);
         }
 
         public bool IsCellFree(Vector2 targetPos)
         {
-            return !_claimedCells.ContainsValue(targetPos);
+            return !_claimedCells.ContainsKey(targetPos);
         }
 
         public void UnSubscribe(int id)
         {
-            _subscribed.RemoveAt(id);
+            _subscribed.Remove(id);
         }
 
         public int GetCellCarId(Vector2 targetArea)
         {
             foreach (var cell in _claimedCells)
             {
-                if (cell.Value == targetArea)
+                if (cell.Key == targetArea)
                 {
-                    return cell.Key;
+                    return cell.Value;
                 }
             }
 

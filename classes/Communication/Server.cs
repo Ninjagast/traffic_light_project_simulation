@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Loader;
 using WebSocketSharp;
 using System.Text.Json;
+using traffic_light_simulation.classes.dataClasses;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using WebSocket = WebSocketSharp.WebSocket;
@@ -134,12 +135,12 @@ namespace traffic_light_simulation.classes.Communication
             _webSocket.Send (json);
         }
 
-        public void EntityExitedZone(int laneId)
+        public void EntityExitedZone(int routeId)
         {
             String json =
                 "{\"eventType\" : \"ENTITY_EXITED_ZONE\",  " +
                 "\"data\" : " +
-                "{ \"routeId\" : "+ laneId + ", " +
+                "{ \"routeId\" : "+ routeId + ", " +
                 "\"sensorId\" : 0}" +
                 "}";
             

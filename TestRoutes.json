@@ -1,0 +1,132 @@
+﻿[
+  {
+    "_comment" : "route 1",
+    "vector2": {
+      "x": 1025,
+      "y": -10
+    },
+    "directions": {
+      "repeat_first": 7,
+      "directions": [
+        "LEFT", "UP", "UP", "UP", "UP"
+      ]
+    }
+  },
+  {
+    "_comment": "route 2.1",
+    "vector2": {
+      "x": 1075,
+      "y": 15
+    },
+    "directions": {
+      "repeat_first": 16,
+      "directions": [
+        "LEFT"
+      ]
+    }
+  },
+  {
+    "_comment" : "route 2.2",
+    "vector2": {
+      "x": 1125,
+      "y": 40
+    },
+    "directions": {
+      "repeat_first": 16,
+      "directions": [
+        "LEFT"
+      ]
+    }
+  },
+  {
+    "_comment" : "route 5 up",
+    "vector2": {
+      "x": 1475,
+      "y": 670
+    },
+    "directions": {
+      "repeat_first": 17,
+      "directions": [
+        "UP", "RIGHT", "UP", "UP", "UP", "UP"
+      ]
+    }
+  },
+  {
+    "_comment" : "route 5 left",
+    "vector2": {
+      "x": 1475,
+      "y": 670
+    },
+    "directions": {
+      "repeat_first": 15,
+      "directions": [
+        "UP", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT"
+      ]
+    }
+  },
+  {
+    "_comment" : "route 8.2",
+    "vector2": {
+      "x": 225,
+      "y": 645
+    },
+    "directions": {
+      "repeat_first": 18,
+      "directions": [
+        "RIGHT"
+      ]
+    }
+  },
+  {
+    "_comment" : "route 8.1",
+    "vector2": {
+      "x": 275,
+      "y": 670
+    },
+    "directions": {
+      "repeat_first": 18,
+      "directions": [
+        "RIGHT"
+      ]
+    }
+  },
+  {
+    "_comment" : "route 10",
+    "vector2": {
+      "x": -25,
+      "y": 120
+    },
+    "directions": {
+      "repeat_first": 8,
+      "directions": [
+        "DOWN", "LEFT", "LEFT", "LEFT"
+      ]
+    }
+  },
+  {
+    "_comment" : "route 10",
+    "vector2": {
+      "x": -25,
+      "y": 120
+    },
+    "directions": {
+      "repeat_first": 8,
+      "directions": [
+        "DOWN", "LEFT", "LEFT", "LEFT"
+      ]
+    }
+  },
+  {
+    "_comment" : "route 10",
+    "vector2": {
+      "x": -25,
+      "y": 120
+    },
+    "directions": {
+      "repeat_first": 8,
+      "directions": [
+        "DOWN", "LEFT", "LEFT", "LEFT"
+      ]
+    }
+  }
+]

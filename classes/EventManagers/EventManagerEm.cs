@@ -29,9 +29,9 @@ namespace traffic_light_simulation.classes.EventManagers
             }
         }
 
-        public void Subscribe(IEventManager inputObject)
+        public void Subscribe(IEventManager eventManager)
         {
-            _subscribed.Add(inputObject);
+            _subscribed.Add(eventManager);
         }
 
         public void OnStateChange(IEventManager manager, int id, States state)

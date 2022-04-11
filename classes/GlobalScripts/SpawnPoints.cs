@@ -14,6 +14,8 @@ namespace traffic_light_simulation.classes.GlobalScripts
     {
         private List<directionMap> _landSpawnPoints;
         private List<directionMap> _waterSpawnPoints;
+        private List<directionMap> _testRoutes;
+        private int _test_id = -1; 
         private Random _random = new Random();
         
         private static SpawnPoints _instance;
@@ -37,7 +39,6 @@ namespace traffic_light_simulation.classes.GlobalScripts
             }
         }
 
-//      todo finish this function when the waypoint system is done
         public void GetSpawnPoints()
         {
             string path = "../../../LandRoutes.json";
@@ -49,16 +50,32 @@ namespace traffic_light_simulation.classes.GlobalScripts
                     _landSpawnPoints = JsonSerializer.Deserialize<List<directionMap>>(json);
                 }
             }
+            string path2 = "../../../TestRoutes.json";
+            if (File.Exists(path2))
+            {
+                using (StreamReader r = new StreamReader(path2))
+                {
+                    string json = r.ReadToEnd();
+                    _testRoutes = JsonSerializer.Deserialize<List<directionMap>>(json);
+                }
+            }
         }
 
         public directionMap GetRandomLandSpawnPoint()
         {
+            //todo check if the spawn is valid since we don't want to spawn cars ontop of each other
             return _landSpawnPoints[(_random.Next(_landSpawnPoints.Count))];
         }
 
         public directionMap GetRandomWaterSpawnPoint()
         {
             return _waterSpawnPoints[(_random.Next(_waterSpawnPoints.Count))];
+        }
+
+        public directionMap GetFromTestRoutes()
+        {
+            _test_id += 1;
+            return _testRoutes[_test_id];
         }
     }
 }

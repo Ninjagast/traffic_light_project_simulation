@@ -7,38 +7,36 @@ namespace traffic_light_simulation.classes.GlobalScripts
 {
     public class Camera
     {
-        public float Zoom = 0.85f;
-        public float Rotate;
-        public Vector2 Position;
-        public Rectangle Bounds;
+        private float _zoom = 0.70f;
+        private Vector2 _position;
+        private Rectangle _bounds;
         public Matrix Transform;
 
-        private int _movementSpeed = 15;
+        private int _movementSpeed = 10;
 
         public Camera(Viewport viewport)
         {
-            Bounds = viewport.Bounds;
-            Position = Vector2.Zero;
+            _bounds = viewport.Bounds;
+            _position = Vector2.Zero;
         }
 
-        private void UpdateMatrix()
+        private void _updateMatrix()
         {
-            Transform = Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
-                        Matrix.CreateScale(Zoom) *
-                        Matrix.CreateRotationZ(Rotate) *
-                        Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
+            Transform = Matrix.CreateTranslation(new Vector3(-_position.X, -_position.Y, 0)) *
+                        Matrix.CreateScale(_zoom) *
+                        Matrix.CreateTranslation(new Vector3(_bounds.Width * 0.5f, _bounds.Height * 0.5f, 0));
         }
 
-        public void MoveCamera(Vector2 movePosition)
+        private void _moveCamera(Vector2 movePosition)
         {
-            Vector2 newPosition = Position + movePosition;
-            Position = newPosition;
+            Vector2 newPosition = _position + movePosition;
+            _position = newPosition;
         }
 
         public void UpdateCamera(Viewport bounds)
         {
-            Bounds = bounds.Bounds;
-            UpdateMatrix();
+            _bounds = bounds.Bounds;
+            _updateMatrix();
             Vector2 cameraMovement = Vector2.Zero;
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
@@ -60,7 +58,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             {
                 cameraMovement.X = _movementSpeed;
             }
-            MoveCamera(cameraMovement);
+            _moveCamera(cameraMovement);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Microsoft.Xna.Framework;
 using traffic_light_simulation.classes.dataClasses;
+using traffic_light_simulation.classes.EventManagers;
 using Directions = traffic_light_simulation.classes.enums.Directions;
 
 namespace traffic_light_simulation.classes.GlobalScripts
@@ -75,6 +76,11 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public directionMap GetFromTestRoutes()
         {
             _test_id += 1;
+            if (_test_id >= _testRoutes.Count)
+            {
+                VehicleEm.Instance.Testing = false;
+                return null;
+            }
             return _testRoutes[_test_id];
         }
     }

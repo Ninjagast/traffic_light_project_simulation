@@ -13,6 +13,11 @@ namespace traffic_light_simulation.classes.EventManagers
         private Dictionary<int, IDrawAble> _subscribed = new Dictionary<int, IDrawAble>();
         private static readonly object Padlock = new object();
         private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
+        public bool Testing = true;
+        
+//      Three speed modifiers possible 1 / 2 / 5
+        public int Speed = 2;
+
 
         private int _id = 0;
 

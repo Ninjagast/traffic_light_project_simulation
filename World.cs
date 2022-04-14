@@ -25,7 +25,6 @@ namespace traffic_light_simulation
         private List<string> _ligtStates;
 
         private bool _paused = true;
-
         private int tick = 0;
 
         public World()
@@ -128,55 +127,60 @@ namespace traffic_light_simulation
             // BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(150, 350), 23, _font));            
             // BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(375, 150), 24, _font));            
 
-            VehicleEm.Instance.Subscribe(Car.CreateInstance(_font));
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (!_paused)
-            {
-                tick += 1;
-                if (tick == 200)
-                {
-                    VehicleEm.Instance.Subscribe(Car.CreateInstance(_font));
-                    tick = 0;
-                }
-                EventManagerEm.Instance.Update();
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                _paused = true;            
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                _paused = false;
-            
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // if (!Server.Instance.HasConnection)
-            // {
-                // return;
-            // }
             
-            _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
-            base.Update(gameTime);
+            if (Server.Instance.HasConnection)
+            {
+                if (!_paused)
+                {
+                    tick += 1;
+                    if (tick == 60)
+                    {
+                        Car car = Car.CreateInstance(_font, VehicleEm.Instance.Testing);
+                        if (car != null)
+                        {
+                            VehicleEm.Instance.Subscribe(car);
+                        }
+                        tick = 0;
+                    }
+                    EventManagerEm.Instance.Update();
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                    _paused = true;            
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    _paused = false;
+            
+                _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
+            }
+            base.Update(gameTime);   
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            // if (!Server.Instance.HasConnection)
-            // {
-                // return;
-            // }
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
-            _spriteBatch.Draw(_backGround, new Rectangle(0,0,1850,815), Color.White);
-            EventManagerEm.Instance.Draw(_spriteBatch);
-            if (_paused)
-            {
-                _spriteBatch.DrawString(_font, "The game is paused jackass", new Vector2(50,50), Color.White);
-            }
 
+            if (!Server.Instance.HasConnection)
+            {
+                _spriteBatch.Begin();
+                _spriteBatch.DrawString(_font, "Waiting for a connection", new Vector2(250,250), Color.Black);
+            }
+            else
+            {
+                _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
+                _spriteBatch.Draw(_backGround, new Rectangle(0,0,1850,815), Color.White);
+                EventManagerEm.Instance.Draw(_spriteBatch);
+                if (_paused)
+                {
+                    _spriteBatch.DrawString(_font, "The game is paused jackass", new Vector2(50,50), Color.White);
+                }
+
+            }
             _spriteBatch.End();
             base.Draw(gameTime);
         }

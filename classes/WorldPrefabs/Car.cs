@@ -14,45 +14,43 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private Vector2 _pos;
         private States _state;
         private directionMap _directionMap;
+        private Dictionary<string, Vector2> _orientation;
+        private SpriteFont _font;
+        
         private string _lastDirection;
         private int _currentFrame = 0;
         private int _id = -1;
         private int _step = 0;
         private int _repetition = 0;
-        private Dictionary<string, Vector2> _orientation;
+        private int _speed;
         private bool _claimedStandingCell = false;
-        private SpriteFont _font;
-        
+
         public void Update()
         {
-            if (_state == States.Idle)
+            if(_state == States.Transit)
             {
-                if (!_claimedStandingCell)
+                if (_currentFrame == 1)
                 {
-                    VehicleEm.Instance.ClaimCell(_pos, _id);
-                    _claimedStandingCell = true;
+                    VehicleEm.Instance.UnClaimCell(_pos - _orientation[_lastDirection]);
                 }
-            }
-            else if(_state == States.Transit)
-            {
                 _currentFrame += 1;
-                _pos += _orientation[_lastDirection];
-                if (_currentFrame == 50)
+                _pos += (_orientation[_lastDirection]);
+                if (_currentFrame == (50 / _speed))
                 {
                     _claimedStandingCell = false;
                     _state = States.Driving;
                     Console.WriteLine("current position");
                     Console.WriteLine(_pos);
-                    VehicleEm.Instance.UnClaimCell(_pos);
                     _currentFrame = 0;
                 }
             }
             else if (_state == States.Driving)
             {
-                Vector2 targetPos = _pos + (_orientation[_lastDirection] * (50 - _currentFrame));
+                Vector2 targetPos = _pos + (_orientation[_lastDirection] * ((50 / _speed) - _currentFrame));
+//              delete this car if we have done the last step
                 if ((_step >= _directionMap.directions.directions.Count) || (_directionMap.directions.directions.Count == 1 && _repetition == _directionMap.directions.repeat_first))
                 {
-                    VehicleEm.Instance.UnClaimCell(_pos);
+                    VehicleEm.Instance.UnClaimCell(_pos); 
                     VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
                     return;
                 }
@@ -60,7 +58,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 if (VehicleEm.Instance.IsCellFree(targetPos))
                 {
                     _claimedStandingCell = false;
-                    VehicleEm.Instance.UnClaimCell(_pos);
                     _state = States.Transit;
                     if (_step == 0)
                     {
@@ -80,17 +77,9 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     else
                     {
                         _lastDirection = _directionMap.directions.directions[_step];
-                        Vector2 newTargetPos = _pos + (_orientation[_lastDirection] * (50 - _currentFrame));
+                        Vector2 newTargetPos = _pos + (_orientation[_lastDirection] * ((50 / _speed) - _currentFrame));
                         VehicleEm.Instance.ClaimCell(newTargetPos, _id);        
                         _step += 1;
-                    }
-                }
-                else
-                {
-                    if (!_claimedStandingCell)
-                    {
-                        VehicleEm.Instance.ClaimCell(_pos, _id);
-                        _claimedStandingCell = true;
                     }
                 }
             }
@@ -114,29 +103,45 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             }
         }
 
-        public static Car CreateInstance(SpriteFont font, bool testing = true)
+        public static Car CreateInstance(SpriteFont font, bool testing)
         {
+            VehicleEm.Instance.GetNextId();
             Car returnObject = new Car();
             if (testing)
             {
                 returnObject._directionMap = SpawnPoints.Instance.GetFromTestRoutes();
+                if (returnObject._directionMap == null)
+                {
+                    return null;
+                }
                 returnObject._pos = new Vector2(returnObject._directionMap.vector2.x, returnObject._directionMap.vector2.y);
+                if (!VehicleEm.Instance.IsCellFree(returnObject._pos))
+                {
+                    return null;
+                }
             }
             else
             {
                 returnObject._directionMap = SpawnPoints.Instance.GetRandomLandSpawnPoint();
                 returnObject._pos = new Vector2(returnObject._directionMap.vector2.x, returnObject._directionMap.vector2.y);
+                if (!VehicleEm.Instance.IsCellFree(returnObject._pos))
+                {
+                    return null;
+                }
             }
             returnObject._state = States.Driving;
             returnObject._currentFrame = 0;
-            returnObject._orientation = new Dictionary<string, Vector2>();
-            returnObject._orientation.Add("LEFT", new Vector2(-1, 0.5f));
-            returnObject._orientation.Add("RIGHT", new Vector2(1,-0.5f));
-            returnObject._orientation.Add("DOWN", new Vector2(1, 0.5f));
-            returnObject._orientation.Add("UP", new Vector2(-1, -0.5f));
+            returnObject._orientation = new Dictionary<string, Vector2>
+            {
+                {"LEFT", new Vector2(-1, 0.5f) * VehicleEm.Instance.Speed},
+                {"RIGHT", new Vector2(1, -0.5f) * VehicleEm.Instance.Speed},
+                {"DOWN", new Vector2(1, 0.5f) * VehicleEm.Instance.Speed},
+                {"UP", new Vector2(-1, -0.5f) * VehicleEm.Instance.Speed}
+            };
             returnObject._lastDirection = returnObject._directionMap.directions.directions[0];
             returnObject._id = VehicleEm.Instance.GetNextId();
             returnObject._font = font;
+            returnObject._speed = VehicleEm.Instance.Speed;
             return returnObject;
         }
     }

@@ -78,19 +78,6 @@
     }
   },
   {
-    "_comment" : "route 3",
-    "vector2": {
-      "x": 1175,
-      "y": 65
-    },
-    "directions": {
-      "repeat_first": 11,
-      "directions": [
-        "LEFT", "DOWN", "DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN"
-      ]
-    }
-  },
-  {
     "_comment" : "route 4.2",
     "vector2": {
       "x": 1580,
@@ -139,6 +126,19 @@
       "repeat_first": 15,
       "directions": [
         "UP", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT"
+      ]
+    }
+  },
+  {
+    "_comment" : "route 3",
+    "vector2": {
+      "x": 1175,
+      "y": 65
+    },
+    "directions": {
+      "repeat_first": 6,
+      "directions": [
+        "LEFT", "DOWN", "DOWN", "LEFT","LEFT", "DOWN",  "LEFT","LEFT","LEFT", "DOWN", "DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN"
       ]
     }
   },

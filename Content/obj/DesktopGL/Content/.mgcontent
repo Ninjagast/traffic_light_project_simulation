@@ -8,12 +8,15 @@
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeOrange.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeRed.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/DebugButton.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/FieldTexture.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/File.spritefont</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightRed.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightYellow.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleRed.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PlayButton.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_NE.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_NW.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_SE.png</File>
@@ -27,7 +30,10 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File>LightOrange.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>sedan_DOWN.png</File>

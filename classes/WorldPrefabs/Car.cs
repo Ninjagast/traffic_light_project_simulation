@@ -15,7 +15,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private States _state;
         private directionMap _directionMap;
         private Dictionary<string, Vector2> _orientation;
-        private SpriteFont _font;
         
         private string _lastDirection;
         private int _currentFrame = 0;
@@ -24,24 +23,33 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private int _repetition = 0;
         private int _speed;
         private bool _claimedStandingCell = false;
+        private int _reaction = 0;
+        private int _waiting = 0;
 
         public void Update()
         {
             if(_state == States.Transit)
             {
-                if (_currentFrame == 1)
+                if (_waiting >= _reaction)
                 {
-                    VehicleEm.Instance.UnClaimCell(_pos - _orientation[_lastDirection]);
+                    if (_currentFrame == 1)
+                    {
+                        VehicleEm.Instance.UnClaimCell(_pos - _orientation[_lastDirection]);
+                    }
+                    _currentFrame++;
+                    _pos += (_orientation[_lastDirection]);
+                    if (_currentFrame == (50 / _speed))
+                    {
+                        _claimedStandingCell = false;
+                        _state = States.Driving;
+                        // Console.WriteLine("current position");
+                        // Console.WriteLine(_pos);
+                        _currentFrame = 0;
+                    }
                 }
-                _currentFrame += 1;
-                _pos += (_orientation[_lastDirection]);
-                if (_currentFrame == (50 / _speed))
+                else
                 {
-                    _claimedStandingCell = false;
-                    _state = States.Driving;
-                    Console.WriteLine("current position");
-                    Console.WriteLine(_pos);
-                    _currentFrame = 0;
+                    _waiting++;
                 }
             }
             else if (_state == States.Driving)
@@ -65,13 +73,13 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                         {                            
                             VehicleEm.Instance.ClaimCell(targetPos, _id);        
                             _lastDirection = _directionMap.directions.directions[0];
-                            _repetition += 1;
+                            _repetition++;
                         }
                         else
                         {
                             _lastDirection = _directionMap.directions.directions[0];
                             VehicleEm.Instance.ClaimCell(targetPos, _id);        
-                            _step += 1;
+                            _step++;
                         }
                     }
                     else
@@ -79,8 +87,12 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                         _lastDirection = _directionMap.directions.directions[_step];
                         Vector2 newTargetPos = _pos + (_orientation[_lastDirection] * ((50 / _speed) - _currentFrame));
                         VehicleEm.Instance.ClaimCell(newTargetPos, _id);        
-                        _step += 1;
+                        _step++;
                     }
+                }
+                else
+                {
+                    _waiting = 0;
                 }
             }
         }
@@ -88,7 +100,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(TextureManager.Instance.GetTexture(0, "sedan_" + _lastDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
-            spriteBatch.DrawString(_font, _id.ToString(), _pos,Color.Black);
+            spriteBatch.DrawString(TextureManager.Instance.getFont(), _id.ToString(), _pos,Color.Black);
         }
 
         public void StateChange(int id, States state)
@@ -97,13 +109,14 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             {
                 if (state == States.Transit)
                 {
+                    _waiting = 0;
                     VehicleEm.Instance.UnClaimCell(_pos);
                 }
                 _state = state;
             }
         }
 
-        public static Car CreateInstance(SpriteFont font, bool testing)
+        public static Car CreateInstance(bool testing, Random random)
         {
             VehicleEm.Instance.GetNextId();
             Car returnObject = new Car();
@@ -122,6 +135,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             }
             else
             {
+//              todo can be put into a while loop in order to not skip a spawn chance when it occurs
                 returnObject._directionMap = SpawnPoints.Instance.GetRandomLandSpawnPoint();
                 returnObject._pos = new Vector2(returnObject._directionMap.vector2.x, returnObject._directionMap.vector2.y);
                 if (!VehicleEm.Instance.IsCellFree(returnObject._pos))
@@ -140,8 +154,9 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             };
             returnObject._lastDirection = returnObject._directionMap.directions.directions[0];
             returnObject._id = VehicleEm.Instance.GetNextId();
-            returnObject._font = font;
             returnObject._speed = VehicleEm.Instance.Speed;
+            returnObject._reaction = random.Next(0, 10);
+            VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id);        
             return returnObject;
         }
     }

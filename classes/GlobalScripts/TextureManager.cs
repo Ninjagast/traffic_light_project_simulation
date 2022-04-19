@@ -28,7 +28,19 @@ namespace traffic_light_simulation.classes.GlobalScripts
         private Dictionary<string, Texture2D> _trafficLightTextures;
         private Dictionary<string, Texture2D> _bicycleLightTextures;
         private Dictionary<string, Texture2D> _pedestrianLightTextures;
+        private Dictionary<string, Texture2D> _buttons = new Dictionary<string, Texture2D>();
+        private SpriteFont _font;
 
+        public void AddButtonTexture(Texture2D texture2D, string buttonName)
+        {
+            _buttons.Add(buttonName, texture2D);
+        }
+        
+        public void SetFont(SpriteFont font)
+        {
+            _font = font;
+        }
+        
         public void SetTexture(Dictionary<string, Texture2D> textures, int id)
         {
             switch (id)
@@ -75,6 +87,21 @@ namespace traffic_light_simulation.classes.GlobalScripts
             }
 
             throw new ArgumentException($"There is not a texture with this id:{id}");
+        }
+
+        public SpriteFont getFont()
+        {
+            return _font;
+        }
+
+        public Texture2D GetButtonTexture(string name)
+        {
+            if (_buttons.ContainsKey(name))
+            {
+                return _buttons[name];
+            }
+
+            throw new Exception($"This button name: {name} does not exist");
         }
     }
 }

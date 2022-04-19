@@ -117,3 +117,6 @@ C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\D
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_LEFT.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_RIGHT.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\sedan_UP.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\DebugButton.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\FieldTexture.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\PlayButton.xnb

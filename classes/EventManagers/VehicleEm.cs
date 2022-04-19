@@ -16,7 +16,7 @@ namespace traffic_light_simulation.classes.EventManagers
         public bool Testing = true;
         
 //      Three speed modifiers possible 1 / 2 / 5
-        public int Speed = 2;
+        public int Speed = 1;
 
 
         private int _id = 0;

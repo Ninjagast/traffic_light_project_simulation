@@ -64,7 +64,6 @@ namespace traffic_light_simulation.classes.GlobalScripts
 
         public directionMap GetRandomLandSpawnPoint()
         {
-            //todo check if the spawn is valid since we don't want to spawn cars ontop of each other
             return _landSpawnPoints[(_random.Next(_landSpawnPoints.Count))];
         }
 
@@ -78,7 +77,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             _test_id += 1;
             if (_test_id >= _testRoutes.Count)
             {
-                VehicleEm.Instance.Testing = false;
+                // VehicleEm.Instance.Testing = false;
                 return null;
             }
             return _testRoutes[_test_id];

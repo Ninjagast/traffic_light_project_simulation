@@ -36,23 +36,29 @@ namespace traffic_light_simulation.classes.Communication
         private readonly string _address = "ws://keyslam.com:8080";
         private WebSocket _webSocket;
         public bool HasConnection = false; 
+        private string _sessionName;
+        private string _sessionVersion;
         
-        public void StartServer()
+        public void StartServer(string sessionName, string sessionVersion)
         {
+            _sessionName = sessionName;
+            _sessionVersion = sessionVersion;
+            
             _webSocket = new WebSocket(_address);
             _webSocket.OnOpen += (sender, e) =>
             {
-                String json =
-                    "{\"eventType\" : \"CONNECT_SIMULATOR\",  " +
-                    "\"data\" : " +
-                    "{ \"sessionName\" : \"burgerking\", " +
-                    "\"sessionVersion\" : 1, " +
-                    "\"discardParseErrors\" : false,  " +
-                    "\"discardEventTypeErrors\" : false, " +
-                    "\"discardMalformedDataErrors\" : false, " +
-                    "\"discardInvalidStateErrors\" : false}" +
-                    "}";
-                _webSocket.Send (json);
+                ServerConnectRequest connectRequest = new ServerConnectRequest();
+                connectData connectData = new connectData();
+                connectData.sessionName = _sessionName;
+                connectData.sessionVersion = int.Parse(_sessionVersion);
+                connectData.discardParseErrors = false;
+                connectData.discardEventTypeErrors = false;
+                connectData.discardMalformedDataErrors = false;
+                connectData.discardInvalidStateErrors = false;
+
+                connectRequest.data = connectData;
+
+                _webSocket.Send (JsonSerializer.Serialize(connectRequest));
             };
             _webSocket.OnMessage += _onMessage;
                 
@@ -79,7 +85,6 @@ namespace traffic_light_simulation.classes.Communication
                 Console.WriteLine($"{data.eventType}]");
                 return;
             }
-            
 
             States state;
             switch (data.data.state)
@@ -125,26 +130,16 @@ namespace traffic_light_simulation.classes.Communication
 
         public void EntityEnteredZone(int routeId)
         {
-            String json =
-                "{\"eventType\" : \"ENTITY_ENTERED_ZONE\",  " +
-                "\"data\" : " +
-                "{ \"routeId\" : "+ routeId + ", " +
-                "\"sensorId\" : 0}" +
-                "}";
-            
-            _webSocket.Send (json);
+            RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
+            ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data};
+            _webSocket.Send (JsonSerializer.Serialize(serverRequest));
         }
 
         public void EntityExitedZone(int routeId)
         {
-            String json =
-                "{\"eventType\" : \"ENTITY_EXITED_ZONE\",  " +
-                "\"data\" : " +
-                "{ \"routeId\" : "+ routeId + ", " +
-                "\"sensorId\" : 0}" +
-                "}";
-            
-            _webSocket.Send (json);
+            RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
+            ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data, eventType = "ENTITY_EXITED_ZONE"};
+            _webSocket.Send (JsonSerializer.Serialize(serverRequest));
         }
     }
 }

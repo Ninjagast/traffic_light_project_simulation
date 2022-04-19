@@ -1,131 +1,27 @@
 ﻿[
   {
-    "_comment" : "route 1",
+    "_comment" : "route 3",
     "vector2": {
-      "x": 1025,
-      "y": -10
+      "x": 1175,
+      "y": 65
     },
     "directions": {
-      "repeat_first": 7,
+      "repeat_first": 6,
       "directions": [
-        "LEFT", "UP", "UP", "UP", "UP"
+        "LEFT", "DOWN", "DOWN", "LEFT","LEFT", "DOWN",  "LEFT","LEFT","LEFT", "DOWN", "DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN"
       ]
     }
   },
   {
-    "_comment": "route 2.1",
+    "_comment" : "route 9",
     "vector2": {
-      "x": 1075,
-      "y": 15
+      "x": 175,
+      "y": 620
     },
     "directions": {
-      "repeat_first": 16,
+      "repeat_first": 12,
       "directions": [
-        "LEFT"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 2.2",
-    "vector2": {
-      "x": 1125,
-      "y": 40
-    },
-    "directions": {
-      "repeat_first": 16,
-      "directions": [
-        "LEFT"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 5 up",
-    "vector2": {
-      "x": 1475,
-      "y": 670
-    },
-    "directions": {
-      "repeat_first": 17,
-      "directions": [
-        "UP", "RIGHT", "UP", "UP", "UP", "UP"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 5 left",
-    "vector2": {
-      "x": 1475,
-      "y": 670
-    },
-    "directions": {
-      "repeat_first": 15,
-      "directions": [
-        "UP", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 8.2",
-    "vector2": {
-      "x": 225,
-      "y": 645
-    },
-    "directions": {
-      "repeat_first": 18,
-      "directions": [
-        "RIGHT"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 8.1",
-    "vector2": {
-      "x": 275,
-      "y": 670
-    },
-    "directions": {
-      "repeat_first": 18,
-      "directions": [
-        "RIGHT"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 10",
-    "vector2": {
-      "x": -25,
-      "y": 120
-    },
-    "directions": {
-      "repeat_first": 8,
-      "directions": [
-        "DOWN", "LEFT", "LEFT", "LEFT"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 10",
-    "vector2": {
-      "x": -25,
-      "y": 120
-    },
-    "directions": {
-      "repeat_first": 8,
-      "directions": [
-        "DOWN", "LEFT", "LEFT", "LEFT"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 10",
-    "vector2": {
-      "x": -25,
-      "y": 120
-    },
-    "directions": {
-      "repeat_first": 8,
-      "directions": [
-        "DOWN", "LEFT", "LEFT", "LEFT"
+        "RIGHT", "UP","UP","UP","UP","UP","UP","UP","UP"
       ]
     }
   }

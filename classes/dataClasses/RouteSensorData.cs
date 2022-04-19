@@ -1,8 +1,8 @@
 ﻿namespace traffic_light_simulation.classes.dataClasses
 {
-    public class dataObject
+    public class RouteSensorData
     {
         public int routeId { get; set;}
-        public string state { get; set; }
+        public int sensorId { get; set; }
     }
 }

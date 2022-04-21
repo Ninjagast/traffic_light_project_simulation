@@ -6,6 +6,8 @@
         PlayButton,
         SessionNameField,
         SessionVersionField,
-        Nothing
+        DebugPlayButton,
+        Nothing,
+        ShowClaimedCellsRadio
     }
 }

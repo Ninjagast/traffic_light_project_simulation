@@ -1,28 +1,12 @@
 ﻿[
   {
-    "_comment" : "route 3",
+    "_comment" : "mapping route",
     "vector2": {
       "x": 1175,
       "y": 65
     },
-    "directions": {
-      "repeat_first": 6,
-      "directions": [
-        "LEFT", "DOWN", "DOWN", "LEFT","LEFT", "DOWN",  "LEFT","LEFT","LEFT", "DOWN", "DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 9",
-    "vector2": {
-      "x": 175,
-      "y": 620
-    },
-    "directions": {
-      "repeat_first": 12,
-      "directions": [
-        "RIGHT", "UP","UP","UP","UP","UP","UP","UP","UP"
-      ]
-    }
+    "directions": [
+      {"repeat": 7, "direction":"LEFT"}, {"repeat": 2, "direction": "DOWN"}, {"repeat": 2, "direction":"LEFT"},{"repeat": 1, "direction": "DOWN"},{"repeat": 3, "direction": "LEFT"},{"repeat": 12, "direction": "DOWN"}
+    ]
   }
 ]

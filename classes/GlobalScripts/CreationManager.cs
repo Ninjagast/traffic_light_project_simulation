@@ -7,7 +7,7 @@ using traffic_light_simulation.classes.WorldPrefabs;
 
 namespace traffic_light_simulation.classes.GlobalScripts
 {
-    public class CreationManager
+    public static class CreationManager
     {
         public static void CreateTrafficLights()
         {
@@ -53,14 +53,15 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public static void CreateStartScreenButtons()
         {
             UiHandler.Instance.Subscribe(new ButtonBase(400, 200, "PlayButton", ButtonStates.PlayButton, TextureManager.Instance.GetButtonTexture("PlayButton")));
-            UiHandler.Instance.Subscribe(new ButtonBase(300, 200, "DebugModeButton", ButtonStates.DebugButton, TextureManager.Instance.GetButtonTexture("DebugButton")));
+            UiHandler.Instance.Subscribe(new ButtonBase(300, 200, "DebugButton", ButtonStates.DebugButton, TextureManager.Instance.GetButtonTexture("DebugButton")));
             UiHandler.Instance.Subscribe(new ButtonBase(300, 100, "SessionNameField", ButtonStates.SessionNameField, TextureManager.Instance.GetButtonTexture("FieldTexture")));
             UiHandler.Instance.Subscribe(new ButtonBase(300, 150, "SessionVersionField", ButtonStates.SessionVersionField, TextureManager.Instance.GetButtonTexture("FieldTexture")));
         }
 
         public static void CreateDebugButtons()
         {
-            throw new System.NotImplementedException();
+            UiHandler.Instance.Subscribe(new ButtonBase(400, 200, "DebugPlayButton", ButtonStates.DebugPlayButton, TextureManager.Instance.GetButtonTexture("PlayButton")));
+            UiHandler.Instance.Subscribe(new ButtonBase(300, 200, "ShowClaimedCellsRadio", ButtonStates.ShowClaimedCellsRadio, TextureManager.Instance.GetButtonTexture("DebugButton")));
         }
     }
 }

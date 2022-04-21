@@ -30,8 +30,7 @@ namespace traffic_light_simulation
         private MouseState _prevMouseState;
         private KeyboardState _prevKeyboardState;
         
-        private SimulationStates _state = SimulationStates.StartScreen;
-        
+
         public World()
         {
             EventManagerEm.Instance.Subscribe(TrafficLightEm.Instance);
@@ -57,7 +56,6 @@ namespace traffic_light_simulation
         protected override void Initialize()
         {
             SpawnPoints.Instance.GetSpawnPoints();
-            UiHandler.Instance.SetWorld(this);
             
             _graphics.PreferredBackBufferHeight = 750;
             _graphics.PreferredBackBufferWidth  = 750;
@@ -117,41 +115,42 @@ namespace traffic_light_simulation
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (_state == SimulationStates.Running)
+            SimulationStates currentState = SimulationStateHandler.Instance.State;
+            
+            if (currentState == SimulationStates.Running)
             {
                 CheckKeyPress(Keys.Space,SimulationStates.Paused);
                 
                 _tick += 1;
-                if (_tick == 20)
+                if (_tick % 20 == 0)
                 {
                     Car car = Car.CreateInstance(VehicleEm.Instance.Testing, _random);
                     if (car != null)
                     {
                         VehicleEm.Instance.Subscribe(car);
-                        _tick = 0;
                     }
                 }
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
                 EventManagerEm.Instance.Update();
             }
-            else if (_state == SimulationStates.Paused)
+            else if (currentState == SimulationStates.Paused)
             {
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
                 CheckKeyPress(Keys.Space, SimulationStates.Running);
             }
-            else if (_state == SimulationStates.StartScreen)
+            else if (currentState == SimulationStates.StartScreen)
             {
                 CheckMousePress();
             }
-            else if (_state == SimulationStates.SettingUpDebugMode)
+            else if (currentState == SimulationStates.SettingUpDebugMode)
             {
                 CheckMousePress();
             }
-            else if (_state == SimulationStates.WaitingForConnection)
+            else if (currentState == SimulationStates.WaitingForConnection)
             {
                 if (Server.Instance.HasConnection)
                 {
-                    _state = SimulationStates.Running;
+                    SimulationStateHandler.Instance.State = SimulationStates.Running;
                 }
             }
 
@@ -164,26 +163,27 @@ namespace traffic_light_simulation
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            SimulationStates currentState = SimulationStateHandler.Instance.State;
 
-            if (_state == SimulationStates.Running)
+            if (currentState == SimulationStates.Running)
             {
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
                 _spriteBatch.Draw(_backGround, new Rectangle(0,0,1850,815), Color.White);
                 EventManagerEm.Instance.Draw(_spriteBatch);
             }
-            else if (_state == SimulationStates.Paused)
+            else if (currentState == SimulationStates.Paused)
             {
                 GraphicsDevice.Clear(Color.Gray);
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
                 _spriteBatch.Draw(_backGround, new Rectangle(0,0,1850,815), Color.White);
                 EventManagerEm.Instance.Draw(_spriteBatch);
             }
-            else if (_state == SimulationStates.StartScreen)
+            else if (currentState == SimulationStates.StartScreen)
             {
                 _spriteBatch.Begin();
                 UiHandler.Instance.Draw(_spriteBatch);
             }
-            else if (_state == SimulationStates.SettingUpDebugMode)
+            else if (currentState == SimulationStates.SettingUpDebugMode)
             {
                 _spriteBatch.Begin();
                 UiHandler.Instance.Draw(_spriteBatch);
@@ -212,13 +212,8 @@ namespace traffic_light_simulation
         {
             if (Keyboard.GetState().IsKeyDown(key) && _prevKeyboardState.IsKeyUp(key))
             {
-                _state = state;
+                SimulationStateHandler.Instance.State = state;
             }
-        }
-
-        public void SetState(SimulationStates state)
-        {
-            _state = state;
         }
     }
 }

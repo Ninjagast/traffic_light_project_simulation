@@ -5,12 +5,9 @@
       "x": 25,
       "y": 95
     },
-    "directions": {
-      "repeat_first": 26,
-      "directions": [
-        "DOWN"
-      ]
-    }
+    "directions": [
+      {"repeat": 26, "direction":"DOWN"}
+    ]
   },
   {
     "_comment" : "route 10",
@@ -18,12 +15,9 @@
       "x": -25,
       "y": 120
     },
-    "directions": {
-      "repeat_first": 8,
-      "directions": [
-        "DOWN", "LEFT", "LEFT", "LEFT"
-      ]
-    }
+    "directions": [
+      {"repeat": 8, "direction":"DOWN"}, {"repeat": 3, "direction": "LEFT"}
+    ]
   },
   {
     "_comment" : "route 12",
@@ -31,12 +25,9 @@
       "x": 125,
       "y": 95
     },
-    "directions": {
-      "repeat_first": 12,
-      "directions": [
-        "DOWN", "RIGHT","RIGHT","RIGHT","RIGHT","RIGHT","RIGHT","RIGHT","RIGHT"
-      ]
-    }
+    "directions": [
+      {"repeat": 12, "direction":"DOWN"}, {"repeat": 8, "direction": "LEFT"}
+    ]
   },
   {
     "_comment" : "route 1",
@@ -44,12 +35,9 @@
       "x": 1025,
       "y": -10
     },
-    "directions": {
-      "repeat_first": 7,
-      "directions": [
-        "LEFT", "UP", "UP", "UP", "UP"
-      ]
-    }
+    "directions": [
+      {"repeat": 7, "direction":"LEFT"}, {"repeat": 4, "direction": "UP"}
+    ]
   },
   {
     "_comment" : "route 2.1",
@@ -57,12 +45,9 @@
       "x": 1075,
       "y": 15
     },
-    "directions": {
-      "repeat_first": 16,
-      "directions": [
-        "LEFT"
-      ]
-    }
+    "directions": [
+      {"repeat": 16, "direction":"LEFT"}
+    ]
   },
   {
     "_comment" : "route 2.2",
@@ -70,12 +55,9 @@
       "x": 1125,
       "y": 40
     },
-    "directions": {
-      "repeat_first": 16,
-      "directions": [
-        "LEFT"
-      ]
-    }
+    "directions": [
+      {"repeat": 16, "direction":"LEFT"}
+    ]
   },
   {
     "_comment" : "route 4.2",
@@ -83,12 +65,9 @@
       "x": 1580,
       "y": 620
     },
-    "directions": {
-      "repeat_first": 11,
-      "directions": [
-        "UP", "RIGHT", "RIGHT", "RIGHT", "RIGHT"
-      ]
-    }
+    "directions": [
+      {"repeat": 11, "direction":"UP"},{"repeat": 4, "direction":"RIGHT"}
+    ]
   },
   {
     "_comment" : "route 4.1",
@@ -96,12 +75,9 @@
       "x": 1520,
       "y": 640
     },
-    "directions": {
-      "repeat_first": 12,
-      "directions": [
-        "UP", "RIGHT", "RIGHT", "RIGHT", "RIGHT", "RIGHT"
-      ]
-    }
+    "directions": [
+      {"repeat": 12, "direction":"UP"},{"repeat": 5, "direction":"RIGHT"}
+    ]
   },
   {
     "_comment" : "route 5 up",
@@ -109,12 +85,9 @@
       "x": 1475,
       "y": 670
     },
-    "directions": {
-      "repeat_first": 17,
-      "directions": [
-        "UP", "RIGHT", "UP", "UP", "UP", "UP"
-      ]
-    }
+    "directions": [
+      {"repeat": 17, "direction":"UP"},{"repeat": 1, "direction":"RIGHT"}, {"repeat": 4, "direction":"UP"}
+    ]
   },
   {
     "_comment" : "route 5 left",
@@ -122,38 +95,9 @@
       "x": 1475,
       "y": 670
     },
-    "directions": {
-      "repeat_first": 15,
-      "directions": [
-        "UP", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT", "LEFT"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 3",
-    "vector2": {
-      "x": 1175,
-      "y": 65
-    },
-    "directions": {
-      "repeat_first": 6,
-      "directions": [
-        "LEFT", "DOWN", "DOWN", "LEFT","LEFT", "DOWN",  "LEFT","LEFT","LEFT", "DOWN", "DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN"
-      ]
-    }
-  },
-  {
-    "_comment" : "route 9",
-    "vector2": {
-      "x": 175,
-      "y": 620
-    },
-    "directions": {
-      "repeat_first": 12,
-      "directions": [
-        "RIGHT", "UP","UP","UP","UP","UP","UP","UP","UP"
-      ]
-    }
+    "directions": [
+      {"repeat": 15, "direction":"UP"},{"repeat": 7, "direction":"LEFT"}
+    ]
   },
   {
     "_comment" : "route 8.2",
@@ -161,12 +105,9 @@
       "x": 225,
       "y": 645
     },
-    "directions": {
-      "repeat_first": 18,
-      "directions": [
-        "RIGHT"
-      ]
-    }
+    "directions": [
+      {"repeat": 18, "direction":"RIGHT"}
+    ]
   },
   {
     "_comment" : "route 8.1",
@@ -174,12 +115,9 @@
       "x": 275,
       "y": 670
     },
-    "directions": {
-      "repeat_first": 18,
-      "directions": [
-        "RIGHT"
-      ]
-    }
+    "directions": [
+      {"repeat": 18, "direction":"RIGHT"}
+    ]
   },
   {
     "_comment" : "route 7",
@@ -187,12 +125,29 @@
       "x": 325,
       "y": 695
     },
-    "directions": {
-      "repeat_first": 8,
-      "directions": [
-        "RIGHT", "DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN","DOWN"
-      ]
-    }
+    "directions": [
+      {"repeat": 8, "direction":"RIGHT"}, {"repeat":  11, "direction":  "DOWN"}
+    ]
+  }, 
+  {
+  "_comment" : "route 3",
+  "vector2": {
+    "x": 1175,
+    "y": 65
+  },
+  "directions": [
+    {"repeat": 1, "direction":"LEFT"}, {"repeat": 2, "direction": "DOWN"}, {"repeat": 2, "direction":"LEFT"},{"repeat": 1, "direction": "DOWN"},{"repeat": 3, "direction": "LEFT"},{"repeat": 13, "direction": "DOWN"}
+  ]
+},
+  {
+    "_comment" : "route 9",
+    "vector2": {
+      "x": 175,
+      "y": 620
+    },
+    "directions": [
+      {"repeat": 1, "direction":"RIGHT"}, {"repeat": 8, "direction": "UP"}
+    ]
   }
 ]
 

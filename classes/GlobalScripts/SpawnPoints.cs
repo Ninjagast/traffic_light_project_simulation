@@ -7,15 +7,14 @@ using System.Text.Json;
 using Microsoft.Xna.Framework;
 using traffic_light_simulation.classes.dataClasses;
 using traffic_light_simulation.classes.EventManagers;
-using Directions = traffic_light_simulation.classes.enums.Directions;
 
 namespace traffic_light_simulation.classes.GlobalScripts
 {
     public class SpawnPoints
     {
-        private List<directionMap> _landSpawnPoints;
-        private List<directionMap> _waterSpawnPoints;
-        private List<directionMap> _testRoutes;
+        private List<DirectionMap> _landSpawnPoints;
+        private List<DirectionMap> _waterSpawnPoints;
+        private List<DirectionMap> _testRoutes;
         private int _test_id = -1; 
         private Random _random = new Random();
         
@@ -43,36 +42,36 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public void GetSpawnPoints()
         {
             string path = "../../../LandRoutes.json";
-            if (File.Exists(path))
-            {
-                using (StreamReader r = new StreamReader(path))
-                {
-                    string json = r.ReadToEnd();
-                    _landSpawnPoints = JsonSerializer.Deserialize<List<directionMap>>(json);
-                }
-            }
+            // if (File.Exists(path))
+            // {
+                // using (StreamReader r = new StreamReader(path))
+                // {
+                    // string json = r.ReadToEnd();
+                    // _landSpawnPoints = JsonSerializer.Deserialize<List<DirectionMap>>(json);
+                // }
+            // }
             string path2 = "../../../TestRoutes.json";
             if (File.Exists(path2))
             {
                 using (StreamReader r = new StreamReader(path2))
                 {
                     string json = r.ReadToEnd();
-                    _testRoutes = JsonSerializer.Deserialize<List<directionMap>>(json);
+                    _testRoutes = JsonSerializer.Deserialize<List<DirectionMap>>(json);
                 }
             }
         }
 
-        public directionMap GetRandomLandSpawnPoint()
+        public DirectionMap GetRandomLandSpawnPoint()
         {
             return _landSpawnPoints[(_random.Next(_landSpawnPoints.Count))];
         }
 
-        public directionMap GetRandomWaterSpawnPoint()
+        public DirectionMap GetRandomWaterSpawnPoint()
         {
             return _waterSpawnPoints[(_random.Next(_waterSpawnPoints.Count))];
         }
 
-        public directionMap GetFromTestRoutes()
+        public DirectionMap GetFromTestRoutes()
         {
             _test_id += 1;
             if (_test_id >= _testRoutes.Count)

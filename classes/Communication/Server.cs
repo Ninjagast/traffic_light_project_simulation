@@ -47,19 +47,21 @@ namespace traffic_light_simulation.classes.Communication
             _webSocket = new WebSocket(_address);
             _webSocket.OnOpen += (sender, e) =>
             {
-                ServerConnectRequest connectRequest = new ServerConnectRequest();
-                connectData connectData = new connectData();
-                connectData.sessionName = _sessionName;
-                connectData.sessionVersion = int.Parse(_sessionVersion);
-                connectData.discardParseErrors = false;
-                connectData.discardEventTypeErrors = false;
-                connectData.discardMalformedDataErrors = false;
-                connectData.discardInvalidStateErrors = false;
-
-                connectRequest.data = connectData;
+                connectData connectData = new connectData
+                {
+                    sessionName = _sessionName,
+                    sessionVersion = int.Parse(_sessionVersion),
+                    discardParseErrors = false,
+                    discardEventTypeErrors = false,
+                    discardMalformedDataErrors = false,
+                    discardInvalidStateErrors = false
+                };
+                
+                ServerConnectRequest connectRequest = new ServerConnectRequest {data = connectData};
 
                 _webSocket.Send (JsonSerializer.Serialize(connectRequest));
             };
+            
             _webSocket.OnMessage += _onMessage;
                 
             _webSocket.OnClose += (sender, e) =>
@@ -72,6 +74,7 @@ namespace traffic_light_simulation.classes.Communication
                 Console.WriteLine("error pik");
                 Console.WriteLine(e.Message);
             };
+            
             _webSocket.Connect();
         }
 
@@ -130,6 +133,7 @@ namespace traffic_light_simulation.classes.Communication
 
         public void EntityEnteredZone(int routeId)
         {
+            Console.WriteLine("EntityEnteredZone");
             RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
             ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data};
             _webSocket.Send (JsonSerializer.Serialize(serverRequest));
@@ -137,6 +141,7 @@ namespace traffic_light_simulation.classes.Communication
 
         public void EntityExitedZone(int routeId)
         {
+            Console.WriteLine("EntityExitedZone");
             RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
             ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data, eventType = "ENTITY_EXITED_ZONE"};
             _webSocket.Send (JsonSerializer.Serialize(serverRequest));

@@ -7,7 +7,6 @@ using traffic_light_simulation.classes.Communication;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.GlobalScripts;
-using traffic_light_simulation.classes.WorldPrefabs;
 
 namespace traffic_light_simulation.classes.UI
 {
@@ -19,7 +18,6 @@ namespace traffic_light_simulation.classes.UI
         private ButtonStates _currentButtonState = ButtonStates.Nothing;
         private string _sessionName = "";
         private string _sessionVersion = "";
-        private World _world;
 
         private UiHandler() {}
         public static UiHandler Instance
@@ -37,11 +35,6 @@ namespace traffic_light_simulation.classes.UI
             }
         }
 
-        public void SetWorld(World world)
-        {
-            _world = world;
-        }
-        
         public void Subscribe(ButtonBase button)
         {
             _buttons.Add(button.Name, button);
@@ -58,9 +51,12 @@ namespace traffic_light_simulation.classes.UI
             {
                 button.Value.Draw(spriteBatch);
             }
-            
-            spriteBatch.DrawString(TextureManager.Instance.getFont(), _sessionName, new Vector2(310, 125), Color.Black);
-            spriteBatch.DrawString(TextureManager.Instance.getFont(), _sessionVersion, new Vector2(310, 175), Color.Black);
+
+            if (SimulationStateHandler.Instance.State != SimulationStates.SettingUpDebugMode)
+            {
+                spriteBatch.DrawString(TextureManager.Instance.getFont(), _sessionName, new Vector2(310, 125), Color.Black);
+                spriteBatch.DrawString(TextureManager.Instance.getFont(), _sessionVersion, new Vector2(310, 175), Color.Black);
+            }
         }
 
         public void CheckClick(MouseState mouseState)
@@ -80,29 +76,44 @@ namespace traffic_light_simulation.classes.UI
         {
             switch (_currentButtonState)
             {
-                case ButtonStates.DebugButton:
-                    UnSubscribe("PlayButton");
-                    UnSubscribe("DebugButton");
-                    UnSubscribe("FieldTexture");
-                    UnSubscribe("FieldTexture");
-
-                    CreationManager.CreateDebugButtons();
-                    _world.SetState(SimulationStates.SettingUpDebugMode);
-                    break;
-                
+//              ##################################################################################################
+//              Start screen buttons 
                 case ButtonStates.PlayButton:
                     if (_sessionName.Length > 0 && _sessionVersion.Length > 0)
                     {
                         UnSubscribe("PlayButton");
                         UnSubscribe("DebugButton");
-                        UnSubscribe("FieldTexture");
-                        UnSubscribe("FieldTexture");
+                        UnSubscribe("SessionNameField");
+                        UnSubscribe("SessionVersionField");
 
                         Server.Instance.StartServer(_sessionName, _sessionVersion);
-                        _world.SetState(SimulationStates.WaitingForConnection);
+                        SimulationStateHandler.Instance.State = SimulationStates.WaitingForConnection;
                     }
                     break;
                     
+                case ButtonStates.DebugPlayButton:
+                    UnSubscribe("DebugPlayButton");
+                    UnSubscribe("ShowClaimedCells");
+                    EventManagerEm.Instance.Subscribe(DebugManager.Instance);
+                    Server.Instance.StartServer(_sessionName, _sessionVersion);
+                    SimulationStateHandler.Instance.State = SimulationStates.WaitingForConnection;
+                    break;
+                
+                case ButtonStates.DebugButton:
+                    if (_sessionName.Length > 0 && _sessionVersion.Length > 0)
+                    {
+                        UnSubscribe("PlayButton");
+                        UnSubscribe("DebugButton");
+                        UnSubscribe("SessionNameField");
+                        UnSubscribe("SessionVersionField");
+
+                        CreationManager.CreateDebugButtons();
+                        SimulationStateHandler.Instance.State = SimulationStates.SettingUpDebugMode;
+                    }
+                    break;
+                
+//              ##################################################################################################
+//              input fields
                 case ButtonStates.SessionNameField:
                     _handleKeyboardPressesFields(keyboardState, prevKeyboardState, true);
                     return;
@@ -110,6 +121,12 @@ namespace traffic_light_simulation.classes.UI
                 case ButtonStates.SessionVersionField:
                     _handleKeyboardPressesFields(keyboardState, prevKeyboardState, false);
                     return;
+
+//              ##################################################################################################
+//              debug options
+                case ButtonStates.ShowClaimedCellsRadio:
+                    DebugManager.Instance.DrawClaimedCells = !DebugManager.Instance.DrawClaimedCells;
+                    break;
                 
                 case ButtonStates.Nothing:
                     return;

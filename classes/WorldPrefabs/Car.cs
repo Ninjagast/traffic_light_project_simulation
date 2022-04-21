@@ -13,7 +13,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
     {
         private Vector2 _pos;
         private States _state;
-        private directionMap _directionMap;
+        private DirectionMap _directionMap;
         private Dictionary<string, Vector2> _orientation;
         
         private string _lastDirection;
@@ -54,45 +54,43 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             }
             else if (_state == States.Driving)
             {
-                Vector2 targetPos = _pos + (_orientation[_lastDirection] * ((50 / _speed) - _currentFrame));
-//              delete this car if we have done the last step
-                if ((_step >= _directionMap.directions.directions.Count) || (_directionMap.directions.directions.Count == 1 && _repetition == _directionMap.directions.repeat_first))
-                {
-                    VehicleEm.Instance.UnClaimCell(_pos); 
-                    VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
-                    return;
-                }
-                
-                if (VehicleEm.Instance.IsCellFree(targetPos))
-                {
-                    _claimedStandingCell = false;
-                    _state = States.Transit;
-                    if (_step == 0)
+                if (_repetition < _directionMap.directions[_step].repeat)
+                {          
+
+                    Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * ((50 / _speed) - _currentFrame));
+                    if (VehicleEm.Instance.IsCellFree(targetPos))
                     {
-                        if (_repetition < _directionMap.directions.repeat_first)
-                        {                            
-                            VehicleEm.Instance.ClaimCell(targetPos, _id);        
-                            _lastDirection = _directionMap.directions.directions[0];
-                            _repetition++;
-                        }
-                        else
-                        {
-                            _lastDirection = _directionMap.directions.directions[0];
-                            VehicleEm.Instance.ClaimCell(targetPos, _id);        
-                            _step++;
-                        }
+                        VehicleEm.Instance.ClaimCell(targetPos, _id);        
+                        _claimedStandingCell = false;
+                        _state = States.Transit;
+                        _lastDirection = _directionMap.directions[_step].direction;
+                        _repetition++;
                     }
                     else
                     {
-                        _lastDirection = _directionMap.directions.directions[_step];
-                        Vector2 newTargetPos = _pos + (_orientation[_lastDirection] * ((50 / _speed) - _currentFrame));
-                        VehicleEm.Instance.ClaimCell(newTargetPos, _id);        
-                        _step++;
+                        _waiting = 0;
                     }
                 }
                 else
                 {
-                    _waiting = 0;
+                    _step++;
+                    _repetition = 1;
+//                  delete this car if we have done the last step
+                    if ((_step >= _directionMap.directions.Count) || (_directionMap.directions.Count == 1 && _repetition == _directionMap.directions[0].repeat))
+                    {
+                        VehicleEm.Instance.UnClaimCell(_pos); 
+                        VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
+                        return;
+                    }
+                    
+                    Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * ((50 / _speed) - _currentFrame));
+                    if (VehicleEm.Instance.IsCellFree(targetPos))
+                    {
+                        VehicleEm.Instance.ClaimCell(targetPos, _id);  
+                        _claimedStandingCell = false;
+                        _state = States.Transit;
+                        _lastDirection = _directionMap.directions[_step].direction;
+                    }
                 }
             }
         }
@@ -152,7 +150,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 {"DOWN", new Vector2(1, 0.5f) * VehicleEm.Instance.Speed},
                 {"UP", new Vector2(-1, -0.5f) * VehicleEm.Instance.Speed}
             };
-            returnObject._lastDirection = returnObject._directionMap.directions.directions[0];
+            returnObject._lastDirection = returnObject._directionMap.directions[0].direction;
             returnObject._id = VehicleEm.Instance.GetNextId();
             returnObject._speed = VehicleEm.Instance.Speed;
             returnObject._reaction = random.Next(0, 10);

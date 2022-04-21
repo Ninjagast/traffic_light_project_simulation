@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
@@ -17,7 +18,6 @@ namespace traffic_light_simulation.classes.EventManagers
         
 //      Three speed modifiers possible 1 / 2 / 5
         public int Speed = 1;
-
 
         private int _id = 0;
 
@@ -56,12 +56,6 @@ namespace traffic_light_simulation.classes.EventManagers
             foreach (var subbed in _subscribed)
             {
                 subbed.Value.Draw(spriteBatch);
-            }
-
-            foreach (var VARIABLE in _claimedCells)
-            {
-                spriteBatch.Draw(TextureManager.Instance.GetTexture(2, "BikeGreen"),
-                    new Rectangle((int) VARIABLE.Key.X, (int) VARIABLE.Key.Y, 20, 50), Color.White);
             }
         }
 
@@ -109,6 +103,11 @@ namespace traffic_light_simulation.classes.EventManagers
             }
 
             return -1;
+        }
+
+        public Dictionary<Vector2, int> GetCellGrid()
+        {
+            return _claimedCells;
         }
     }
 }

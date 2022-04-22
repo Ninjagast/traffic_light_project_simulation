@@ -29,11 +29,17 @@ namespace traffic_light_simulation.classes.GlobalScripts
         private Dictionary<string, Texture2D> _bicycleLightTextures;
         private Dictionary<string, Texture2D> _pedestrianLightTextures;
         private Dictionary<string, Texture2D> _buttons = new Dictionary<string, Texture2D>();
+        private Dictionary<string, Texture2D> _debugTextures = new Dictionary<string, Texture2D>();
         private SpriteFont _font;
 
         public void AddButtonTexture(Texture2D texture2D, string buttonName)
         {
             _buttons.Add(buttonName, texture2D);
+        }
+
+        public void AddDebugTexture(Texture2D texture2D, string name)
+        {
+            _debugTextures.Add(name, texture2D);
         }
         
         public void SetFont(SpriteFont font)
@@ -102,6 +108,15 @@ namespace traffic_light_simulation.classes.GlobalScripts
             }
 
             throw new Exception($"This button name: {name} does not exist");
+        }
+
+        public Texture2D GetDebugTexture(string name)
+        {
+            if (_debugTextures.ContainsKey(name))
+            {
+                return _debugTextures[name];
+            }
+            throw new Exception($"Debug texture with button name: {name} does not exist");
         }
     }
 }

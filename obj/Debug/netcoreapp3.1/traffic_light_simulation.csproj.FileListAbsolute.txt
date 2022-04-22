@@ -120,3 +120,7 @@ C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\D
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\DebugButton.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\FieldTexture.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\PlayButton.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\ClaimMarker.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\FieldSelectedTexture.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\CheckBox.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\CheckedCheckBox.xnb

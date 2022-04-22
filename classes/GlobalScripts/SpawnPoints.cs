@@ -14,8 +14,6 @@ namespace traffic_light_simulation.classes.GlobalScripts
     {
         private List<DirectionMap> _landSpawnPoints;
         private List<DirectionMap> _waterSpawnPoints;
-        private List<DirectionMap> _testRoutes;
-        private int _test_id = -1; 
         private Random _random = new Random();
         
         private static SpawnPoints _instance;
@@ -42,21 +40,12 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public void GetSpawnPoints()
         {
             string path = "../../../LandRoutes.json";
-            // if (File.Exists(path))
-            // {
-                // using (StreamReader r = new StreamReader(path))
-                // {
-                    // string json = r.ReadToEnd();
-                    // _landSpawnPoints = JsonSerializer.Deserialize<List<DirectionMap>>(json);
-                // }
-            // }
-            string path2 = "../../../TestRoutes.json";
-            if (File.Exists(path2))
+            if (File.Exists(path))
             {
-                using (StreamReader r = new StreamReader(path2))
+                using (StreamReader r = new StreamReader(path))
                 {
                     string json = r.ReadToEnd();
-                    _testRoutes = JsonSerializer.Deserialize<List<DirectionMap>>(json);
+                    _landSpawnPoints = JsonSerializer.Deserialize<List<DirectionMap>>(json);
                 }
             }
         }
@@ -69,17 +58,6 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public DirectionMap GetRandomWaterSpawnPoint()
         {
             return _waterSpawnPoints[(_random.Next(_waterSpawnPoints.Count))];
-        }
-
-        public DirectionMap GetFromTestRoutes()
-        {
-            _test_id += 1;
-            if (_test_id >= _testRoutes.Count)
-            {
-                // VehicleEm.Instance.Testing = false;
-                return null;
-            }
-            return _testRoutes[_test_id];
         }
     }
 }

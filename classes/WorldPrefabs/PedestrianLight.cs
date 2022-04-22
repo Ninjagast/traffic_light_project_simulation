@@ -11,7 +11,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private int _currentFrame = 0;
         private States _state;
         private Vector2 _pos;
-        private SpriteFont _font;
         
         public void Update()
         {
@@ -20,8 +19,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(_font, _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 20), Color.Black);
-
             if (_state == States.Orange)
             {
                 _currentFrame += 1;
@@ -39,16 +36,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 spriteBatch.Draw(TextureManager.Instance.GetTexture(3, "People" + _state.ToString()), new Rectangle((int) _pos.X, (int)_pos.Y, 20, 50), Color.White);
             }
         }
-
-        public static PedestrianLight CreateInstance(Vector2 pos, int routeId, SpriteFont font)
-        {
-            PedestrianLight returnInstance = new PedestrianLight();
-            returnInstance._laneId = routeId;
-            returnInstance._pos = pos;
-            returnInstance._state = States.Red;
-            returnInstance._font = font;
-            return returnInstance;
-        }
         
         public void StateChange(int id, States state)
         {
@@ -57,5 +44,20 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _state = state;
             }
         }
+
+        public void DrawId(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(TextureManager.Instance.getFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 20), Color.Black);
+        }
+
+        public static PedestrianLight CreateInstance(Vector2 pos, int routeId)
+        {
+            PedestrianLight returnInstance = new PedestrianLight
+            {
+                _laneId = routeId, _pos = pos, _state = States.Red
+            };
+            return returnInstance;
+        }
+        
     }
 }

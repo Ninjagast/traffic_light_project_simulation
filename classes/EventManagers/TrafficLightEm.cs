@@ -49,6 +49,14 @@ namespace traffic_light_simulation.classes.EventManagers
             }
         }
 
+        public void DebugDrawIds(SpriteBatch spriteBatch)
+        {
+            foreach (var drawAble in _subscribed)
+            {
+                drawAble.DrawId(spriteBatch);
+            }
+        }
+
         public void Update()
         {
             foreach (var iDrawAble in _subscribed)

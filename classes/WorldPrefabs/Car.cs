@@ -98,7 +98,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(TextureManager.Instance.GetTexture(0, "sedan_" + _lastDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
-            spriteBatch.DrawString(TextureManager.Instance.getFont(), _id.ToString(), _pos,Color.Black);
         }
 
         public void StateChange(int id, States state)
@@ -114,46 +113,51 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             }
         }
 
-        public static Car CreateInstance(bool testing, Random random)
+        public void DrawId(SpriteBatch spriteBatch)
         {
-            VehicleEm.Instance.GetNextId();
-            Car returnObject = new Car();
-            if (testing)
+            spriteBatch.DrawString(TextureManager.Instance.getFont(), _id.ToString(), _pos,Color.Black);
+        }
+
+        public static Car CreateInstance(Random random)
+        {
+            DirectionMap map = null;
+
+            int i = 0;
+
+            while (10 > i)
             {
-                returnObject._directionMap = SpawnPoints.Instance.GetFromTestRoutes();
-                if (returnObject._directionMap == null)
+                map = SpawnPoints.Instance.GetRandomLandSpawnPoint();
+                if (VehicleEm.Instance.IsCellFree(new Vector2(map.vector2.x, map.vector2.y)))
                 {
+                    break;
+                }
+                else if (i == 9)
+                {
+//                  Not a single position was available
                     return null;
                 }
-                returnObject._pos = new Vector2(returnObject._directionMap.vector2.x, returnObject._directionMap.vector2.y);
-                if (!VehicleEm.Instance.IsCellFree(returnObject._pos))
-                {
-                    return null;
-                }
+                i++;
             }
-            else
+
+            Car returnObject = new Car
             {
-//              todo can be put into a while loop in order to not skip a spawn chance when it occurs
-                returnObject._directionMap = SpawnPoints.Instance.GetRandomLandSpawnPoint();
-                returnObject._pos = new Vector2(returnObject._directionMap.vector2.x, returnObject._directionMap.vector2.y);
-                if (!VehicleEm.Instance.IsCellFree(returnObject._pos))
+                _directionMap = map,
+                _pos = new Vector2(map.vector2.x, map.vector2.y),
+                _state = States.Driving,
+                _currentFrame = 0,
+                _orientation = new Dictionary<string, Vector2>
                 {
-                    return null;
-                }
-            }
-            returnObject._state = States.Driving;
-            returnObject._currentFrame = 0;
-            returnObject._orientation = new Dictionary<string, Vector2>
-            {
-                {"LEFT", new Vector2(-1, 0.5f) * VehicleEm.Instance.Speed},
-                {"RIGHT", new Vector2(1, -0.5f) * VehicleEm.Instance.Speed},
-                {"DOWN", new Vector2(1, 0.5f) * VehicleEm.Instance.Speed},
-                {"UP", new Vector2(-1, -0.5f) * VehicleEm.Instance.Speed}
+                    {"LEFT",  new Vector2(-1, 0.5f)  * VehicleEm.Instance.DefaultSpeed},
+                    {"RIGHT", new Vector2(1, -0.5f)  * VehicleEm.Instance.DefaultSpeed},
+                    {"DOWN",  new Vector2(1, 0.5f)   * VehicleEm.Instance.DefaultSpeed},
+                    {"UP",    new Vector2(-1, -0.5f) * VehicleEm.Instance.DefaultSpeed}
+                },
+                _lastDirection = map.directions[0].direction,
+                _id = VehicleEm.Instance.GetNextId(),
+                _speed = VehicleEm.Instance.DefaultSpeed,
+                _reaction = random.Next(0, 10),
             };
-            returnObject._lastDirection = returnObject._directionMap.directions[0].direction;
-            returnObject._id = VehicleEm.Instance.GetNextId();
-            returnObject._speed = VehicleEm.Instance.Speed;
-            returnObject._reaction = random.Next(0, 10);
+            
             VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id);        
             return returnObject;
         }

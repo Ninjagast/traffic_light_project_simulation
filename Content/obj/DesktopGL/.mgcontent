@@ -8,7 +8,11 @@
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeOrange.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeRed.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/CheckBox.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/CheckedCheckBox.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/ClaimMarker.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/DebugButton.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/FieldSelectedTexture.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/FieldTexture.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/File.spritefont</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightGreen.png</File>
@@ -24,6 +28,10 @@
   </SourceFiles>
   <DestFiles>
     <File>BackGround.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

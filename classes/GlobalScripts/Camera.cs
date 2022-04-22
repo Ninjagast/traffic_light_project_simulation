@@ -7,7 +7,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
 {
     public class Camera
     {
-        private float _zoom = 0.70f;
+        private float _zoom = 0.8f;
         private Vector2 _position;
         private Rectangle _bounds;
         public Matrix Transform;

@@ -4,8 +4,6 @@
     {
         DebugButton,
         PlayButton,
-        SessionNameField,
-        SessionVersionField,
         DebugPlayButton,
         Nothing,
         ShowClaimedCellsRadio

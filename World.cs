@@ -99,9 +99,13 @@ namespace traffic_light_simulation
             TextureManager.Instance.SetTexture(trafficLightTextures, 1);
             TextureManager.Instance.SetTexture(bicycleLightTextures, 2);
             TextureManager.Instance.SetTexture(pedestrianLightTextures, 3);
-            TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("DebugButton"), "DebugButton");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("FieldTexture"), "FieldTexture");
+            TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("FieldSelectedTexture"), "FieldSelectedTexture");
+            TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("DebugButton"), "DebugButton");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("PlayButton"), "PlayButton");
+            TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("CheckedCheckBox"), "CheckedCheckBox");
+            TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("CheckBox"), "CheckBox");
+            TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("ClaimMarker"), "ClaimMarker");
             
             CreationManager.CreateTrafficLights();
             CreationManager.CreateStartScreenButtons();
@@ -124,7 +128,7 @@ namespace traffic_light_simulation
                 _tick += 1;
                 if (_tick % 20 == 0)
                 {
-                    Car car = Car.CreateInstance(VehicleEm.Instance.Testing, _random);
+                    Car car = Car.CreateInstance(_random);
                     if (car != null)
                     {
                         VehicleEm.Instance.Subscribe(car);
@@ -186,6 +190,7 @@ namespace traffic_light_simulation
             else if (currentState == SimulationStates.SettingUpDebugMode)
             {
                 _spriteBatch.Begin();
+                _spriteBatch.DrawString(TextureManager.Instance.getFont(), "", new Vector2(5,5), Color.Black);
                 UiHandler.Instance.Draw(_spriteBatch);
             }
             else// _state == WaitingForConnection.

@@ -44,6 +44,11 @@ namespace traffic_light_simulation.classes.EventManagers
             throw new NotImplementedException();
         }
 
+        public void DebugDrawIds(SpriteBatch spriteBatch)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update()
         {
             throw new NotImplementedException();

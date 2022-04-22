@@ -43,7 +43,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(TextureManager.Instance.GetTexture(1, "Light" + _state.ToString()), new Rectangle((int) _pos.X, (int)_pos.Y, 20, 50), Color.White);
-            spriteBatch.DrawString(TextureManager.Instance.getFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 10), Color.Black);
         }
 
         public void StateChange(int id, States state)
@@ -54,13 +53,17 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             }
         }
 
+        public void DrawId(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(TextureManager.Instance.getFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 10), Color.Black);
+        }
+
         public static TrafficLight CreateInstance(Vector2 pos, int routeId, Vector2 targetArea)
         {
-            TrafficLight returnInstance = new TrafficLight();
-            returnInstance._laneId = routeId;
-            returnInstance._pos = pos;
-            returnInstance._state = States.Red;
-            returnInstance._targetArea = targetArea;
+            TrafficLight returnInstance = new TrafficLight
+            {
+                _laneId = routeId, _pos = pos, _state = States.Red, _targetArea = targetArea
+            };
             return returnInstance;
         }
     }

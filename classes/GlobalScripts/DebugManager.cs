@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
@@ -25,9 +27,9 @@ namespace traffic_light_simulation.classes.GlobalScripts
                 }
             }
         }
-        public bool DrawClaimedCells { get; set; } = false;
-        
-        
+
+        private List<DebugOptions> _drawOptions = new List<DebugOptions>();
+
         public void Subscribe(IDrawAble drawAble)
         {
             throw new System.NotImplementedException();
@@ -40,19 +42,56 @@ namespace traffic_light_simulation.classes.GlobalScripts
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (DrawClaimedCells)
+            foreach (DebugOptions option in _drawOptions)
             {
-                foreach (var VARIABLE in VehicleEm.Instance.GetCellGrid())
+                switch (option)
                 {
-                    spriteBatch.Draw(TextureManager.Instance.GetTexture(2, "BikeGreen"),
-                        new Rectangle((int) VARIABLE.Key.X, (int) VARIABLE.Key.Y, 20, 50), Color.White);
+                    case DebugOptions.DrawClaimedCells:
+                        VehicleEm.Instance.DebugDrawMarkers(spriteBatch);
+                        break;
+                    
+                    case DebugOptions.DrawCarIds:
+                        VehicleEm.Instance.DebugDrawIds(spriteBatch);
+                        break;
+                    
+                    case DebugOptions.DrawBicycleLightIds:
+                        break;
+                    
+                    case DebugOptions.DrawPedestrianLightIds:
+                        break;
+                    
+                    case DebugOptions.DrawTrafficLightIds:
+                        TrafficLightEm.Instance.DebugDrawIds(spriteBatch);
+                        break;
+                    
+                    default:
+                        Console.WriteLine($"{option} is not a valid debug draw option");
+                        break;
                 }
             }
+        }
+
+        public void DebugDrawIds(SpriteBatch spriteBatch)
+        {
+            return;
         }
 
         public void Update()
         {
             return;
+        }
+
+        public void AddDrawOption(DebugOptions option)
+        {
+            if (!_drawOptions.Contains(option))
+            {
+                _drawOptions.Add(option);
+            }
+        }
+
+        public void RemoveDrawOption(DebugOptions option)
+        {
+            _drawOptions.Remove(option);
         }
     }
 }

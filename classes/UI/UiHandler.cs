@@ -13,12 +13,7 @@ namespace traffic_light_simulation.classes.UI
     public class UiHandler
     {
         private static UiHandler _instance;
-        private Dictionary<string, ButtonBase> _buttons = new Dictionary<string, ButtonBase>();
         private static readonly object Padlock = new object();
-        private ButtonStates _currentButtonState = ButtonStates.Nothing;
-        private string _sessionName = "";
-        private string _sessionVersion = "";
-
         private UiHandler() {}
         public static UiHandler Instance
         {
@@ -34,15 +29,33 @@ namespace traffic_light_simulation.classes.UI
                 }
             }
         }
+        
+        private Dictionary<string, IButtonBase> _buttons = new Dictionary<string, IButtonBase>();
+        private Dictionary<string, IInputField> _inputFields = new Dictionary<string, IInputField>();
+        private ButtonStates _currentButtonState = ButtonStates.Nothing;
 
-        public void Subscribe(ButtonBase button)
+
+        public void Subscribe(IButtonBase buttonBase)
         {
-            _buttons.Add(button.Name, button);
+            _buttons.Add(buttonBase.GetName(), buttonBase);
+        }
+
+        public void Subscribe(IInputField inputField
+        )
+        {
+            _inputFields.Add(inputField.GetName(), inputField);
         }
 
         public void UnSubscribe(string name)
         {
-            _buttons.Remove(name);
+            if (_buttons.ContainsKey(name))
+            {
+                _buttons.Remove(name);
+            }
+            else
+            {
+                _inputFields.Remove(name);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -52,10 +65,9 @@ namespace traffic_light_simulation.classes.UI
                 button.Value.Draw(spriteBatch);
             }
 
-            if (SimulationStateHandler.Instance.State != SimulationStates.SettingUpDebugMode)
+            foreach (var inputField in _inputFields)
             {
-                spriteBatch.DrawString(TextureManager.Instance.getFont(), _sessionName, new Vector2(310, 125), Color.Black);
-                spriteBatch.DrawString(TextureManager.Instance.getFont(), _sessionVersion, new Vector2(310, 175), Color.Black);
+                inputField.Value.Draw(spriteBatch);
             }
         }
 
@@ -64,6 +76,11 @@ namespace traffic_light_simulation.classes.UI
             foreach (var button in _buttons)
             {
                 button.Value.OnClick(mouseState);
+            }
+
+            foreach (var inputField in _inputFields)
+            {
+                inputField.Value.OnClick(mouseState);
             }
         }
 
@@ -74,34 +91,48 @@ namespace traffic_light_simulation.classes.UI
 
         public void Update(KeyboardState keyboardState, KeyboardState prevKeyboardState)
         {
+            foreach (var inputField in _inputFields)
+            {
+                inputField.Value.Update(keyboardState, prevKeyboardState);
+            }
+
             switch (_currentButtonState)
             {
 //              ##################################################################################################
 //              Start screen buttons 
                 case ButtonStates.PlayButton:
-                    if (_sessionName.Length > 0 && _sessionVersion.Length > 0)
+                    if (_inputFields["SessionNameField"].GetUserInput().Length > 0 && _inputFields["SessionVersionField"].GetUserInput().Length > 0)
                     {
+                        Server.Instance.SetServerNameVersion(_inputFields["SessionNameField"].GetUserInput(), _inputFields["SessionVersionField"].GetUserInput());
+                        
                         UnSubscribe("PlayButton");
                         UnSubscribe("DebugButton");
                         UnSubscribe("SessionNameField");
                         UnSubscribe("SessionVersionField");
 
-                        Server.Instance.StartServer(_sessionName, _sessionVersion);
+                        Server.Instance.StartServer();
                         SimulationStateHandler.Instance.State = SimulationStates.WaitingForConnection;
                     }
                     break;
                     
                 case ButtonStates.DebugPlayButton:
-                    UnSubscribe("DebugPlayButton");
+                    UnSubscribe("PlayButton");
                     UnSubscribe("ShowClaimedCells");
+                    UnSubscribe("ClaimedCells");
+                    UnSubscribe("CarIds");
+                    UnSubscribe("TrafficLightIds");
+                    UnSubscribe("BicycleLightIds");
+                    UnSubscribe("PedestrianLightIds");
                     EventManagerEm.Instance.Subscribe(DebugManager.Instance);
-                    Server.Instance.StartServer(_sessionName, _sessionVersion);
+                    Server.Instance.StartServer();
                     SimulationStateHandler.Instance.State = SimulationStates.WaitingForConnection;
                     break;
                 
                 case ButtonStates.DebugButton:
-                    if (_sessionName.Length > 0 && _sessionVersion.Length > 0)
+                    if (_inputFields["SessionNameField"].GetUserInput().Length > 0 && _inputFields["SessionVersionField"].GetUserInput().Length > 0)
                     {
+                        Server.Instance.SetServerNameVersion(_inputFields["SessionNameField"].GetUserInput(), _inputFields["SessionVersionField"].GetUserInput());
+
                         UnSubscribe("PlayButton");
                         UnSubscribe("DebugButton");
                         UnSubscribe("SessionNameField");
@@ -110,22 +141,6 @@ namespace traffic_light_simulation.classes.UI
                         CreationManager.CreateDebugButtons();
                         SimulationStateHandler.Instance.State = SimulationStates.SettingUpDebugMode;
                     }
-                    break;
-                
-//              ##################################################################################################
-//              input fields
-                case ButtonStates.SessionNameField:
-                    _handleKeyboardPressesFields(keyboardState, prevKeyboardState, true);
-                    return;
-                
-                case ButtonStates.SessionVersionField:
-                    _handleKeyboardPressesFields(keyboardState, prevKeyboardState, false);
-                    return;
-
-//              ##################################################################################################
-//              debug options
-                case ButtonStates.ShowClaimedCellsRadio:
-                    DebugManager.Instance.DrawClaimedCells = !DebugManager.Instance.DrawClaimedCells;
                     break;
                 
                 case ButtonStates.Nothing:
@@ -138,79 +153,17 @@ namespace traffic_light_simulation.classes.UI
             }
             _currentButtonState = ButtonStates.Nothing;
         }
-        
-//      ##################################################
-//      Helper functions
-        private void _handleKeyboardPressesFields(KeyboardState keyboardState, KeyboardState prevKeyboardState, bool sessionName)
+        public static bool CheckClick(MouseState mouseState, Vector2 pos, int textureWidth, int textureHeight)
         {
-            foreach (var pressedKeyId in keyboardState.GetPressedKeys())
+            Point point = new Point(mouseState.X, mouseState.Y);
+            if (point.X > pos.X && point.X < pos.X + textureWidth)
             {
-                if (prevKeyboardState.IsKeyUp(pressedKeyId))
+                if (point.Y > pos.Y && point.Y < pos.Y + textureHeight)
                 {
-                    if(CheckIfLetterOrKey((int)pressedKeyId))
-                    {
-                        if (sessionName)
-                        {
-//                          if this is the keyPressDown frame && it is a letter or a number && we have selected the sessionNameField 
-                            if (_sessionName.Length < 10)
-                            {
-                                string letter = pressedKeyId.ToString().Length > 1 ? pressedKeyId.ToString()[1].ToString(): pressedKeyId.ToString();
-                                if (!keyboardState.CapsLock || !keyboardState.IsKeyDown(Keys.LeftShift) ||
-                                    !keyboardState.IsKeyDown(Keys.RightShift))
-                                {
-                                    letter = letter.ToLower();
-                                }
-
-                                _sessionName += letter;
-                            }
-                        }
-                        else
-                        {
-//                          if this is the keyPressDown frame && it is a letter or a number && we have selected the sessionVersionField 
-                            if(_sessionVersion.Length < 10)
-                            {
-                                string letter = pressedKeyId.ToString().Length > 1 ? pressedKeyId.ToString()[1].ToString(): pressedKeyId.ToString();
-                                if (!keyboardState.CapsLock || !keyboardState.IsKeyDown(Keys.LeftShift) ||
-                                    !keyboardState.IsKeyDown(Keys.RightShift))
-                                {
-                                    letter = letter.ToLower();
-                                }
-                                _sessionVersion += letter;
-                            }
-                        }
-                    }
-                    else if (pressedKeyId == Keys.Back)
-                    {
-                        if (sessionName)
-                        {
-//                          if this is the keyPressDown frame && it is the backspace && we have selected the sessionNameField 
-                            if (_sessionName.Length > 0)
-                            {
-                                _sessionName = _sessionName.Remove(_sessionName.Length - 1, 1);  
-                            }
-                        }
-                        else
-                        {
-//                          if this is the keyPressDown frame && it is the backspace && we have selected the sessionVersionField 
-                            if (_sessionVersion.Length > 0)
-                            {
-                                _sessionVersion = _sessionVersion.Remove(_sessionVersion.Length - 1, 1);  
-                            }
-                        }
-                    }
-                }   
+                    return true;
+                }
             }
-        }
-
-        private bool CheckIfLetterOrKey(int key)
-        {
-            if (key > 64 && key < 91 || key > 47 && key < 58)
-            {
-                return true;
-            }
-
             return false;
         }
-        
     }
 }

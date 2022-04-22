@@ -14,10 +14,9 @@ namespace traffic_light_simulation.classes.EventManagers
         private Dictionary<int, IDrawAble> _subscribed = new Dictionary<int, IDrawAble>();
         private static readonly object Padlock = new object();
         private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
-        public bool Testing = true;
         
 //      Three speed modifiers possible 1 / 2 / 5
-        public int Speed = 1;
+        public int DefaultSpeed = 2;
 
         private int _id = 0;
 
@@ -43,6 +42,11 @@ namespace traffic_light_simulation.classes.EventManagers
             _subscribed.Add(_id, drawAble);
         }
 
+        public void UnSubscribe(int id)
+        {
+            _subscribed.Remove(id);
+        }
+        
         public void OnStateChange(int id, States state)
         {
             foreach (var subbed in _subscribed)
@@ -87,11 +91,6 @@ namespace traffic_light_simulation.classes.EventManagers
             return !_claimedCells.ContainsKey(targetPos);
         }
 
-        public void UnSubscribe(int id)
-        {
-            _subscribed.Remove(id);
-        }
-
         public int GetCellCarId(Vector2 targetArea)
         {
             foreach (var cell in _claimedCells)
@@ -108,6 +107,23 @@ namespace traffic_light_simulation.classes.EventManagers
         public Dictionary<Vector2, int> GetCellGrid()
         {
             return _claimedCells;
+        }
+
+        public void DebugDrawMarkers(SpriteBatch spriteBatch)
+        {
+            foreach (var claimedCell in VehicleEm.Instance.GetCellGrid())
+            {
+                spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
+                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 99, 50), Color.White);
+            }
+        }
+
+        public void DebugDrawIds(SpriteBatch spriteBatch)
+        {
+            foreach (var vehicle in _subscribed)
+            {
+                vehicle.Value.DrawId(spriteBatch);
+            }
         }
     }
 }

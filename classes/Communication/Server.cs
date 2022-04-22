@@ -39,11 +39,8 @@ namespace traffic_light_simulation.classes.Communication
         private string _sessionName;
         private string _sessionVersion;
         
-        public void StartServer(string sessionName, string sessionVersion)
+        public void StartServer()
         {
-            _sessionName = sessionName;
-            _sessionVersion = sessionVersion;
-            
             _webSocket = new WebSocket(_address);
             _webSocket.OnOpen += (sender, e) =>
             {
@@ -145,6 +142,12 @@ namespace traffic_light_simulation.classes.Communication
             RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
             ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data, eventType = "ENTITY_EXITED_ZONE"};
             _webSocket.Send (JsonSerializer.Serialize(serverRequest));
+        }
+
+        public void SetServerNameVersion(string name, string version)
+        {
+            _sessionName = name;
+            _sessionVersion = version;
         }
     }
 }

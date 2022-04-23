@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.dataClasses;
+using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.GlobalScripts;
@@ -157,7 +158,16 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _speed = VehicleEm.Instance.DefaultSpeed,
                 _reaction = random.Next(0, 10),
             };
-            
+
+            if (DebugManager.Instance.Logging)
+            {
+                Logger.Instance.LogEntitySpawn(new DebugLogEntitySpawn
+                {
+                    Tick = DebugManager.Instance.UpdateTick,
+                    DirectionMap = map,
+                    EntityType = "car"
+                });
+            }
             VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id);        
             return returnObject;
         }

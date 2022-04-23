@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.GlobalScripts;
 
@@ -49,11 +50,11 @@ namespace traffic_light_simulation.classes.UI
                 _toggledOn = !_toggledOn;
                 if (_toggledOn)
                 {
-                    DebugManager.Instance.AddDrawOption(_option);
+                    DebugManager.Instance.AddDebugOption(_option);
                 }
                 else
                 {
-                    DebugManager.Instance.RemoveDrawOption(_option);
+                    DebugManager.Instance.RemoveDebugOption(_option);
                 }
             }
             

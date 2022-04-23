@@ -6,6 +6,8 @@
         DrawCarIds,
         DrawTrafficLightIds,
         DrawBicycleLightIds,
-        DrawPedestrianLightIds
+        DrawPedestrianLightIds,
+        Logging,
+        Replay
     }
 }

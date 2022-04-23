@@ -212,6 +212,18 @@
 /processorParam:TextureFormat=Color
 /build:PlayButton.png
 
+#begin RadioButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:RadioButton.png
+
 #begin sedan_NE.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -259,4 +271,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:sedan_SW.png;sedan_UP.png
+
+#begin SelectedRadioButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SelectedRadioButton.png
 

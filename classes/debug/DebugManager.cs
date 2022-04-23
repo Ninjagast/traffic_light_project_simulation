@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.WorldPrefabs;
 
-namespace traffic_light_simulation.classes.GlobalScripts
+namespace traffic_light_simulation.classes.debug
 {
     public class DebugManager: IEventManager
     {
@@ -28,7 +28,10 @@ namespace traffic_light_simulation.classes.GlobalScripts
             }
         }
 
-        private List<DebugOptions> _drawOptions = new List<DebugOptions>();
+        private List<DebugOptions> _debugOptions = new List<DebugOptions>();
+
+        public bool Logging { get; set; } = false;
+        public int UpdateTick { get; set; } = 0;
 
         public void Subscribe(IDrawAble drawAble)
         {
@@ -42,7 +45,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (DebugOptions option in _drawOptions)
+            foreach (DebugOptions option in _debugOptions)
             {
                 switch (option)
                 {
@@ -70,28 +73,39 @@ namespace traffic_light_simulation.classes.GlobalScripts
                 }
             }
         }
-
-        public void DebugDrawIds(SpriteBatch spriteBatch)
-        {
-            return;
-        }
-
+        
         public void Update()
         {
             return;
         }
 
-        public void AddDrawOption(DebugOptions option)
+        public void DebugDrawIds(SpriteBatch spriteBatch)
         {
-            if (!_drawOptions.Contains(option))
+            return;
+        }
+        
+        public void AddDebugOption(DebugOptions option)
+        {
+            Console.WriteLine($"{option} has been added");
+            if (!_debugOptions.Contains(option))
             {
-                _drawOptions.Add(option);
+                _debugOptions.Add(option);
             }
         }
 
-        public void RemoveDrawOption(DebugOptions option)
+        public void RemoveDebugOption(DebugOptions option)
         {
-            _drawOptions.Remove(option);
+            Console.WriteLine($"{option} has been deleted");
+            _debugOptions.Remove(option);
+        }
+
+        public void SetUp()
+        {
+            if (_debugOptions.Contains(DebugOptions.Logging))
+            {
+                Logging = true;
+                Logger.Instance.SetUp();
+            }
         }
     }
 }

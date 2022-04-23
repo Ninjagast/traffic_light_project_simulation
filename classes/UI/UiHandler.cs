@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using traffic_light_simulation.classes.Communication;
+using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.GlobalScripts;
@@ -32,6 +33,7 @@ namespace traffic_light_simulation.classes.UI
         
         private Dictionary<string, IButtonBase> _buttons = new Dictionary<string, IButtonBase>();
         private Dictionary<string, IInputField> _inputFields = new Dictionary<string, IInputField>();
+        private Dictionary<string, RadioButtonGroup> _radioButtonGroups = new Dictionary<string, RadioButtonGroup>();
         private ButtonStates _currentButtonState = ButtonStates.Nothing;
 
 
@@ -40,10 +42,14 @@ namespace traffic_light_simulation.classes.UI
             _buttons.Add(buttonBase.GetName(), buttonBase);
         }
 
-        public void Subscribe(IInputField inputField
-        )
+        public void Subscribe(IInputField inputField)
         {
             _inputFields.Add(inputField.GetName(), inputField);
+        }
+
+        public void Subscribe(RadioButtonGroup radioButtonGroup)
+        {
+            _radioButtonGroups.Add(radioButtonGroup.Name, radioButtonGroup);
         }
 
         public void UnSubscribe(string name)
@@ -69,6 +75,11 @@ namespace traffic_light_simulation.classes.UI
             {
                 inputField.Value.Draw(spriteBatch);
             }
+            
+            foreach (var radioButton in _radioButtonGroups)
+            {
+                radioButton.Value.Draw(spriteBatch);
+            }
         }
 
         public void CheckClick(MouseState mouseState)
@@ -81,6 +92,11 @@ namespace traffic_light_simulation.classes.UI
             foreach (var inputField in _inputFields)
             {
                 inputField.Value.OnClick(mouseState);
+            }
+            
+            foreach (var radioButtonGroup in _radioButtonGroups)
+            {
+                radioButtonGroup.Value.OnClick(mouseState);
             }
         }
 
@@ -123,7 +139,10 @@ namespace traffic_light_simulation.classes.UI
                     UnSubscribe("TrafficLightIds");
                     UnSubscribe("BicycleLightIds");
                     UnSubscribe("PedestrianLightIds");
+                    UnSubscribe("Logging");
+                    
                     EventManagerEm.Instance.Subscribe(DebugManager.Instance);
+                    DebugManager.Instance.SetUp();
                     Server.Instance.StartServer();
                     SimulationStateHandler.Instance.State = SimulationStates.WaitingForConnection;
                     break;

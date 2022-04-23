@@ -1,4 +1,5 @@
 ﻿using System;
+using traffic_light_simulation.classes.debug;
 
 namespace traffic_light_simulation
 {
@@ -8,7 +9,15 @@ namespace traffic_light_simulation
         static void Main()
         {
             using (var game = new World())
-                game.Run();
+                try
+                {
+                    game.Run();
+                }
+                catch (Exception e)
+                {
+                    Logger.Instance.CreateLogs();
+                    throw;
+                }
         }
     }
 }

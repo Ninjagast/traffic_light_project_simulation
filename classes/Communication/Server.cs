@@ -4,9 +4,11 @@ using System.Runtime.Loader;
 using WebSocketSharp;
 using System.Text.Json;
 using traffic_light_simulation.classes.dataClasses;
+using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using WebSocket = WebSocketSharp.WebSocket;
+using Logger = traffic_light_simulation.classes.debug.Logger;
 
 
 namespace traffic_light_simulation.classes.Communication
@@ -38,7 +40,7 @@ namespace traffic_light_simulation.classes.Communication
         public bool HasConnection = false; 
         private string _sessionName;
         private string _sessionVersion;
-        
+
         public void StartServer()
         {
             _webSocket = new WebSocket(_address);
@@ -77,54 +79,68 @@ namespace traffic_light_simulation.classes.Communication
 
         private void _onMessage(object sender, MessageEventArgs e)
         {
-            ServerData? data = JsonSerializer.Deserialize<ServerData>(e.Data);
+            ServerData data = JsonSerializer.Deserialize<ServerData>(e.Data);
 
-            if (data.eventType == "SESSION_START" || data.eventType == "SESSION_STOP")
+            if (data != null)
             {
-                HasConnection = data.eventType == "SESSION_START";
-                Console.WriteLine($"{data.eventType}]");
-                return;
-            }
+                if (DebugManager.Instance.Logging)
+                {
+                    DebugServerData log = new DebugServerData
+                    {
+                        data = data.data,
+                        eventType = data.eventType,
+                        Tick = DebugManager.Instance.UpdateTick
+                    };
+                    Logger.Instance.LogServerMessage(log);
+                }
+                
+                if (data.eventType == "SESSION_START" || data.eventType == "SESSION_STOP")
+                {
+                    HasConnection = data.eventType == "SESSION_START";
+                    Console.WriteLine($"{data.eventType}]");
+                    return;
+                }
 
-            States state;
-            switch (data.data.state)
-            {
-                case "GREEN":
-                    state = States.Green;
-                    break;
-                case "ORANGE":
-                    state = States.Orange;
-                    break;
-                case "BLINKING":
-                    state = States.Orange;
-                    break;
-                case "RED":
-                    state = States.Red;
-                    break;
-                default:
-                    state = States.Red;
-                    Console.WriteLine($"Unknown state type {data.data.state}");
-                    break;
-            }
+                States state;
+                switch (data.data.state)
+                {
+                    case "GREEN":
+                        state = States.Green;
+                        break;
+                    case "ORANGE":
+                        state = States.Orange;
+                        break;
+                    case "BLINKING":
+                        state = States.Orange;
+                        break;
+                    case "RED":
+                        state = States.Red;
+                        break;
+                    default:
+                        state = States.Red;
+                        Console.WriteLine($"Unknown state type {data.data.state}");
+                        break;
+                }
 
-            switch (data.eventType)
-            {
-                case "SET_AUTOMOBILE_ROUTE_STATE":
-                    TrafficLightEm.Instance.OnStateChange(data.data.routeId, state);
-                    Console.WriteLine("SET_AUTOMOBILE_ROUTE_STATE");
-                    break;
-                case "SET_CYCLIST_ROUTE_STATE":
-                    BicycleLightEm.Instance.OnStateChange(data.data.routeId, state);
-                    Console.WriteLine("SET_CYCLIST_ROUTE_STATE");
-                    break;
-                case "SET_PEDESTRIAN_ROUTE_STATE":
-                    PedestrianLightEm.Instance.OnStateChange(data.data.routeId, state);
-                    Console.WriteLine("SET_PEDESTRIAN_ROUTE_STATE");
-                    break;
+                switch (data.eventType)
+                {
+                    case "SET_AUTOMOBILE_ROUTE_STATE":
+                        TrafficLightEm.Instance.OnStateChange(data.data.routeId, state);
+                        Console.WriteLine("SET_AUTOMOBILE_ROUTE_STATE");
+                        break;
+                    case "SET_CYCLIST_ROUTE_STATE":
+                        BicycleLightEm.Instance.OnStateChange(data.data.routeId, state);
+                        Console.WriteLine("SET_CYCLIST_ROUTE_STATE");
+                        break;
+                    case "SET_PEDESTRIAN_ROUTE_STATE":
+                        PedestrianLightEm.Instance.OnStateChange(data.data.routeId, state);
+                        Console.WriteLine("SET_PEDESTRIAN_ROUTE_STATE");
+                        break;
 
-                default:
-                    Console.WriteLine($"unknown eventType {data.eventType}");
-                    break;
+                    default:
+                        Console.WriteLine($"unknown eventType {data.eventType}");
+                        break;
+                }
             }
         }
 

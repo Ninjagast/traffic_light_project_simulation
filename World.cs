@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using traffic_light_simulation.classes.Communication;
+using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.GlobalScripts;
@@ -22,8 +23,6 @@ namespace traffic_light_simulation
         private List<string> _orientations;
         private List<string> _lightStates;
 
-        private int _tick = 0;
-        
         private Random _random;
         private Camera _camera;
         
@@ -67,9 +66,13 @@ namespace traffic_light_simulation
             _prevMouseState    = Mouse.GetState();
             
             _graphics.ApplyChanges();
+            
+            Window.AllowAltF4 = false; //Alt+F4 is not allowed
+            Exiting += ClosingStatements;
             base.Initialize();
         }
-
+        
+        
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -105,6 +108,8 @@ namespace traffic_light_simulation
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("PlayButton"), "PlayButton");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("CheckedCheckBox"), "CheckedCheckBox");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("CheckBox"), "CheckBox");
+            TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("SelectedRadioButton"), "SelectedRadioButton");
+            TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("RadioButton"), "RadioButton");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("ClaimMarker"), "ClaimMarker");
             
             CreationManager.CreateTrafficLights();
@@ -116,17 +121,19 @@ namespace traffic_light_simulation
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
 
             SimulationStates currentState = SimulationStateHandler.Instance.State;
             
             if (currentState == SimulationStates.Running)
             {
+                DebugManager.Instance.UpdateTick += 1;
                 CheckKeyPress(Keys.Space,SimulationStates.Paused);
                 
-                _tick += 1;
-                if (_tick % 20 == 0)
+                if (_random.Next(0, 100) > 98) // 1% chance per tick to spawn a random car
                 {
                     Car car = Car.CreateInstance(_random);
                     if (car != null)
@@ -134,6 +141,7 @@ namespace traffic_light_simulation
                         VehicleEm.Instance.Subscribe(car);
                     }
                 }
+                
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
                 EventManagerEm.Instance.Update();
             }
@@ -201,6 +209,11 @@ namespace traffic_light_simulation
             
             _spriteBatch.End();
             base.Draw(gameTime);
+        }
+        
+        private void ClosingStatements(object? sender, EventArgs eventArgs)
+        {
+            Logger.Instance.CreateLogs();
         }
         
 //      #######################################################

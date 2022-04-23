@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/CheckBox.png</SourceFile>
-  <SourceTime>2022-04-22T21:10:23.6577333+02:00</SourceTime>
+  <SourceTime>2022-04-22T21:13:43.1891099+02:00</SourceTime>
   <DestFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/bin/DesktopGL/CheckBox.xnb</DestFile>
-  <DestTime>2022-04-22T21:12:50.1322281+02:00</DestTime>
+  <DestTime>2022-04-23T16:08:33.4934325+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

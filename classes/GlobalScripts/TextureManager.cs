@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
+
 namespace traffic_light_simulation.classes.GlobalScripts
 {
     public class TextureManager
@@ -95,7 +96,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             throw new ArgumentException($"There is not a texture with this id:{id}");
         }
 
-        public SpriteFont getFont()
+        public SpriteFont GetFont()
         {
             return _font;
         }

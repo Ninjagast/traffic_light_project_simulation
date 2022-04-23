@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Mail;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
+
 
 namespace traffic_light_simulation.classes.EventManagers
 {
@@ -11,9 +10,7 @@ namespace traffic_light_simulation.classes.EventManagers
         private static EventManagerEm _instance;
         private List<IEventManager> _subscribed = new List<IEventManager>();
         private static readonly object Padlock = new object();
-
         private EventManagerEm() {}
-        
         public static EventManagerEm Instance
         {
             get
@@ -28,6 +25,8 @@ namespace traffic_light_simulation.classes.EventManagers
                 }
             }
         }
+        
+        public SimulationStates State = SimulationStates.StartScreen;
 
         public void Subscribe(IEventManager eventManager)
         {

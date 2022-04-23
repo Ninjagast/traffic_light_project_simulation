@@ -2,6 +2,7 @@
 using System.Numerics;
 using Microsoft.Xna.Framework.Graphics;
 
+
 namespace traffic_light_simulation.classes.WorldPrefabs
 {
     public class HitTree

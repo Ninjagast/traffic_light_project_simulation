@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.WorldPrefabs;
+
 
 namespace traffic_light_simulation.classes.EventManagers
 {

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.WorldPrefabs;
+
 
 namespace traffic_light_simulation.classes.debug
 {
@@ -45,6 +44,7 @@ namespace traffic_light_simulation.classes.debug
 
         public void Draw(SpriteBatch spriteBatch)
         {
+//          draws debug info based on selected options (Each prefab knows how to do this themselves)
             foreach (DebugOptions option in _debugOptions)
             {
                 switch (option)
@@ -68,7 +68,6 @@ namespace traffic_light_simulation.classes.debug
                         break;
                     
                     default:
-                        Console.WriteLine($"{option} is not a valid debug draw option");
                         break;
                 }
             }
@@ -86,7 +85,6 @@ namespace traffic_light_simulation.classes.debug
         
         public void AddDebugOption(DebugOptions option)
         {
-            Console.WriteLine($"{option} has been added");
             if (!_debugOptions.Contains(option))
             {
                 _debugOptions.Add(option);
@@ -95,7 +93,6 @@ namespace traffic_light_simulation.classes.debug
 
         public void RemoveDebugOption(DebugOptions option)
         {
-            Console.WriteLine($"{option} has been deleted");
             _debugOptions.Remove(option);
         }
 

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.WorldPrefabs;
 
+
 namespace traffic_light_simulation.classes.EventManagers
 {
     public class BicycleLightEm: IEventManager
@@ -10,9 +11,7 @@ namespace traffic_light_simulation.classes.EventManagers
         private static BicycleLightEm _instance;
         private List<IDrawAble> _subscribed = new List<IDrawAble>();
         private static readonly object Padlock = new object();
-
         private BicycleLightEm() {}
-        
         public static BicycleLightEm Instance
         {
             get
@@ -27,6 +26,7 @@ namespace traffic_light_simulation.classes.EventManagers
                 }
             }
         }
+        
         public void Subscribe(IDrawAble drawAble)
         {
             _subscribed.Add(drawAble);

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net.Mime;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.Communication;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.GlobalScripts;
+
 
 namespace traffic_light_simulation.classes.WorldPrefabs
 {
@@ -55,7 +54,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void DrawId(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(TextureManager.Instance.getFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 10), Color.Black);
+            spriteBatch.DrawString(TextureManager.Instance.GetFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 10), Color.Black);
         }
 
         public static TrafficLight CreateInstance(Vector2 pos, int routeId, Vector2 targetArea)

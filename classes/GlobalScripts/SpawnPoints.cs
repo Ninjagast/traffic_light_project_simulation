@@ -1,26 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
-using Microsoft.Xna.Framework;
 using traffic_light_simulation.classes.dataClasses;
-using traffic_light_simulation.classes.EventManagers;
+using traffic_light_simulation.classes.dataClasses.ServerRequestData;
+
 
 namespace traffic_light_simulation.classes.GlobalScripts
 {
     public class SpawnPoints
     {
-        private List<DirectionMap> _landSpawnPoints;
-        private List<DirectionMap> _waterSpawnPoints;
-        private Random _random = new Random();
-        
         private static SpawnPoints _instance;
         private static readonly object Padlock = new object();
-
         private SpawnPoints() {}
-        
         public static SpawnPoints Instance
         {
             get
@@ -32,10 +24,13 @@ namespace traffic_light_simulation.classes.GlobalScripts
                         _instance = new SpawnPoints();
                     }
                     return _instance;
-                    _instance.GetSpawnPoints();
                 }
             }
         }
+        
+        private List<DirectionMap> _landSpawnPoints;
+        private List<DirectionMap> _waterSpawnPoints;
+        private Random _random = new Random();
 
         public void GetSpawnPoints()
         {

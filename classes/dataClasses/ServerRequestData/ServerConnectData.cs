@@ -1,6 +1,6 @@
-﻿namespace traffic_light_simulation.classes.dataClasses
+﻿namespace traffic_light_simulation.classes.dataClasses.ServerRequestData
 {
-    public class connectData
+    public class ConnectData
     {
         public string sessionName { get; set; }
         public int sessionVersion { get; set; }

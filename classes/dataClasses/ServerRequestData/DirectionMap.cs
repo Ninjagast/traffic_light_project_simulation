@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
-namespace traffic_light_simulation.classes.dataClasses
+namespace traffic_light_simulation.classes.dataClasses.ServerRequestData
 {
     public class DirectionMap
     {

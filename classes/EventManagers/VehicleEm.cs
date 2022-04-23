@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.GlobalScripts;
 using traffic_light_simulation.classes.WorldPrefabs;
+
 
 namespace traffic_light_simulation.classes.EventManagers
 {
@@ -13,15 +13,7 @@ namespace traffic_light_simulation.classes.EventManagers
         private static VehicleEm _instance;
         private Dictionary<int, IDrawAble> _subscribed = new Dictionary<int, IDrawAble>();
         private static readonly object Padlock = new object();
-        private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
-        
-//      Three speed modifiers possible 1 / 2 / 5
-        public int DefaultSpeed = 2;
-
-        private int _id = 0;
-
         private VehicleEm() {}
-        
         public static VehicleEm Instance
         {
             get
@@ -36,6 +28,12 @@ namespace traffic_light_simulation.classes.EventManagers
                 }
             }
         }
+        
+//      Three speed modifiers possible 1 / 2 / 5
+        public int DefaultSpeed = 2;
+        private int _id = 0;
+
+        private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
         
         public void Subscribe(IDrawAble drawAble)
         {
@@ -104,14 +102,9 @@ namespace traffic_light_simulation.classes.EventManagers
             return -1;
         }
 
-        public Dictionary<Vector2, int> GetCellGrid()
-        {
-            return _claimedCells;
-        }
-
         public void DebugDrawMarkers(SpriteBatch spriteBatch)
         {
-            foreach (var claimedCell in VehicleEm.Instance.GetCellGrid())
+            foreach (var claimedCell in _claimedCells)
             {
                 spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
                     new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 99, 50), Color.White);

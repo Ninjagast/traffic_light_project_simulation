@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.GlobalScripts;
+
 
 namespace traffic_light_simulation.classes.UI
 {
@@ -11,8 +10,9 @@ namespace traffic_light_simulation.classes.UI
     {
         private bool _selected = false;
         private string _userInput = "";
-        private Vector2 _textLocation;
         private string _name;
+        
+        private Vector2 _textLocation;
         private Vector2 _pos;
 
         public InputField(Vector2 pos, string name)
@@ -32,7 +32,7 @@ namespace traffic_light_simulation.classes.UI
             {
                 spriteBatch.Draw(TextureManager.Instance.GetButtonTexture("FieldTexture"), _pos, Color.White);
             }
-            spriteBatch.DrawString(TextureManager.Instance.getFont(), _userInput, _textLocation, Color.Black);
+            spriteBatch.DrawString(TextureManager.Instance.GetFont(), _userInput, _textLocation, Color.Black);
         }
 
         public void OnClick(MouseState mouseState)

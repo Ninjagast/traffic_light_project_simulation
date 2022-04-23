@@ -9,6 +9,7 @@ using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.GlobalScripts;
 
+
 namespace traffic_light_simulation.classes.UI
 {
     public class UiHandler
@@ -31,11 +32,11 @@ namespace traffic_light_simulation.classes.UI
             }
         }
         
-        private Dictionary<string, IButtonBase> _buttons = new Dictionary<string, IButtonBase>();
-        private Dictionary<string, IInputField> _inputFields = new Dictionary<string, IInputField>();
+        private Dictionary<string, IButtonBase>      _buttons           = new Dictionary<string, IButtonBase>();
+        private Dictionary<string, IInputField>      _inputFields       = new Dictionary<string, IInputField>();
         private Dictionary<string, RadioButtonGroup> _radioButtonGroups = new Dictionary<string, RadioButtonGroup>();
+        
         private ButtonStates _currentButtonState = ButtonStates.Nothing;
-
 
         public void Subscribe(IButtonBase buttonBase)
         {
@@ -127,7 +128,7 @@ namespace traffic_light_simulation.classes.UI
                         UnSubscribe("SessionVersionField");
 
                         Server.Instance.StartServer();
-                        SimulationStateHandler.Instance.State = SimulationStates.WaitingForConnection;
+                        EventManagerEm.Instance.State = SimulationStates.WaitingForConnection;
                     }
                     break;
                     
@@ -144,7 +145,7 @@ namespace traffic_light_simulation.classes.UI
                     EventManagerEm.Instance.Subscribe(DebugManager.Instance);
                     DebugManager.Instance.SetUp();
                     Server.Instance.StartServer();
-                    SimulationStateHandler.Instance.State = SimulationStates.WaitingForConnection;
+                    EventManagerEm.Instance.State = SimulationStates.WaitingForConnection;
                     break;
                 
                 case ButtonStates.DebugButton:
@@ -158,7 +159,7 @@ namespace traffic_light_simulation.classes.UI
                         UnSubscribe("SessionVersionField");
 
                         CreationManager.CreateDebugButtons();
-                        SimulationStateHandler.Instance.State = SimulationStates.SettingUpDebugMode;
+                        EventManagerEm.Instance.State = SimulationStates.SettingUpDebugMode;
                     }
                     break;
                 

@@ -5,7 +5,6 @@
         DebugButton,
         PlayButton,
         DebugPlayButton,
-        Nothing,
-        ShowClaimedCellsRadio
+        Nothing
     }
 }

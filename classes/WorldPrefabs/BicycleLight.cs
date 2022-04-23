@@ -1,9 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.GlobalScripts;
+
 
 namespace traffic_light_simulation.classes.WorldPrefabs
 {
@@ -34,7 +33,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void DrawId(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(TextureManager.Instance.getFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 10), Color.Black);
+            spriteBatch.DrawString(TextureManager.Instance.GetFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 10), Color.Black);
         }
 
         public static BicycleLight CreateInstance(Vector2 pos, int routeId)

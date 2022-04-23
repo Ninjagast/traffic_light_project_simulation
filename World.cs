@@ -126,7 +126,7 @@ namespace traffic_light_simulation
                 Exit();
 
 
-            SimulationStates currentState = SimulationStateHandler.Instance.State;
+            SimulationStates currentState = EventManagerEm.Instance.State;
             
             if (currentState == SimulationStates.Running)
             {
@@ -162,7 +162,7 @@ namespace traffic_light_simulation
             {
                 if (Server.Instance.HasConnection)
                 {
-                    SimulationStateHandler.Instance.State = SimulationStates.Running;
+                    EventManagerEm.Instance.State = SimulationStates.Running;
                 }
             }
 
@@ -175,7 +175,7 @@ namespace traffic_light_simulation
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            SimulationStates currentState = SimulationStateHandler.Instance.State;
+            SimulationStates currentState = EventManagerEm.Instance.State;
 
             if (currentState == SimulationStates.Running)
             {
@@ -198,13 +198,13 @@ namespace traffic_light_simulation
             else if (currentState == SimulationStates.SettingUpDebugMode)
             {
                 _spriteBatch.Begin();
-                _spriteBatch.DrawString(TextureManager.Instance.getFont(), "", new Vector2(5,5), Color.Black);
+                _spriteBatch.DrawString(TextureManager.Instance.GetFont(), "", new Vector2(5,5), Color.Black);
                 UiHandler.Instance.Draw(_spriteBatch);
             }
             else// _state == WaitingForConnection.
             {
                 _spriteBatch.Begin();
-                _spriteBatch.DrawString(TextureManager.Instance.getFont() ,"Waiting for a connection", new Vector2(250,250), Color.Black);
+                _spriteBatch.DrawString(TextureManager.Instance.GetFont() ,"Waiting for a connection", new Vector2(250,250), Color.Black);
             }
             
             _spriteBatch.End();
@@ -230,7 +230,7 @@ namespace traffic_light_simulation
         {
             if (Keyboard.GetState().IsKeyDown(key) && _prevKeyboardState.IsKeyUp(key))
             {
-                SimulationStateHandler.Instance.State = state;
+                EventManagerEm.Instance.State = state;
             }
         }
     }

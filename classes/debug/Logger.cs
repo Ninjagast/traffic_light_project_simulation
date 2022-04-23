@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text.Json;
-using Microsoft.Xna.Framework.Content;
-using traffic_light_simulation.classes.Communication;
 using traffic_light_simulation.classes.dataClasses;
+
 
 namespace traffic_light_simulation.classes.debug
 {
@@ -30,16 +29,13 @@ namespace traffic_light_simulation.classes.debug
         }
         
         private string _loggingPath;
-        private List<DebugLogEntitySpawn> _loggedEntitySpawns = new List<DebugLogEntitySpawn>();
-        private List<DebugServerData> _loggedServerMessages = new List<DebugServerData>();
+        
+        private List<DebugLogEntitySpawn> _loggedEntitySpawns   = new List<DebugLogEntitySpawn>();
+        private List<DebugServerData>     _loggedServerMessages = new List<DebugServerData>();
 
         public void SetUp()
         {
-            _setUpLogging();
-        }
-        
-        private void _setUpLogging()
-        {
+//          creates debug storage dirs (My games and My games/TrafficSimulation)
             string documentDirPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (!File.Exists(Path.Combine(documentDirPath, "My Games")))
             {
@@ -52,7 +48,7 @@ namespace traffic_light_simulation.classes.debug
             }
             _loggingPath = Path.Combine(documentDirPath, "My Games", "TrafficSimulation");
         }
-
+        
         public void LogServerMessage(DebugServerData data)
         {
             _loggedServerMessages.Add(data);
@@ -77,7 +73,7 @@ namespace traffic_light_simulation.classes.debug
 //                      and put the previous log into the Prev position
                         File.Move(Path.Combine(_loggingPath, "LatestEntityLog.Json"), Path.Combine(_loggingPath, "PrevEntityLog.Json"));
                     }
-//                  same as above
+//                  same as above but for the serverLogs
                     if (File.Exists(Path.Combine(_loggingPath, "LatestServerLog.Json")))
                     {
                         File.Delete(Path.Combine(_loggingPath, "PrevServerLog.Json"));

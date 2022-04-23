@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.WorldPrefabs;
 
+
 namespace traffic_light_simulation.classes.EventManagers
 {
     public class BridgeHitTreeEm: IEventManager
@@ -11,9 +12,7 @@ namespace traffic_light_simulation.classes.EventManagers
         private static BridgeHitTreeEm _instance;
         private List<HitTree> _subscribed = new List<HitTree>();
         private static readonly object Padlock = new object();
-
         private BridgeHitTreeEm() {}
-        
         public static BridgeHitTreeEm Instance
         {
             get

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 
 namespace traffic_light_simulation.classes.WorldPrefabs

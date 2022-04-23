@@ -1,4 +1,6 @@
-﻿namespace traffic_light_simulation.classes.dataClasses
+﻿using traffic_light_simulation.classes.dataClasses.ServerRequestData;
+
+namespace traffic_light_simulation.classes.dataClasses
 {
     public class DebugServerData
     {

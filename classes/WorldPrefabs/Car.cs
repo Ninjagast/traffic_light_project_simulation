@@ -3,30 +3,31 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.dataClasses;
+using traffic_light_simulation.classes.dataClasses.ServerRequestData;
 using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.GlobalScripts;
 
+
 namespace traffic_light_simulation.classes.WorldPrefabs
 {
     public class Car: IDrawAble
     {
+        private string _lastDirection;
+        private int _currentFrame;
+        private int _id;
+        private int _step;
+        private int _repetition;
+        private int _speed;
+        private int _reaction;
+        private int _waiting;
+
         private Vector2 _pos;
         private States _state;
         private DirectionMap _directionMap;
         private Dictionary<string, Vector2> _orientation;
         
-        private string _lastDirection;
-        private int _currentFrame = 0;
-        private int _id = -1;
-        private int _step = 0;
-        private int _repetition = 0;
-        private int _speed;
-        private bool _claimedStandingCell = false;
-        private int _reaction = 0;
-        private int _waiting = 0;
-
         public void Update()
         {
             if(_state == States.Transit)
@@ -41,10 +42,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     _pos += (_orientation[_lastDirection]);
                     if (_currentFrame == (50 / _speed))
                     {
-                        _claimedStandingCell = false;
                         _state = States.Driving;
-                        // Console.WriteLine("current position");
-                        // Console.WriteLine(_pos);
                         _currentFrame = 0;
                     }
                 }
@@ -55,14 +53,13 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             }
             else if (_state == States.Driving)
             {
+//              if have not yet repeated this step enough time
                 if (_repetition < _directionMap.directions[_step].repeat)
                 {          
-
                     Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * ((50 / _speed) - _currentFrame));
                     if (VehicleEm.Instance.IsCellFree(targetPos))
                     {
                         VehicleEm.Instance.ClaimCell(targetPos, _id);        
-                        _claimedStandingCell = false;
                         _state = States.Transit;
                         _lastDirection = _directionMap.directions[_step].direction;
                         _repetition++;
@@ -81,16 +78,20 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     {
                         VehicleEm.Instance.UnClaimCell(_pos); 
                         VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
-                        return;
                     }
-                    
-                    Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * ((50 / _speed) - _currentFrame));
-                    if (VehicleEm.Instance.IsCellFree(targetPos))
+                    else
                     {
-                        VehicleEm.Instance.ClaimCell(targetPos, _id);  
-                        _claimedStandingCell = false;
-                        _state = States.Transit;
-                        _lastDirection = _directionMap.directions[_step].direction;
+                        Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * ((50 / _speed) - _currentFrame));
+                        if (VehicleEm.Instance.IsCellFree(targetPos))
+                        {
+                            VehicleEm.Instance.ClaimCell(targetPos, _id);  
+                            _state = States.Transit;
+                            _lastDirection = _directionMap.directions[_step].direction;
+                        }
+                        else
+                        {
+                            _waiting = 0;
+                        }
                     }
                 }
             }
@@ -116,7 +117,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void DrawId(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(TextureManager.Instance.getFont(), _id.ToString(), _pos,Color.Black);
+            spriteBatch.DrawString(TextureManager.Instance.GetFont(), _id.ToString(), _pos,Color.Black);
         }
 
         public static Car CreateInstance(Random random)
@@ -134,7 +135,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 }
                 else if (i == 9)
                 {
-//                  Not a single position was available
+//                  Not a single position was available (from the ones we checked)
                     return null;
                 }
                 i++;

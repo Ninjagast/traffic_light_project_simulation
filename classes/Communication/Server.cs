@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Loader;
 using WebSocketSharp;
 using System.Text.Json;
 using traffic_light_simulation.classes.dataClasses;
+using traffic_light_simulation.classes.dataClasses.ServerRequestData;
+using traffic_light_simulation.classes.dataClasses.ServerRequests;
 using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
-using WebSocket = WebSocketSharp.WebSocket;
 using Logger = traffic_light_simulation.classes.debug.Logger;
 
 
@@ -17,9 +16,7 @@ namespace traffic_light_simulation.classes.Communication
     {
         private static Server _instance;
         private static readonly object Padlock = new object();
-
         private Server() {}
-        
         public static Server Instance
         {
             get
@@ -36,24 +33,25 @@ namespace traffic_light_simulation.classes.Communication
         }
         
         private readonly string _address = "ws://keyslam.com:8080";
-        private WebSocket _webSocket;
-        public bool HasConnection = false; 
         private string _sessionName;
         private string _sessionVersion;
+        public bool HasConnection; 
+        private WebSocket _webSocket;
 
         public void StartServer()
         {
             _webSocket = new WebSocket(_address);
+//          setting up websocket functions
             _webSocket.OnOpen += (sender, e) =>
             {
-                connectData connectData = new connectData
+                ConnectData connectData = new ConnectData
                 {
-                    sessionName = _sessionName,
-                    sessionVersion = int.Parse(_sessionVersion),
-                    discardParseErrors = false,
-                    discardEventTypeErrors = false,
+                    sessionName                = _sessionName,
+                    sessionVersion             = int.Parse(_sessionVersion),
+                    discardParseErrors         = false,
+                    discardEventTypeErrors     = false,
                     discardMalformedDataErrors = false,
-                    discardInvalidStateErrors = false
+                    discardInvalidStateErrors  = false
                 };
                 
                 ServerConnectRequest connectRequest = new ServerConnectRequest {data = connectData};
@@ -70,7 +68,7 @@ namespace traffic_light_simulation.classes.Communication
             
             _webSocket.OnError += (sander, e) =>
             {
-                Console.WriteLine("error pik");
+                Console.WriteLine("Server error");
                 Console.WriteLine(e.Message);
             };
             
@@ -146,7 +144,6 @@ namespace traffic_light_simulation.classes.Communication
 
         public void EntityEnteredZone(int routeId)
         {
-            Console.WriteLine("EntityEnteredZone");
             RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
             ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data};
             _webSocket.Send (JsonSerializer.Serialize(serverRequest));
@@ -154,7 +151,6 @@ namespace traffic_light_simulation.classes.Communication
 
         public void EntityExitedZone(int routeId)
         {
-            Console.WriteLine("EntityExitedZone");
             RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
             ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data, eventType = "ENTITY_EXITED_ZONE"};
             _webSocket.Send (JsonSerializer.Serialize(serverRequest));

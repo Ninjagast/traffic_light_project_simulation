@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.GlobalScripts;
 
+
 namespace traffic_light_simulation.classes.WorldPrefabs
 {
     public class PedestrianLight: IDrawAble
@@ -47,7 +48,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void DrawId(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(TextureManager.Instance.getFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 20), Color.Black);
+            spriteBatch.DrawString(TextureManager.Instance.GetFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 20), Color.Black);
         }
 
         public static PedestrianLight CreateInstance(Vector2 pos, int routeId)

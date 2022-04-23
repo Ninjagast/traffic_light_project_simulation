@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.WorldPrefabs;
+
 
 namespace traffic_light_simulation.classes.EventManagers
 {
@@ -11,7 +11,6 @@ namespace traffic_light_simulation.classes.EventManagers
         private static TrafficLightEm _instance;
         private List<IDrawAble> _subscribed = new List<IDrawAble>();
         private static readonly object Padlock = new object();
-
         private TrafficLightEm() {}
         public static TrafficLightEm Instance
         {

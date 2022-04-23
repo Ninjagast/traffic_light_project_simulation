@@ -5,16 +5,17 @@ using Microsoft.Xna.Framework.Input;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.GlobalScripts;
 
+
 namespace traffic_light_simulation.classes.UI
 {
     public class RadioButtonGroup
     {
+        public string Name { get; set; }
+        
         private List<IButtonBase> _radioButtons = new List<IButtonBase>();
         private Vector2 _pos;
         private Vector2 _offset;
         private Vector2 _textOffset;
-        public string Name { get; set; }
-        
 
         public RadioButtonGroup(Vector2 pos, string name, Dictionary<string, DebugOptions> radioButtons, List<string> texts ,Vector2 offset, Vector2 textOffset)
         {

@@ -1,19 +1,20 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
 
 namespace traffic_light_simulation.classes.GlobalScripts
 {
     public class Camera
     {
-        private float _zoom = 0.8f;
         private Vector2 _position;
         private Rectangle _bounds;
         public Matrix Transform;
 
-        private int _movementSpeed = 10;
-
+//      todo these will be changeable using debug mode
+        public int _movementSpeed { get; set; } = 10;
+        public float Zoom { get; set; } = 0.8f;
+        
         public Camera(Viewport viewport)
         {
             _bounds = viewport.Bounds;
@@ -23,7 +24,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
         private void _updateMatrix()
         {
             Transform = Matrix.CreateTranslation(new Vector3(-_position.X, -_position.Y, 0)) *
-                        Matrix.CreateScale(_zoom) *
+                        Matrix.CreateScale(Zoom) *
                         Matrix.CreateTranslation(new Vector3(_bounds.Width * 0.5f, _bounds.Height * 0.5f, 0));
         }
 

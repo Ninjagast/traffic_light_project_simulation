@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.UI;
+using traffic_light_simulation.classes.UI.buttons;
 using traffic_light_simulation.classes.WorldPrefabs;
 
 
@@ -66,11 +67,11 @@ namespace traffic_light_simulation.classes.GlobalScripts
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,100), "Show CarIds",            DebugOptions.DrawCarIds,             new Vector2(-180,15),  "CarIds"));
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,150), "Show TrafficLightIds",   DebugOptions.DrawTrafficLightIds,    new Vector2(-180,15),  "TrafficLightIds"));
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,200), "Show BicycleLightIds",   DebugOptions.DrawBicycleLightIds,    new Vector2(-180,15),  "BicycleLightIds"));
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200, 250),"Show PedestrianLightIds",DebugOptions.DrawPedestrianLightIds, new Vector2(-180, 15), "PedestrianLightIds"));
-
-            UiHandler.Instance.Subscribe(new RadioButtonGroup(new Vector2(650,50), "LoggingReplay", new Dictionary<string, DebugOptions> {{"logging", DebugOptions.Logging}, {"replay", DebugOptions.Replay}}, new List<string> {"Turn on the logger?", "Use latest replay?"} ,new Vector2(0, 75), new Vector2(-150, 15)));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,250), "Show PedestrianLightIds",DebugOptions.DrawPedestrianLightIds, new Vector2(-180, 15), "PedestrianLightIds"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,300), "Turn on the logger?",    DebugOptions.Logging,                new Vector2(-180, 15), "Logger"));
             
-            UiHandler.Instance.Subscribe(new BaseButton(new Vector2(350, 650), ButtonStates.DebugPlayButton, "PlayButton"));
+            UiHandler.Instance.Subscribe(new BaseButton(new Vector2(300, 650), ButtonStates.DebugPlayButton, "PlayButton"));
+            UiHandler.Instance.Subscribe(new BaseButton(new Vector2(400, 650), ButtonStates.Replay, "ReplayButton"));
         }
     }
 }

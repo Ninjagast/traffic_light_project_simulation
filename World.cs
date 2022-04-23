@@ -109,6 +109,7 @@ namespace traffic_light_simulation
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("CheckedCheckBox"), "CheckedCheckBox");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("CheckBox"), "CheckBox");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("SelectedRadioButton"), "SelectedRadioButton");
+            TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("ReplayButton"), "ReplayButton");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("RadioButton"), "RadioButton");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("ClaimMarker"), "ClaimMarker");
             
@@ -150,6 +151,21 @@ namespace traffic_light_simulation
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
                 CheckKeyPress(Keys.Space, SimulationStates.Running);
             }
+            else if (currentState == SimulationStates.PausedReplay)
+            {
+                _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
+                CheckKeyPress(Keys.Space, SimulationStates.Replaying);
+            }
+            else if (currentState == SimulationStates.Replaying)
+            {
+                CheckKeyPress(Keys.Space,SimulationStates.PausedReplay);
+
+                DebugManager.Instance.UpdateTick += 1;
+                ReplayManager.Instance.CheckTick();
+                                
+                _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
+                EventManagerEm.Instance.Update();
+            }
             else if (currentState == SimulationStates.StartScreen)
             {
                 CheckMousePress();
@@ -177,13 +193,14 @@ namespace traffic_light_simulation
             GraphicsDevice.Clear(Color.CornflowerBlue);
             SimulationStates currentState = EventManagerEm.Instance.State;
 
-            if (currentState == SimulationStates.Running)
+            if (currentState == SimulationStates.Running || currentState == SimulationStates.Replaying)
             {
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
                 _spriteBatch.Draw(_backGround, new Rectangle(0,0,1850,815), Color.White);
+                UiHandler.Instance.Draw(_spriteBatch, _camera.Pos + new Vector2(-400, -400));
                 EventManagerEm.Instance.Draw(_spriteBatch);
             }
-            else if (currentState == SimulationStates.Paused)
+            else if (currentState == SimulationStates.Paused || currentState == SimulationStates.PausedReplay)
             {
                 GraphicsDevice.Clear(Color.Gray);
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
@@ -193,13 +210,13 @@ namespace traffic_light_simulation
             else if (currentState == SimulationStates.StartScreen)
             {
                 _spriteBatch.Begin();
-                UiHandler.Instance.Draw(_spriteBatch);
+                UiHandler.Instance.Draw(_spriteBatch, Vector2.One);
             }
             else if (currentState == SimulationStates.SettingUpDebugMode)
             {
                 _spriteBatch.Begin();
                 _spriteBatch.DrawString(TextureManager.Instance.GetFont(), "", new Vector2(5,5), Color.Black);
-                UiHandler.Instance.Draw(_spriteBatch);
+                UiHandler.Instance.Draw(_spriteBatch, Vector2.One);
             }
             else// _state == WaitingForConnection.
             {

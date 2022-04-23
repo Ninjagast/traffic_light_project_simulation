@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,6 +9,7 @@ using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.GlobalScripts;
+using traffic_light_simulation.classes.UI.buttons;
 
 
 namespace traffic_light_simulation.classes.UI
@@ -35,6 +37,8 @@ namespace traffic_light_simulation.classes.UI
         private Dictionary<string, IButtonBase>      _buttons           = new Dictionary<string, IButtonBase>();
         private Dictionary<string, IInputField>      _inputFields       = new Dictionary<string, IInputField>();
         private Dictionary<string, RadioButtonGroup> _radioButtonGroups = new Dictionary<string, RadioButtonGroup>();
+        private List<string>                         _warnings          = new List<string>();
+        private float _warningCounter = 300f;
         
         private ButtonStates _currentButtonState = ButtonStates.Nothing;
 
@@ -65,7 +69,7 @@ namespace traffic_light_simulation.classes.UI
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 offsetPosition)
         {
             foreach (var button in _buttons)
             {
@@ -80,6 +84,21 @@ namespace traffic_light_simulation.classes.UI
             foreach (var radioButton in _radioButtonGroups)
             {
                 radioButton.Value.Draw(spriteBatch);
+            }
+
+            if (_warnings.Count > 0)
+            {
+                _warningCounter -= 1;
+                if (_warningCounter < 2)
+                {
+                    _warningCounter = 300f;
+                    _warnings.RemoveAt(0);
+                }
+                else
+                {
+                    spriteBatch.DrawString(TextureManager.Instance.GetFont(), _warnings[0], new Vector2(10, 10) + offsetPosition, Color.Red * (_warningCounter / 300));
+                }
+            
             }
         }
 
@@ -122,26 +141,15 @@ namespace traffic_light_simulation.classes.UI
                     {
                         Server.Instance.SetServerNameVersion(_inputFields["SessionNameField"].GetUserInput(), _inputFields["SessionVersionField"].GetUserInput());
                         
-                        UnSubscribe("PlayButton");
-                        UnSubscribe("DebugButton");
-                        UnSubscribe("SessionNameField");
-                        UnSubscribe("SessionVersionField");
-
+                        _massUnsub();
                         Server.Instance.StartServer();
                         EventManagerEm.Instance.State = SimulationStates.WaitingForConnection;
                     }
                     break;
                     
                 case ButtonStates.DebugPlayButton:
-                    UnSubscribe("PlayButton");
-                    UnSubscribe("ShowClaimedCells");
-                    UnSubscribe("ClaimedCells");
-                    UnSubscribe("CarIds");
-                    UnSubscribe("TrafficLightIds");
-                    UnSubscribe("BicycleLightIds");
-                    UnSubscribe("PedestrianLightIds");
-                    UnSubscribe("Logging");
                     
+                    _massUnsub();
                     EventManagerEm.Instance.Subscribe(DebugManager.Instance);
                     DebugManager.Instance.SetUp();
                     Server.Instance.StartServer();
@@ -153,13 +161,29 @@ namespace traffic_light_simulation.classes.UI
                     {
                         Server.Instance.SetServerNameVersion(_inputFields["SessionNameField"].GetUserInput(), _inputFields["SessionVersionField"].GetUserInput());
 
-                        UnSubscribe("PlayButton");
-                        UnSubscribe("DebugButton");
-                        UnSubscribe("SessionNameField");
-                        UnSubscribe("SessionVersionField");
-
+                        _massUnsub();
                         CreationManager.CreateDebugButtons();
                         EventManagerEm.Instance.State = SimulationStates.SettingUpDebugMode;
+                    }
+                    break;
+                
+                case ButtonStates.Replay:
+                    Logger.Instance.SetUp();
+                    if (Logger.Instance.DoesALogExist())
+                    {
+                        if (ReplayManager.Instance.ProcessLogs())
+                        {
+                            _massUnsub();
+                            EventManagerEm.Instance.State = SimulationStates.Replaying;
+                        }
+                        else
+                        {
+                            _warnings.Add("The logs are invalid");
+                        }
+                    }
+                    else
+                    {
+                        _warnings.Add("No available logs exist (check names)");
                     }
                     break;
                 
@@ -173,6 +197,16 @@ namespace traffic_light_simulation.classes.UI
             }
             _currentButtonState = ButtonStates.Nothing;
         }
+
+        private void _massUnsub()
+        {
+            _inputFields = new Dictionary<string, IInputField>();
+            _buttons = new Dictionary<string, IButtonBase>();
+            _radioButtonGroups = new Dictionary<string, RadioButtonGroup>();
+            _warnings = new List<string>();
+            _warningCounter = 300f;
+        }
+        
         public static bool CheckClick(MouseState mouseState, Vector2 pos, int textureWidth, int textureHeight)
         {
             Point point = new Point(mouseState.X, mouseState.Y);
@@ -184,6 +218,11 @@ namespace traffic_light_simulation.classes.UI
                 }
             }
             return false;
+        }
+
+        public void AddWarning(string warning)
+        {
+            _warnings.Add(warning);
         }
     }
 }

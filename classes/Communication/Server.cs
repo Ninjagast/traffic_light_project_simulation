@@ -36,7 +36,7 @@ namespace traffic_light_simulation.classes.Communication
         private string _sessionName;
         private string _sessionVersion;
         public bool HasConnection; 
-        private WebSocket _webSocket;
+        private WebSocket _webSocket = null;
 
         public void StartServer()
         {
@@ -81,9 +81,16 @@ namespace traffic_light_simulation.classes.Communication
 
             if (data != null)
             {
+                if (data.eventType == "SESSION_START" || data.eventType == "SESSION_STOP")
+                {
+                    HasConnection = data.eventType == "SESSION_START";
+                    Console.WriteLine($"{data.eventType}]");
+                    return;
+                }
+
                 if (DebugManager.Instance.Logging)
                 {
-                    DebugServerData log = new DebugServerData
+                    DebugLogServerData log = new DebugLogServerData
                     {
                         data = data.data,
                         eventType = data.eventType,
@@ -92,13 +99,6 @@ namespace traffic_light_simulation.classes.Communication
                     Logger.Instance.LogServerMessage(log);
                 }
                 
-                if (data.eventType == "SESSION_START" || data.eventType == "SESSION_STOP")
-                {
-                    HasConnection = data.eventType == "SESSION_START";
-                    Console.WriteLine($"{data.eventType}]");
-                    return;
-                }
-
                 States state;
                 switch (data.data.state)
                 {
@@ -144,16 +144,22 @@ namespace traffic_light_simulation.classes.Communication
 
         public void EntityEnteredZone(int routeId)
         {
-            RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
-            ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data};
-            _webSocket.Send (JsonSerializer.Serialize(serverRequest));
+            if (EventManagerEm.Instance.State != SimulationStates.Replaying)
+            {
+                RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
+                ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data};
+                _webSocket.Send (JsonSerializer.Serialize(serverRequest));
+            }
         }
 
         public void EntityExitedZone(int routeId)
         {
-            RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
-            ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data, eventType = "ENTITY_EXITED_ZONE"};
-            _webSocket.Send (JsonSerializer.Serialize(serverRequest));
+            if (EventManagerEm.Instance.State != SimulationStates.Replaying)
+            {
+                RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
+                ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data, eventType = "ENTITY_EXITED_ZONE"};
+                _webSocket.Send (JsonSerializer.Serialize(serverRequest));
+            }
         }
 
         public void SetServerNameVersion(string name, string version)

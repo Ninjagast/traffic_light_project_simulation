@@ -28,10 +28,10 @@ namespace traffic_light_simulation.classes.debug
             }
         }
         
-        private string _loggingPath;
+        public string LoggingPath {get; set; }
         
         private List<DebugLogEntitySpawn> _loggedEntitySpawns   = new List<DebugLogEntitySpawn>();
-        private List<DebugServerData>     _loggedServerMessages = new List<DebugServerData>();
+        private List<DebugLogServerData>  _loggedServerMessages = new List<DebugLogServerData>();
 
         public void SetUp()
         {
@@ -46,10 +46,10 @@ namespace traffic_light_simulation.classes.debug
             {
                 Directory.CreateDirectory(Path.Combine(documentDirPath, "My Games", "TrafficSimulation"));
             }
-            _loggingPath = Path.Combine(documentDirPath, "My Games", "TrafficSimulation");
+            LoggingPath = Path.Combine(documentDirPath, "My Games", "TrafficSimulation");
         }
         
-        public void LogServerMessage(DebugServerData data)
+        public void LogServerMessage(DebugLogServerData data)
         {
             _loggedServerMessages.Add(data);
         }
@@ -66,18 +66,18 @@ namespace traffic_light_simulation.classes.debug
                 try
                 {
 //                  if we already have a log
-                    if (File.Exists(Path.Combine(_loggingPath, "LatestEntityLog.Json")))
+                    if (File.Exists(Path.Combine(LoggingPath, "LatestEntityLog.Json")))
                     {
 //                      delete the log which predates the previous log
-                        File.Delete(Path.Combine(_loggingPath, "PrevEntityLog.Json"));
+                        File.Delete(Path.Combine(LoggingPath, "PrevEntityLog.Json"));
 //                      and put the previous log into the Prev position
-                        File.Move(Path.Combine(_loggingPath, "LatestEntityLog.Json"), Path.Combine(_loggingPath, "PrevEntityLog.Json"));
+                        File.Move(Path.Combine(LoggingPath, "LatestEntityLog.Json"), Path.Combine(LoggingPath, "PrevEntityLog.Json"));
                     }
 //                  same as above but for the serverLogs
-                    if (File.Exists(Path.Combine(_loggingPath, "LatestServerLog.Json")))
+                    if (File.Exists(Path.Combine(LoggingPath, "LatestServerLog.Json")))
                     {
-                        File.Delete(Path.Combine(_loggingPath, "PrevServerLog.Json"));
-                        File.Move(Path.Combine(_loggingPath, "LatestServerLog.Json"), Path.Combine(_loggingPath, "PrevServerLog.Json"));
+                        File.Delete(Path.Combine(LoggingPath, "PrevServerLog.Json"));
+                        File.Move(Path.Combine(LoggingPath, "LatestServerLog.Json"), Path.Combine(LoggingPath, "PrevServerLog.Json"));
                     }
 
                     _createLoggingFiles("LatestServerLog.Json","LatestEntityLog.Json");
@@ -95,17 +95,26 @@ namespace traffic_light_simulation.classes.debug
 
         private void _createLoggingFiles(string serverFileName, string entityFileName)
         {
-            File.Create(Path.Combine(_loggingPath, serverFileName)).Close();
-            File.Create(Path.Combine(_loggingPath, entityFileName)).Close();
+            File.Create(Path.Combine(LoggingPath, serverFileName)).Close();
+            File.Create(Path.Combine(LoggingPath, entityFileName)).Close();
             
-            using (StreamWriter sw = new StreamWriter(Path.Combine(_loggingPath, serverFileName)))
+            using (StreamWriter sw = new StreamWriter(Path.Combine(LoggingPath, serverFileName)))
             {
                 sw.WriteLine(JsonSerializer.Serialize(_loggedServerMessages));
             }
-            using (StreamWriter sw = new StreamWriter(Path.Combine(_loggingPath, entityFileName)))
+            using (StreamWriter sw = new StreamWriter(Path.Combine(LoggingPath, entityFileName)))
             {
                 sw.WriteLine(JsonSerializer.Serialize(_loggedEntitySpawns));
             }
+        }
+
+        public bool DoesALogExist()
+        {
+            if (File.Exists(Path.Combine(LoggingPath, "LatestEntityLog.Json")) && File.Exists(Path.Combine(LoggingPath, "LatestServerLog.Json")))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

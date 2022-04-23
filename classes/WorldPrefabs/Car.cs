@@ -20,8 +20,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private int _step;
         private int _repetition;
         private int _speed;
-        private int _reaction;
-        private int _waiting;
 
         private Vector2 _pos;
         private States _state;
@@ -32,23 +30,16 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         {
             if(_state == States.Transit)
             {
-                if (_waiting >= _reaction)
+                if (_currentFrame == 1)
                 {
-                    if (_currentFrame == 1)
-                    {
-                        VehicleEm.Instance.UnClaimCell(_pos - _orientation[_lastDirection]);
-                    }
-                    _currentFrame++;
-                    _pos += (_orientation[_lastDirection]);
-                    if (_currentFrame == (50 / _speed))
-                    {
-                        _state = States.Driving;
-                        _currentFrame = 0;
-                    }
+                    VehicleEm.Instance.UnClaimCell(_pos - _orientation[_lastDirection]);
                 }
-                else
+                _currentFrame++;
+                _pos += (_orientation[_lastDirection]);
+                if (_currentFrame == (50 / _speed))
                 {
-                    _waiting++;
+                    _state = States.Driving;
+                    _currentFrame = 0;
                 }
             }
             else if (_state == States.Driving)
@@ -63,10 +54,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                         _state = States.Transit;
                         _lastDirection = _directionMap.directions[_step].direction;
                         _repetition++;
-                    }
-                    else
-                    {
-                        _waiting = 0;
                     }
                 }
                 else
@@ -88,10 +75,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                             _state = States.Transit;
                             _lastDirection = _directionMap.directions[_step].direction;
                         }
-                        else
-                        {
-                            _waiting = 0;
-                        }
                     }
                 }
             }
@@ -108,7 +91,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             {
                 if (state == States.Transit)
                 {
-                    _waiting = 0;
                     VehicleEm.Instance.UnClaimCell(_pos);
                 }
                 _state = state;
@@ -157,7 +139,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _lastDirection = map.directions[0].direction,
                 _id = VehicleEm.Instance.GetNextId(),
                 _speed = VehicleEm.Instance.DefaultSpeed,
-                _reaction = random.Next(0, 10),
             };
 
             if (DebugManager.Instance.Logging)
@@ -166,10 +147,44 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 {
                     Tick = DebugManager.Instance.UpdateTick,
                     DirectionMap = map,
+                    EntityType = "Car"
+                });
+            }
+            VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id);        
+            return returnObject;
+        }
+
+        public static Car CreateReplayInstance(DirectionMap directionMap)
+        {
+            Car returnObject = new Car
+            {
+                _directionMap = directionMap,
+                _pos = new Vector2(directionMap.vector2.x, directionMap.vector2.y),
+                _state = States.Driving,
+                _currentFrame = 0,
+                _orientation = new Dictionary<string, Vector2>
+                {
+                    {"LEFT",  new Vector2(-1, 0.5f)  * VehicleEm.Instance.DefaultSpeed},
+                    {"RIGHT", new Vector2(1, -0.5f)  * VehicleEm.Instance.DefaultSpeed},
+                    {"DOWN",  new Vector2(1, 0.5f)   * VehicleEm.Instance.DefaultSpeed},
+                    {"UP",    new Vector2(-1, -0.5f) * VehicleEm.Instance.DefaultSpeed}
+                },
+                _lastDirection = directionMap.directions[0].direction,
+                _id = VehicleEm.Instance.GetNextId(),
+                _speed = VehicleEm.Instance.DefaultSpeed,
+            };
+
+            if (DebugManager.Instance.Logging)
+            {
+                Logger.Instance.LogEntitySpawn(new DebugLogEntitySpawn
+                {
+                    Tick = DebugManager.Instance.UpdateTick,
+                    DirectionMap = directionMap,
                     EntityType = "car"
                 });
             }
             VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id);        
+            
             return returnObject;
         }
     }

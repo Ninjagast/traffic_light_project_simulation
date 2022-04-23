@@ -5,6 +5,7 @@
         DebugButton,
         PlayButton,
         DebugPlayButton,
-        Nothing
+        Nothing,
+        Replay
     }
 }

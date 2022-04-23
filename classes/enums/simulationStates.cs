@@ -6,6 +6,8 @@
         Running,
         WaitingForConnection,
         StartScreen,
-        SettingUpDebugMode
+        SettingUpDebugMode,
+        Replaying,
+        PausedReplay
     }
 }

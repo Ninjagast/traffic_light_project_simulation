@@ -7,8 +7,8 @@ namespace traffic_light_simulation.classes.GlobalScripts
 {
     public class Camera
     {
-        private Vector2 _position;
         private Rectangle _bounds;
+        public Vector2 Pos;
         public Matrix Transform;
 
 //      todo these will be changeable using debug mode
@@ -18,20 +18,20 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public Camera(Viewport viewport)
         {
             _bounds = viewport.Bounds;
-            _position = Vector2.Zero;
+            Pos = Vector2.Zero;
         }
 
         private void _updateMatrix()
         {
-            Transform = Matrix.CreateTranslation(new Vector3(-_position.X, -_position.Y, 0)) *
+            Transform = Matrix.CreateTranslation(new Vector3(-Pos.X, -Pos.Y, 0)) *
                         Matrix.CreateScale(Zoom) *
                         Matrix.CreateTranslation(new Vector3(_bounds.Width * 0.5f, _bounds.Height * 0.5f, 0));
         }
 
         private void _moveCamera(Vector2 movePosition)
         {
-            Vector2 newPosition = _position + movePosition;
-            _position = newPosition;
+            Vector2 newPosition = Pos + movePosition;
+            Pos = newPosition;
         }
 
         public void UpdateCamera(Viewport bounds)

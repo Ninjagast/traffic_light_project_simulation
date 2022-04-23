@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PlayButton.png</SourceFile>
-  <SourceTime>2022-04-19T15:26:52.8725404+02:00</SourceTime>
+  <SourceTime>2022-04-23T21:39:49.5852579+02:00</SourceTime>
   <DestFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/bin/DesktopGL/PlayButton.xnb</DestFile>
-  <DestTime>2022-04-19T15:29:19.9093418+02:00</DestTime>
+  <DestTime>2022-04-23T21:47:48.5869184+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

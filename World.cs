@@ -61,6 +61,7 @@ namespace traffic_light_simulation
             
             _camera = new Camera(_graphics.GraphicsDevice.Viewport);
             _random = new Random();
+            RouteTable.Instance.CreateTable(_random);
             
             _prevKeyboardState = Keyboard.GetState();
             _prevMouseState    = Mouse.GetState();
@@ -134,7 +135,8 @@ namespace traffic_light_simulation
                 DebugManager.Instance.UpdateTick += 1;
                 CheckKeyPress(Keys.Space,SimulationStates.Paused);
                 
-                if (_random.Next(0, 100) > 98) // 1% chance per tick to spawn a random car
+                // if (_random.Next(0, 100) > 98) // 1% chance per tick to spawn a random car
+                if(DebugManager.Instance.UpdateTick % 10 == 0)
                 {
                     Car car = Car.CreateInstance(_random);
                     if (car != null)
@@ -196,7 +198,7 @@ namespace traffic_light_simulation
             if (currentState == SimulationStates.Running || currentState == SimulationStates.Replaying)
             {
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
-                _spriteBatch.Draw(_backGround, new Rectangle(0,0,1850,815), Color.White);
+                _spriteBatch.Draw(_backGround, new Rectangle(0,0,2945,1491), Color.White);
                 UiHandler.Instance.Draw(_spriteBatch, _camera.Pos + new Vector2(-400, -400));
                 EventManagerEm.Instance.Draw(_spriteBatch);
             }
@@ -204,7 +206,7 @@ namespace traffic_light_simulation
             {
                 GraphicsDevice.Clear(Color.Gray);
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
-                _spriteBatch.Draw(_backGround, new Rectangle(0,0,1850,815), Color.White);
+                _spriteBatch.Draw(_backGround, new Rectangle(0,0,2945,1491), Color.White);
                 EventManagerEm.Instance.Draw(_spriteBatch);
             }
             else if (currentState == SimulationStates.StartScreen)

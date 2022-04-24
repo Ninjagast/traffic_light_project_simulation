@@ -30,7 +30,7 @@ namespace traffic_light_simulation.classes.EventManagers
         }
         
 //      Three speed modifiers possible 1 / 2 / 5
-        public int DefaultSpeed = 2;
+        public int DefaultSpeed = 5;
         private int _id = 0;
 
         private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();

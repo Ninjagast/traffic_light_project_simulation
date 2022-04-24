@@ -63,6 +63,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 //                  delete this car if we have done the last step
                     if ((_step >= _directionMap.directions.Count) || (_directionMap.directions.Count == 1 && _repetition == _directionMap.directions[0].repeat))
                     {
+                        Console.WriteLine($"{_pos} was my last position");
                         VehicleEm.Instance.UnClaimCell(_pos); 
                         VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
                     }
@@ -110,7 +111,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
             while (10 > i)
             {
-                map = SpawnPoints.Instance.GetRandomLandSpawnPoint();
+                map = RouteTable.Instance.GetRandomRoute();
                 if (VehicleEm.Instance.IsCellFree(new Vector2(map.vector2.x, map.vector2.y)))
                 {
                     break;
@@ -150,7 +151,8 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     EntityType = "Car"
                 });
             }
-            VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id);        
+            VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id); 
+            Console.WriteLine($"{returnObject._pos} start position");
             return returnObject;
         }
 

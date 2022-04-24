@@ -12,13 +12,13 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public Matrix Transform;
 
 //      todo these will be changeable using debug mode
-        public int _movementSpeed { get; set; } = 10;
-        public float Zoom { get; set; } = 0.8f;
+        public int MovementSpeed { get; set; } = 10;
+        public float Zoom { get; set; } = 0.6f;
         
         public Camera(Viewport viewport)
         {
             _bounds = viewport.Bounds;
-            Pos = Vector2.Zero;
+            Pos = new Vector2(1000,1000);
         }
 
         private void _updateMatrix()
@@ -42,22 +42,22 @@ namespace traffic_light_simulation.classes.GlobalScripts
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                cameraMovement.Y = -_movementSpeed;
+                cameraMovement.Y = -MovementSpeed;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                cameraMovement.Y = _movementSpeed;
+                cameraMovement.Y = MovementSpeed;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                cameraMovement.X = -_movementSpeed;
+                cameraMovement.X = -MovementSpeed;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                cameraMovement.X = _movementSpeed;
+                cameraMovement.X = MovementSpeed;
             }
             _moveCamera(cameraMovement);
         }

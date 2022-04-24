@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.Json;
 using traffic_light_simulation.classes.dataClasses;
 using traffic_light_simulation.classes.dataClasses.ServerRequestData;
@@ -30,7 +31,6 @@ namespace traffic_light_simulation.classes.GlobalScripts
         
         private List<DirectionMap> _landSpawnPoints;
         private List<DirectionMap> _waterSpawnPoints;
-        private Random _random = new Random();
 
         public void GetSpawnPoints()
         {
@@ -45,14 +45,14 @@ namespace traffic_light_simulation.classes.GlobalScripts
             }
         }
 
-        public DirectionMap GetRandomLandSpawnPoint()
+        public DirectionMap GetRandomLandSpawnPoint(int key)
         {
-            return _landSpawnPoints[(_random.Next(_landSpawnPoints.Count))];
+            return _landSpawnPoints[key];
         }
 
         public DirectionMap GetRandomWaterSpawnPoint()
         {
-            return _waterSpawnPoints[(_random.Next(_waterSpawnPoints.Count))];
+            throw new NotImplementedException();
         }
     }
 }

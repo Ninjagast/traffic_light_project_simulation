@@ -30,9 +30,9 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         {
             if(_state == States.Transit)
             {
-                if (_currentFrame == 1)
+                if (_currentFrame == 3)
                 {
-                    VehicleEm.Instance.UnClaimCell(_pos - _orientation[_lastDirection]);
+                    VehicleEm.Instance.UnClaimCell(_pos - (_orientation[_lastDirection] * 3));
                 }
                 _currentFrame++;
                 _pos += (_orientation[_lastDirection]);
@@ -47,7 +47,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 //              if have not yet repeated this step enough time
                 if (_repetition < _directionMap.directions[_step].repeat)
                 {          
-                    Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * ((50 / _speed) - _currentFrame));
+                    Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * 50 / _speed);
                     if (VehicleEm.Instance.IsCellFree(targetPos))
                     {
                         VehicleEm.Instance.ClaimCell(targetPos, _id);        
@@ -58,22 +58,32 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 }
                 else
                 {
-                    _step++;
-                    _repetition = 1;
 //                  delete this car if we have done the last step
-                    if ((_step >= _directionMap.directions.Count) || (_directionMap.directions.Count == 1 && _repetition == _directionMap.directions[0].repeat))
+                    if ((_step + 1 >= _directionMap.directions.Count) || (_directionMap.directions.Count == 1 && _repetition == _directionMap.directions[0].repeat))
                     {
-                        Console.WriteLine($"{_pos} was my last position");
-                        VehicleEm.Instance.UnClaimCell(_pos); 
-                        VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
+                        DirectionMap newMap = WeightTableHandler.Instance.GetRandomExtension(_pos);
+                        if (newMap == null)
+                        {
+                            Console.WriteLine($"My last position: {_pos}");
+                            VehicleEm.Instance.UnClaimCell(_pos); 
+                            VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
+                        }
+                        else
+                        {
+                            _step = 0;
+                            _repetition = 0;
+                            _directionMap = newMap;
+                        }
                     }
                     else
                     {
-                        Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * ((50 / _speed) - _currentFrame));
+                        Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step + 1].direction] * 50 / _speed);
                         if (VehicleEm.Instance.IsCellFree(targetPos))
                         {
                             VehicleEm.Instance.ClaimCell(targetPos, _id);  
                             _state = States.Transit;
+                            _step++;
+                            _repetition = 1;
                             _lastDirection = _directionMap.directions[_step].direction;
                         }
                     }
@@ -90,10 +100,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         {
             if (_id == id)
             {
-                if (state == States.Transit)
-                {
-                    VehicleEm.Instance.UnClaimCell(_pos);
-                }
                 _state = state;
             }
         }
@@ -111,7 +117,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
             while (10 > i)
             {
-                map = RouteTable.Instance.GetRandomRoute();
+                map = WeightTableHandler.Instance.GetRandomRoute();
                 if (VehicleEm.Instance.IsCellFree(new Vector2(map.vector2.x, map.vector2.y)))
                 {
                     break;

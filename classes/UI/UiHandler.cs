@@ -98,7 +98,6 @@ namespace traffic_light_simulation.classes.UI
                 {
                     spriteBatch.DrawString(TextureManager.Instance.GetFont(), _warnings[0], new Vector2(10, 10) + offsetPosition, Color.Red * (_warningCounter / 300));
                 }
-            
             }
         }
 
@@ -175,6 +174,7 @@ namespace traffic_light_simulation.classes.UI
                         {
                             _massUnsub();
                             EventManagerEm.Instance.State = SimulationStates.Replaying;
+                            EventManagerEm.Instance.Subscribe(DebugManager.Instance);
                         }
                         else
                         {

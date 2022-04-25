@@ -31,21 +31,32 @@ namespace traffic_light_simulation.classes.GlobalScripts
         
         private List<DirectionMap> _landSpawnPoints;
         private List<DirectionMap> _waterSpawnPoints;
+        private List<ExtensionsMap> _mapExtensions;
 
         public void GetSpawnPoints()
         {
-            string path = "../../../LandRoutes.json";
-            if (File.Exists(path))
+            try
             {
-                using (StreamReader r = new StreamReader(path))
+                using (StreamReader r = new StreamReader("../../../LandRoutes.json"))
                 {
                     string json = r.ReadToEnd();
                     _landSpawnPoints = JsonSerializer.Deserialize<List<DirectionMap>>(json);
                 }
+                using (StreamReader r = new StreamReader("../../../RouteExtentions.json"))
+                {
+                    string json = r.ReadToEnd();
+                    _mapExtensions = JsonSerializer.Deserialize<List<ExtensionsMap>>(json);
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("Route files did not exist");
+                throw;
+            }
+
         }
 
-        public DirectionMap GetRandomLandSpawnPoint(int key)
+        public DirectionMap GetLandSpawnPoint(int key)
         {
             return _landSpawnPoints[key];
         }
@@ -53,6 +64,19 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public DirectionMap GetRandomWaterSpawnPoint()
         {
             throw new NotImplementedException();
+        }
+
+        public List<Directions> GetExtension(string positionId, int key)
+        {
+            foreach (var extensionsMap in _mapExtensions)
+            {
+                if (extensionsMap.key == positionId)
+                {
+                    return extensionsMap.directions[1];
+                }
+            }
+
+            throw new Exception($"Extension with key {positionId} does not exist");
         }
     }
 }

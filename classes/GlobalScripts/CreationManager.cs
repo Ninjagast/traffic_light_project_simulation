@@ -14,27 +14,27 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public static void CreateTrafficLights()
         {
 //          Left of the intersection
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(380,520), 9, new Vector2(375, 520)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(430,550), 8, new Vector2(425, 545)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(480,570), 8, new Vector2(475, 570)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(530,590), 7, new Vector2(525, 595)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(425,1195), 9, new Vector2(425, 1195)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(475,1220),8, new Vector2(475,1220)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(525,1245),8, new Vector2(525, 1245)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(575,1270), 7, new Vector2(575, 1270)));
             
 //          Bottom of the intersection
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1400,500), 4, new Vector2(1380, 520)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1350,525), 4, new Vector2(1320, 540)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1300,550), 5, new Vector2(1275, 570)));
-            // TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(590,700), 15, ont)); todo fix this route pls
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1275, 1170), 4, new Vector2(1275, 1170)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1225,1195), 4, new Vector2(1225,1195)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1175,1220), 5, new Vector2(1175,1220)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(1275,1120), 15, new Vector2(1275,1120)));
             
             //Right of the intersection
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(800,101), 1, new Vector2(775, 115)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(850,130), 2, new Vector2(825, 140)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(900,160), 2, new Vector2(875, 165)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(950,180), 3, new Vector2(925, 190)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(825,795), 1, new Vector2(825, 795)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(875,820), 2, new Vector2(875, 820)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(925,845), 2, new Vector2(925, 845)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(975,870), 3, new Vector2(975, 870)));
             
             //Top of the intersection
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(290,250), 10,new Vector2(275, 270)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(340,230), 11,new Vector2(325, 245)));
-            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(390,210), 12,new Vector2(375, 220)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(275,970), 10,new Vector2(275, 970)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(325,945), 11,new Vector2(325, 945)));
+            TrafficLightEm.Instance.Subscribe(TrafficLight.CreateInstance(new Vector2(375,920), 12,new Vector2(375, 920)));
         }
 
         public static void CreatePedestrianLights()

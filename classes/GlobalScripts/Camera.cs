@@ -12,7 +12,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public Matrix Transform;
 
 //      todo these will be changeable using debug mode
-        public int MovementSpeed { get; set; } = 10;
+        public int MovementSpeed { get; set; } = 15;
         public float Zoom { get; set; } = 0.6f;
         
         public Camera(Viewport viewport)

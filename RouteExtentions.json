@@ -1,0 +1,160 @@
+﻿[
+  {
+    "key":  "1725445",
+    "_comment2" : "Joined road after routes roundabout",
+    "_comment" : "route 1",
+    "directions":
+    [
+      [
+        {
+          "_comment" : "Route 1",
+          "repeat": 2,
+          "direction": "LEFT"
+        },
+        {
+          "repeat": 1,
+          "direction": "UP"
+        },
+        {
+          "repeat": 2,
+          "direction": "LEFT"
+        },
+        {
+          "repeat": 1,
+          "direction": "UP"
+        },
+        {
+          "repeat": 16,
+          "direction": "LEFT"
+        },
+        {
+          "repeat": 4,
+          "direction": "UP"
+        }
+      ],
+      [
+        {
+          "_comment" : "route top 2",
+          "repeat": 2,
+          "direction": "LEFT"
+        },
+        {
+          "repeat": 1,
+          "direction": "UP"
+        },
+        {
+          "repeat": 32,
+          "direction": "LEFT"
+        }
+      ],
+      [
+        {
+          "_comment" : "route bot 2",
+          "repeat": 34,
+          "direction": "LEFT"
+        }
+      ],
+      [
+        {
+          "_comment" : "route 3",
+          "repeat": 4,
+          "direction": "LEFT"
+        },
+        {
+          "repeat": 1,
+          "direction": "DOWN"
+        },
+        {
+          "repeat": 17,
+          "direction": "LEFT"
+        },
+        {
+          "repeat": 1,
+          "direction": "DOWN"
+        },
+        {
+          "repeat": 1,
+          "direction": "LEFT"
+        },
+        {
+          "repeat": 1,
+          "direction": "DOWN"
+        },
+        {
+          "repeat": 1,
+          "direction": "LEFT"
+        },
+        {
+          "repeat": 11,
+          "direction": "DOWN"
+        }
+      ]
+    ]
+  },
+  {
+    "key" : "1525745",
+    "_comment2" : "Joined road after routes 4, 8 and 12",
+    "_comment" : "roundabout first right",
+    "directions" :
+    [
+      [
+        {
+          "_comment" : "roundabout first right",
+          "repeat": 8,
+          "direction": "RIGHT"
+        },
+        {
+          "repeat": 1,
+          "direction": "UP"
+        },
+        {
+          "repeat": 13,
+          "direction": "RIGHT"
+        },
+        {
+          "repeat": 1,
+          "direction": "DOWN"
+        },
+        {
+          "repeat": 1,
+          "direction": "RIGHT"
+        },
+        {
+          "repeat": 3,
+          "direction": "DOWN"
+        }
+      ],
+      [
+        {
+          "_comment" : "roundabout second right",
+          "repeat": 8,
+          "direction": "RIGHT"
+        },
+        {
+          "repeat": 1,
+          "direction": "UP"
+        },
+        {
+          "repeat": 13,
+          "direction": "RIGHT"
+        },
+        {
+          "repeat": 1,
+          "direction": "DOWN"
+        },
+        {
+          "repeat": 3,
+          "direction": "RIGHT"
+        },
+        {
+          "repeat": 1,
+          "direction": "UP"
+        },
+        {
+          "repeat": 3,
+          "direction": "RIGHT"
+        }
+      ]
+    ]
+  }
+]

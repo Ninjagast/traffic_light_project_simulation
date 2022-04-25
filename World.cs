@@ -61,7 +61,7 @@ namespace traffic_light_simulation
             
             _camera = new Camera(_graphics.GraphicsDevice.Viewport);
             _random = new Random();
-            RouteTable.Instance.CreateTable(_random);
+            WeightTableHandler.Instance.CreateTables(_random);
             
             _prevKeyboardState = Keyboard.GetState();
             _prevMouseState    = Mouse.GetState();
@@ -136,7 +136,7 @@ namespace traffic_light_simulation
                 CheckKeyPress(Keys.Space,SimulationStates.Paused);
                 
                 // if (_random.Next(0, 100) > 98) // 1% chance per tick to spawn a random car
-                if(DebugManager.Instance.UpdateTick % 10 == 0)
+                if(DebugManager.Instance.UpdateTick % 30 == 0)
                 {
                     Car car = Car.CreateInstance(_random);
                     if (car != null)

@@ -27,8 +27,8 @@ namespace traffic_light_simulation.classes.GlobalScripts
         }
 
         private WeightTable _routeTable = new WeightTable();
+        private WeightTable _sideWalkTable = new WeightTable();
         private Dictionary<string, WeightTable> _extensionTables = new Dictionary<string, WeightTable>();
-        private int _tableSum = 0;
         private Random _random;
 
         public void CreateTables(Random random)
@@ -36,22 +36,45 @@ namespace traffic_light_simulation.classes.GlobalScripts
             _random = random;
 
             _routeTable
-                // .AddRow(3, "Route 12")
-                // .AddRow(3, "Route 11")
-                // .AddRow(3, "Route 10")
-                // .AddRow(4, "Route 9")
-                // .AddRow(5, "Route top 8")
-                // .AddRow(5, "Route bot 8")
-                // .AddRow(4, "Route 7")
-                // .AddRow(3, "Route 5 Going left")
-                // .AddRow(3, "Route 5 Going top")
-                // .AddRow(5, "Route Left 4")
-                // .AddRow(6, "Route Right 4")
-                // .AddRow(1, "Route 15")
-                // .AddRow(8, "right roundabout")
-                // .AddRow(2, "bottom roundabout first right")
+                .AddRow(3, "Route 12")
+                .AddRow(3, "Route 11")
+                .AddRow(3, "Route 10")
+                .AddRow(4, "Route 9")
+                .AddRow(5, "Route top 8")
+                .AddRow(5, "Route bot 8")
+                .AddRow(4, "Route 7")
+                .AddRow(3, "Route 5 Going left")
+                .AddRow(3, "Route 5 Going top")
+                .AddRow(5, "Route Left 4")
+                .AddRow(6, "Route Right 4")
+                .AddRow(1, "Route 15")
+                .AddRow(8, "right roundabout")
+                .AddRow(2, "bottom roundabout first right")
                 .AddRow(3, "bottom roundabout full send");
 //              max sum 60 for now
+
+            _sideWalkTable
+                .AddRow(1, "bike 1 to bike 2")
+                .AddRow(1, "bike 1 to bike 3")
+                .AddRow(1, "bike 1 to bike 4")
+                .AddRow(1, "bike 1 to bike 5")
+                .AddRow(1, "bike 2 to bike 1")
+                .AddRow(1, "bike 2 to bike 3")
+                .AddRow(1, "bike 2 to bike 4")
+                .AddRow(1, "bike 2 to bike 5")
+                .AddRow(1, "bike 3 to bike 1")
+                .AddRow(1, "bike 3 to bike 2")
+                .AddRow(1, "bike 3 to bike 4")
+                .AddRow(1, "bike 3 to bike 5")
+                .AddRow(1, "bike 4 to bike 1")
+                .AddRow(1, "bike 4 to bike 2")
+                .AddRow(1, "bike 4 to bike 3")
+                .AddRow(1, "bike 4 to bike 5")
+                .AddRow(1, "bike 5 to bike 1")
+                .AddRow(1, "bike 5 to bike 2")
+                .AddRow(1, "bike 5 to bike 3")
+                .AddRow(1, "bike 5 to bike 4");
+
 
             WeightTable joinedRouteAfterRoundabout = new WeightTable();
             WeightTable afterCrossroad = new WeightTable();
@@ -122,9 +145,34 @@ namespace traffic_light_simulation.classes.GlobalScripts
             }
 //          If it ever gets here.
 //          Then You better get dressed for your ceremony.
-//          Since you just broke the laws of mathematics!!! 
+//          Since you just broke the laws of mathematics!!!
 //          Have fun with your field medal!
             return null;
         }
+
+        public DirectionMap GetRandomSideWalkRoute()
+        {
+            int neo = _random.Next(0, _sideWalkTable.GetTableSum()); // the one
+            int key = 0;
+            foreach (var route in _sideWalkTable)
+            {
+                neo -= route.Value;
+
+                if (neo < 0)
+                {
+                    return SpawnPoints.Instance.GetSideWalkSpawn(key);
+                }
+                else
+                {
+                    key++;
+                }
+            }
+//          If it ever gets here.
+//          Then You better get dressed for your ceremony.
+//          Since you just broke the laws of mathematics!!! 
+//          Have fun with your field medal!
+            return SpawnPoints.Instance.GetSideWalkSpawn(0);
+        }
+        
     }
 }

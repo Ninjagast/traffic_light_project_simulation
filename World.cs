@@ -69,7 +69,7 @@ namespace traffic_light_simulation
             _graphics.ApplyChanges();
             
             Window.AllowAltF4 = false; //Alt+F4 is not allowed
-            Exiting += ClosingStatements;
+            Exiting += _closingStatements;
             base.Initialize();
         }
         
@@ -113,9 +113,15 @@ namespace traffic_light_simulation
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("ReplayButton"), "ReplayButton");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("RadioButton"), "RadioButton");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("ClaimMarker"), "ClaimMarker");
+            TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("PeopleGreen"), "People");
+            TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("BikeGreen"), "Bike");
+            TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("fietser"), "fietser");
+            TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("mensen"), "mensen");
             
             CreationManager.CreateTrafficLights();
             CreationManager.CreateStartScreenButtons();
+            CreationManager.CreateBicycleLights();
+            CreationManager.CreatePedestrianLights();
             // CreationManager.CreatePedestrianLights();
             // CreationManager.CreateBicycleLights();
             // CreationManager.CreateBoatLights();
@@ -133,10 +139,17 @@ namespace traffic_light_simulation
             if (currentState == SimulationStates.Running)
             {
                 DebugManager.Instance.UpdateTick += 1;
-                CheckKeyPress(Keys.Space,SimulationStates.Paused);
-                
-                // if (_random.Next(0, 100) > 98) // 1% chance per tick to spawn a random car
-                if(DebugManager.Instance.UpdateTick % 30 == 0)
+                _checkKeyPress(Keys.Space,SimulationStates.Paused);
+
+                if (_random.Next(0, 400) > 398) // 0.25% chance per tick to spawn a random Guy
+                {
+                    People people = People.CreateInstance(_random);
+                    if (people != null)
+                    {
+                        VehicleEm.Instance.Subscribe(people);
+                    }
+                }
+                if (_random.Next(0, 50) > 48) // 2% chance per tick to spawn a random car
                 {
                     Car car = Car.CreateInstance(_random);
                     if (car != null)
@@ -144,23 +157,30 @@ namespace traffic_light_simulation
                         VehicleEm.Instance.Subscribe(car);
                     }
                 }
-                
+                if (_random.Next(0, 400) > 398) // 0.25% chance per tick to spawn a random Bike
+                {
+                    Bike bike = Bike.CreateInstance(_random);
+                    if (bike != null)
+                    {
+                        VehicleEm.Instance.Subscribe(bike);
+                    }
+                }
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
                 EventManagerEm.Instance.Update();
             }
             else if (currentState == SimulationStates.Paused)
             {
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
-                CheckKeyPress(Keys.Space, SimulationStates.Running);
+                _checkKeyPress(Keys.Space, SimulationStates.Running);
             }
             else if (currentState == SimulationStates.PausedReplay)
             {
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
-                CheckKeyPress(Keys.Space, SimulationStates.Replaying);
+                _checkKeyPress(Keys.Space, SimulationStates.Replaying);
             }
             else if (currentState == SimulationStates.Replaying)
             {
-                CheckKeyPress(Keys.Space,SimulationStates.PausedReplay);
+                _checkKeyPress(Keys.Space,SimulationStates.PausedReplay);
 
                 DebugManager.Instance.UpdateTick += 1;
                 ReplayManager.Instance.CheckTick();
@@ -170,11 +190,11 @@ namespace traffic_light_simulation
             }
             else if (currentState == SimulationStates.StartScreen)
             {
-                CheckMousePress();
+                _checkMousePress();
             }
             else if (currentState == SimulationStates.SettingUpDebugMode)
             {
-                CheckMousePress();
+                _checkMousePress();
             }
             else if (currentState == SimulationStates.WaitingForConnection)
             {
@@ -230,14 +250,14 @@ namespace traffic_light_simulation
             base.Draw(gameTime);
         }
         
-        private void ClosingStatements(object? sender, EventArgs eventArgs)
+        private void _closingStatements(object? sender, EventArgs eventArgs)
         {
             Logger.Instance.CreateLogs();
         }
         
 //      #######################################################
 //      Helper functions
-        private void CheckMousePress()
+        private void _checkMousePress()
         {
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && _prevMouseState.LeftButton != ButtonState.Pressed)
             {
@@ -245,7 +265,7 @@ namespace traffic_light_simulation
             }
         }
 
-        private void CheckKeyPress(Keys key, SimulationStates state)
+        private void _checkKeyPress(Keys key, SimulationStates state)
         {
             if (Keyboard.GetState().IsKeyDown(key) && _prevKeyboardState.IsKeyUp(key))
             {

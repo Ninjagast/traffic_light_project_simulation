@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.Json;
 using traffic_light_simulation.classes.dataClasses;
 using traffic_light_simulation.classes.dataClasses.ServerRequestData;
@@ -31,6 +30,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
         
         private List<DirectionMap> _landSpawnPoints;
         private List<DirectionMap> _waterSpawnPoints;
+        private List<DirectionMap> _sideWalkRoutes;
         private List<ExtensionsMap> _mapExtensions;
 
         public void GetSpawnPoints()
@@ -46,6 +46,12 @@ namespace traffic_light_simulation.classes.GlobalScripts
                 {
                     string json = r.ReadToEnd();
                     _mapExtensions = JsonSerializer.Deserialize<List<ExtensionsMap>>(json);
+                }                
+                
+                using (StreamReader r = new StreamReader("../../../SideWalkRoutes.json"))
+                {
+                    string json = r.ReadToEnd();
+                    _sideWalkRoutes = JsonSerializer.Deserialize<List<DirectionMap>>(json);
                 }
             }
             catch (Exception e)
@@ -61,7 +67,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             return _landSpawnPoints[key];
         }
 
-        public DirectionMap GetRandomWaterSpawnPoint()
+        public DirectionMap GetWaterSpawnPoint()
         {
             throw new NotImplementedException();
         }
@@ -77,6 +83,11 @@ namespace traffic_light_simulation.classes.GlobalScripts
             }
 
             throw new Exception($"Extension with key {positionId} does not exist");
+        }
+        
+        public DirectionMap GetSideWalkSpawn(int key)
+        {
+            return _sideWalkRoutes[key];
         }
     }
 }

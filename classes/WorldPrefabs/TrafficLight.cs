@@ -34,6 +34,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 {
                     VehicleEm.Instance.OnStateChange(_stoppedCarId, States.Transit);
                     Server.Instance.EntityExitedZone(_laneId);
+   
                     _stoppedCarId = -1;
                 }
             }

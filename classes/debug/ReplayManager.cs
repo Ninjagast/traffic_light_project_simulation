@@ -30,11 +30,11 @@ namespace traffic_light_simulation.classes.debug
             }
         }
         
-        List<DebugLogServerData>_serverData;
-        List<DebugLogEntitySpawn> _entitySpawn;
+        private List<DebugLogServerData>_serverData;
+        private List<DebugLogEntitySpawn> _entitySpawn;
         
-        bool _sentServerDataWarning = false;
-        bool _sentEntitySpawnWarning = false;
+        private bool _sentServerDataWarning = false;
+        private bool _sentEntitySpawnWarning = false;
         private int _currentEntity = 0;
         private int _currentServerRequest = 0;
             

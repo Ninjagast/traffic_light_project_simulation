@@ -28,7 +28,7 @@ namespace traffic_light_simulation.classes.debug
             }
         }
         
-        public string LoggingPath {get; set; }
+        public string LoggingPath {get; private set; }
         
         private List<DebugLogEntitySpawn> _loggedEntitySpawns   = new List<DebugLogEntitySpawn>();
         private List<DebugLogServerData>  _loggedServerMessages = new List<DebugLogServerData>();

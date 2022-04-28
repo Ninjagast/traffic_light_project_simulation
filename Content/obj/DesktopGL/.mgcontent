@@ -14,10 +14,12 @@
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/DebugButton.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/FieldSelectedTexture.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/FieldTexture.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/fietser.jpg</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/File.spritefont</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightRed.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightYellow.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/mensen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleRed.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PlayButton.png</File>
@@ -43,7 +45,9 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File>LightOrange.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

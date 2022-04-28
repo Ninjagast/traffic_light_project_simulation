@@ -182,15 +182,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _speed = VehicleEm.Instance.DefaultSpeed,
             };
 
-            if (DebugManager.Instance.Logging)
-            {
-                Logger.Instance.LogEntitySpawn(new DebugLogEntitySpawn
-                {
-                    Tick = DebugManager.Instance.UpdateTick,
-                    DirectionMap = directionMap,
-                    EntityType = "car"
-                });
-            }
             VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id);        
             
             return returnObject;

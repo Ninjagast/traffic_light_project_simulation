@@ -34,6 +34,8 @@ namespace traffic_light_simulation.classes.EventManagers
         private int _id = 0;
 
         private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
+        private Dictionary<Vector2, int> _peopleClaimedCells = new Dictionary<Vector2, int>();
+        private Dictionary<Vector2, int> _bikeClaimedCells = new Dictionary<Vector2, int>();
         
         public void Subscribe(IDrawAble drawAble)
         {
@@ -79,14 +81,39 @@ namespace traffic_light_simulation.classes.EventManagers
         {
             _claimedCells.Remove(id);
         }
+        public void UnClaimPeopleCell(Vector2 id)
+        {
+            _peopleClaimedCells.Remove(id);
+        }
+        public void UnClaimBikeCell(Vector2 id)
+        {
+            _bikeClaimedCells.Remove(id);
+        }
         public void ClaimCell(Vector2 targetPos, int id)
         {
             _claimedCells.Add(targetPos, id);
         }
+        public void ClaimPeopleCell(Vector2 targetPos, int id)
+        {
+            _peopleClaimedCells.Add(targetPos, id);
+        }
 
+        public void ClaimBikeCell(Vector2 targetPos, int id)
+        {
+            _bikeClaimedCells.Add(targetPos, id);
+        }
         public bool IsCellFree(Vector2 targetPos)
         {
             return !_claimedCells.ContainsKey(targetPos);
+        }
+        public bool IsPeopleCellFree(Vector2 targetPos)
+        {
+            return !_peopleClaimedCells.ContainsKey(targetPos);
+        }
+
+        public bool IsBikeCellFree(Vector2 targetPos)
+        {
+            return !_bikeClaimedCells.ContainsKey(targetPos);
         }
 
         public int GetCellCarId(Vector2 targetArea)
@@ -117,6 +144,32 @@ namespace traffic_light_simulation.classes.EventManagers
             {
                 vehicle.Value.DrawId(spriteBatch);
             }
+        }
+
+        public int GetCellPeopleId(Vector2 targetArea)
+        {
+            foreach (var cell in _peopleClaimedCells)
+            {
+                if (cell.Key == targetArea)
+                {
+                    return cell.Value;
+                }
+            }
+
+            return -1;
+        }
+
+        public int GetBikeId(Vector2 targetArea)
+        {
+            foreach (var cell in _bikeClaimedCells)
+            {
+                if (cell.Key == targetArea)
+                {
+                    return cell.Value;
+                }
+            }
+
+            return -1;
         }
     }
 }

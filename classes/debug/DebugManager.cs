@@ -78,11 +78,6 @@ namespace traffic_light_simulation.classes.debug
             return;
         }
 
-        public void DebugDrawIds(SpriteBatch spriteBatch)
-        {
-            return;
-        }
-        
         public void AddDebugOption(DebugOptions option)
         {
             if (!_debugOptions.Contains(option))

@@ -1,21 +1,232 @@
 ﻿[
   {
-    "_comment": "bike 1 to bike 1",
+    "_comment": "12",
     "vector2": {
-      "x": 1725,
-      "y": 1245
+      "x": 125,
+      "y": 795
+    },
+    "directions": [
+      {
+        "repeat": 12,
+        "direction": "DOWN"
+      },
+      {
+        "repeat": 12,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 1,
+        "direction": "DOWN"
+      },
+      {
+        "repeat": 3,
+        "direction": "RIGHT"
+      }
+    ]
+  },
+  {
+    "_comment": "11",
+    "vector2": {
+      "x": 25,
+      "y": 795
+    },
+    "directions": [
+      {
+        "repeat": 24,
+        "direction": "DOWN"
+      }
+    ]
+  },
+  {
+    "_comment": "10",
+    "vector2": {
+      "x": 25,
+      "y": 845
     },
     "directions": [
       {
         "repeat": 8,
+        "direction": "DOWN"
+      },
+      {
+        "repeat": 8,
+        "direction": "LEFT"
+      }
+    ]
+  },
+  {
+    "_comment": "9",
+    "vector2": {
+      "x": 175,
+      "y": 1320
+    },
+    "directions": [
+      {
+        "repeat": 9,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 1,
         "direction": "UP"
       },
       {
-        "repeat": 2,
-        "direction": "LEFT"
+        "repeat": 1,
+        "direction": "RIGHT"
       },
       {
-        "repeat": 2,
+        "repeat": 1,
+        "direction": "UP"
+      },
+      {
+        "repeat": 3,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 6,
+        "direction": "UP"
+      }
+    ]
+  },
+  {
+    "_comment": "Top 8",
+    "vector2": {
+      "x": 225,
+      "y": 1345
+    },
+    "directions": [
+      {
+        "repeat": 22,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 1,
+        "direction": "DOWN"
+      },
+      {
+        "repeat": 3,
+        "direction": "RIGHT"
+      }
+    ]
+  },
+  {
+    "_comment": "Bot 8",
+    "vector2": {
+      "x": 275,
+      "y": 1370
+    },
+    "directions": [
+      {
+        "repeat": 25,
+        "direction": "RIGHT"
+      }
+    ]
+  },
+  {
+    "_comment": "7",
+    "vector2": {
+      "x": 325,
+      "y": 1395
+    },
+    "directions": [
+      {
+        "repeat": 9,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 9,
+        "direction": "DOWN"
+      }
+    ]
+  },
+  {
+    "_comment": "5 Going left",
+    "vector2": {
+      "x": 1375,
+      "y": 1320
+    },
+    "directions": [
+      {
+        "repeat": 14,
+        "direction": "UP"
+      },
+      {
+        "repeat": 12,
+        "direction": "LEFT"
+      }
+    ]
+  },
+  {
+    "_comment": "5 Going Top",
+    "vector2": {
+      "x": 1375,
+      "y": 1320
+    },
+    "directions": [
+      {
+        "repeat": 15,
+        "direction": "UP"
+      },
+      {
+        "repeat": 1,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 5,
+        "direction": "UP"
+      }
+    ]
+  },
+  {
+    "_comment": "4 left",
+    "vector2": {
+      "x": 1425,
+      "y": 1295
+    },
+    "directions": [
+      {
+        "repeat": 11,
+        "direction": "UP"
+      },
+      {
+        "repeat": 9,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 1,
+        "direction": "DOWN"
+      },
+      {
+        "repeat": 3,
+        "direction": "RIGHT"
+      }
+    ]
+  },
+  {
+    "_comment": "4 RIGHT",
+    "vector2": {
+      "x": 1475,
+      "y": 1270
+    },
+    "directions": [
+      {
+        "repeat": 10,
+        "direction": "UP"
+      },
+      {
+        "repeat": 11,
+        "direction": "RIGHT"
+      }
+    ]
+  },
+  {
+    "_comment": "15",
+    "vector2": {
+      "x": 1675,
+      "y": 1270
+    },
+    "directions": [
+      {
+        "repeat": 7,
         "direction": "UP"
       },
       {
@@ -23,8 +234,103 @@
         "direction": "LEFT"
       },
       {
-        "repeat": 8,
+        "repeat": 5,
         "direction": "DOWN"
+      }
+    ]
+  },
+  {
+    "_comment": "right roundabout",
+    "vector2": {
+      "x": 2775,
+      "y": 20
+    },
+    "directions": [
+      {
+        "repeat": 3,
+        "direction": "LEFT"
+      },
+      {
+        "repeat": 1,
+        "direction": "UP"
+      },
+      {
+        "repeat": 3,
+        "direction": "LEFT"
+      },
+      {
+        "repeat": 1,
+        "direction": "DOWN"
+      },
+      {
+        "repeat": 13,
+        "direction": "LEFT"
+      },
+      {
+        "repeat": 2,
+        "direction": "UP"
+      }
+    ]
+  },
+  {
+    "_comment": "bottom roundabout first right",
+    "vector2": {
+      "x": 2825,
+      "y": 245
+    },
+    "directions": [
+      {
+        "repeat": 3,
+        "direction": "UP"
+      },
+      {
+        "repeat": 1,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 1,
+        "direction": "UP"
+      },
+      {
+        "repeat": 3,
+        "direction": "RIGHT"
+      }
+    ]
+  },
+  {
+    "_comment": "bottom roundabout full send",
+    "vector2": {
+      "x": 2825,
+      "y": 245
+    },
+    "directions": [
+      {
+        "repeat": 3,
+        "direction": "UP"
+      },
+      {
+        "repeat": 1,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 3,
+        "direction": "UP"
+      },
+      {
+        "repeat": 3,
+        "direction": "LEFT"
+      },
+      {
+        "repeat": 1,
+        "direction": "DOWN"
+      },
+      {
+        "repeat": 13,
+        "direction": "LEFT"
+      },
+      {
+        "repeat": 2,
+        "direction": "UP"
       }
     ]
   }

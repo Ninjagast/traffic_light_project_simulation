@@ -93,8 +93,12 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public static void CreateDebugButtons()
         {
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,50),  "Show car claimed cells",     DebugOptions.DrawCarClaimedCells,     new Vector2(-190,15),  "CarClaimedCells"));
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,100),  "Show bike claimed cells",    DebugOptions.DrawBikeClaimedCells,    new Vector2(-190,15),  "BikeClaimedCells"));
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,150),  "Show people claimed cells",  DebugOptions.DrawPeopleClaimedCells,  new Vector2(-190,15),  "PeopleClaimedCells"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,100), "Show bike claimed cells",    DebugOptions.DrawBikeClaimedCells,    new Vector2(-190,15),  "BikeClaimedCells"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,150), "Show people claimed cells",  DebugOptions.DrawPeopleClaimedCells,  new Vector2(-190,15),  "PeopleClaimedCells"));
+                       
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(500,50),  "Show TrafficLight target cells",    DebugOptions.DrawTrafficLightTargetArea,    new Vector2(-250,15),  "TrafficLightTargetArea"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(500,100), "Show BikeLight target cells",       DebugOptions.DrawBicycleLightTargetArea,    new Vector2(-250,15),  "BikeLightTargetArea"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(500,150), "Show PedestrianLight claimed cells",DebugOptions.DrawPedestrianLightTargetArea, new Vector2(-250,15),  "PedestrianTargetArea"));
             
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,250), "Show CarIds",            DebugOptions.DrawCarIds,             new Vector2(-190,15),  "CarIds"));
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,300), "Show TrafficLightIds",   DebugOptions.DrawTrafficLightIds,    new Vector2(-190,15),  "TrafficLightIds"));

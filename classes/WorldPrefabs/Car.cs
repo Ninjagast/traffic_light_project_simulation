@@ -115,6 +115,11 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             spriteBatch.DrawString(TextureManager.Instance.GetFont(), _id.ToString(), _pos,Color.Black);
         }
 
+        public void DrawTargetArea(SpriteBatch spriteBatch)
+        {
+            return;
+        }
+
         public static Car CreateInstance(Random random)
         {
             DirectionMap map = null;

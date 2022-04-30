@@ -58,6 +58,12 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             spriteBatch.DrawString(TextureManager.Instance.GetFont(), _laneId.ToString(), new Vector2(_pos.X, _pos.Y - 10), Color.Black);
         }
 
+        public void DrawTargetArea(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
+                new Rectangle((int) _targetArea.X - 22, (int) _targetArea.Y + 12, 99, 50), Color.Crimson);
+        }
+
         public static TrafficLight CreateInstance(Vector2 pos, int routeId, Vector2 targetArea)
         {
             TrafficLight returnInstance = new TrafficLight

@@ -70,13 +70,25 @@ namespace traffic_light_simulation.classes.debug
                         break;
                     
                     case DebugOptions.DrawPedestrianLightIds:
-                        BicycleLightEm.Instance.DebugDrawIds(spriteBatch);
+                        PedestrianLightEm.Instance.DebugDrawIds(spriteBatch);
                         break;
                     
                     case DebugOptions.DrawTrafficLightIds:
                         TrafficLightEm.Instance.DebugDrawIds(spriteBatch);
                         break;
                     
+                    case DebugOptions.DrawTrafficLightTargetArea:
+                        TrafficLightEm.Instance.DebugDrawTargetAreas(spriteBatch);
+                        break;
+                    
+                    case DebugOptions.DrawBicycleLightTargetArea:
+                        BicycleLightEm.Instance.DebugDrawTargetAreas(spriteBatch);
+                        break;
+                    
+                    case DebugOptions.DrawPedestrianLightTargetArea:
+                        PedestrianLightEm.Instance.DebugDrawTargetAreas(spriteBatch);
+                        break;
+
                     default:
                         break;
                 }

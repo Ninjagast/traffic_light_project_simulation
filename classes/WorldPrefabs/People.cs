@@ -27,7 +27,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         
         public void Update()
         {
-            if(_state == States.Transit)
+            if(_state == States.Transit || _state == States.Stopping)
             {
                 if (_currentFrame == 3)
                 {
@@ -37,7 +37,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _pos += (_orientation[_lastDirection]);
                 if (_currentFrame == (200 / _speed))
                 {
-                    _state = States.Driving;
+                    _state = _state == States.Stopping ? States.Idle : States.Driving;
                     _currentFrame = 0;
                 }
             }

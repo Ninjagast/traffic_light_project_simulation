@@ -141,14 +141,14 @@ namespace traffic_light_simulation
                 DebugManager.Instance.UpdateTick += 1;
                 _checkKeyPress(Keys.Space,SimulationStates.Paused);
 
-                if (_random.Next(0, 400) > 398) // 0.25% chance per tick to spawn a random Guy
-                {
-                    People people = People.CreateInstance(_random);
-                    if (people != null)
-                    {
-                        VehicleEm.Instance.Subscribe(people);
-                    }
-                }
+                // if (_random.Next(0, 400) > 398) // 0.25% chance per tick to spawn a random Guy
+                // {
+                //     People people = People.CreateInstance(_random);
+                //     if (people != null)
+                //     {
+                //         VehicleEm.Instance.Subscribe(people);
+                //     }
+                // }
                 if (_random.Next(0, 50) > 48) // 2% chance per tick to spawn a random car
                 {
                     Car car = Car.CreateInstance(_random);
@@ -157,14 +157,14 @@ namespace traffic_light_simulation
                         VehicleEm.Instance.Subscribe(car);
                     }
                 }
-                if (_random.Next(0, 400) > 398) // 0.25% chance per tick to spawn a random Bike
-                {
-                    Bike bike = Bike.CreateInstance(_random);
-                    if (bike != null)
-                    {
-                        VehicleEm.Instance.Subscribe(bike);
-                    }
-                }
+                // if (_random.Next(0, 400) > 398) // 0.25% chance per tick to spawn a random Bike
+                // {
+                //     Bike bike = Bike.CreateInstance(_random);
+                //     if (bike != null)
+                //     {
+                //         VehicleEm.Instance.Subscribe(bike);
+                //     }
+                // }
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
                 EventManagerEm.Instance.Update();
             }

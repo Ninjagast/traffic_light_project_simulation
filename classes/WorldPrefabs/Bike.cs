@@ -37,7 +37,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _pos += (_orientation[_lastDirection]);
                 if (_currentFrame == (100 / _speed))
                 {
-                    _state = States.Driving;
+                    _state = _state == States.Stopping ? States.Idle : States.Driving;
                     _currentFrame = 0;
                 }
             }
@@ -50,8 +50,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     if (VehicleEm.Instance.IsBikeCellFree(targetPos))
                     {
                         VehicleEm.Instance.ClaimBikeCell(targetPos, _id);        
-                        _state = States.Transit;
-                        _lastDirection = _directionMap.directions[_step].direction;
+                        _state = _state == States.Stopping ? States.Idle : States.Driving;
                         _repetition++;
                     }
                 }

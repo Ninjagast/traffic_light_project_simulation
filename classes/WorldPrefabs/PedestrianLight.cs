@@ -25,7 +25,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 if(id > -1 && _stoppedCarId == -1)
                 {
                     _stoppedCarId = id;
-                    VehicleEm.Instance.OnStateChange(id, States.Idle);
+                    VehicleEm.Instance.OnStateChange(id, States.Stopping);
                     Server.Instance.EntityEnteredZone(_laneId);
                 }
             }
@@ -33,7 +33,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             {
                 if (_stoppedCarId > -1)
                 {
-                    VehicleEm.Instance.OnStateChange(_stoppedCarId, States.Transit);
+                    VehicleEm.Instance.OnStateChange(_stoppedCarId, States.Driving);
                     Server.Instance.EntityExitedZone(_laneId);
    
                     _stoppedCarId = -1;

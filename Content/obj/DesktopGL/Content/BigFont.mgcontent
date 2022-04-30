@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BigFont.spritefont</SourceFile>
+  <SourceTime>2022-04-30T22:56:29.077172+02:00</SourceTime>
+  <DestFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/bin/DesktopGL/Content/BigFont.xnb</DestFile>
+  <DestTime>2022-04-30T22:56:32.0540752+02:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2020-08-10T16:17:54+02:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2020-08-10T16:17:54+02:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

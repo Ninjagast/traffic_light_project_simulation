@@ -98,7 +98,8 @@ namespace traffic_light_simulation
             pedestrianLightTextures.Add("PeopleGreen", Content.Load<Texture2D>("PeopleGreen"));
             pedestrianLightTextures.Add("PeopleRed",   Content.Load<Texture2D>("PeopleRed"));
 
-            TextureManager.Instance.SetFont(Content.Load<SpriteFont>("File"));
+            TextureManager.Instance.AddFont(Content.Load<SpriteFont>("SmallFont"), "SmallFont");
+            TextureManager.Instance.AddFont(Content.Load<SpriteFont>("BigFont"), "BigFont");
             TextureManager.Instance.SetTexture(sedanTextures, 0);
             TextureManager.Instance.SetTexture(trafficLightTextures, 1);
             TextureManager.Instance.SetTexture(bicycleLightTextures, 2);
@@ -219,7 +220,7 @@ namespace traffic_light_simulation
             {
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
                 _spriteBatch.Draw(_backGround, new Rectangle(0,0,2945,1491), Color.White);
-                UiHandler.Instance.Draw(_spriteBatch, _camera.Pos + new Vector2(-400, -400));
+                UiHandler.Instance.Draw(_spriteBatch, _camera.GetPos());
                 EventManagerEm.Instance.Draw(_spriteBatch);
             }
             else if (currentState == SimulationStates.Paused || currentState == SimulationStates.PausedReplay)

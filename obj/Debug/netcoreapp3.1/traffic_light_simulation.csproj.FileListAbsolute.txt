@@ -129,3 +129,5 @@ C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\D
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\ReplayButton.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\fietser.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\mensen.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\BigFont.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\SmallFont.xnb

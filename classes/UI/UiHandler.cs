@@ -95,7 +95,15 @@ namespace traffic_light_simulation.classes.UI
                 }
                 else
                 {
-                    spriteBatch.DrawString(TextureManager.Instance.GetFont(), _warnings[0], new Vector2(10, 10) + offsetPosition, Color.Red * (_warningCounter / 300));
+                    if (EventManagerEm.Instance.State == SimulationStates.Replaying ||
+                        EventManagerEm.Instance.State == SimulationStates.Running)
+                    {
+                        spriteBatch.DrawString(TextureManager.Instance.GetFont("BigFont"), _warnings[0], new Vector2(-600, -600) + offsetPosition, Color.Red * (_warningCounter / 300));
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(TextureManager.Instance.GetFont(), _warnings[0], new Vector2(10, 10) + offsetPosition, Color.Red * (_warningCounter / 300));
+                    }
                 }
             }
         }

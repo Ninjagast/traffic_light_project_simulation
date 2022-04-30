@@ -54,6 +54,8 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                         _state = States.Transit;
                         _lastDirection = _directionMap.directions[_step].direction;
                         _repetition++;
+                        _currentFrame++;
+                        _pos += (_orientation[_lastDirection]);
                     }
                 }
                 else
@@ -73,6 +75,8 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                             _step = 0;
                             _repetition = 0;
                             _directionMap = newMap;
+                            _currentFrame++;
+                            _pos += (_orientation[_directionMap.directions[_step].direction]);
                         }
                     }
                     else
@@ -85,6 +89,8 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                             _step++;
                             _repetition = 1;
                             _lastDirection = _directionMap.directions[_step].direction;
+                            _currentFrame++;
+                            _pos += (_orientation[_lastDirection]);
                         }
                     }
                 }

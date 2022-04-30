@@ -160,10 +160,10 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _currentFrame = 0,
                 _orientation = new Dictionary<string, Vector2>
                 {
-                    {"LEFT",  new Vector2(-1, 0.5f)  * VehicleEm.Instance.DefaultSpeed},
-                    {"RIGHT", new Vector2(1, -0.5f)  * VehicleEm.Instance.DefaultSpeed},
-                    {"DOWN",  new Vector2(1, 0.5f)   * VehicleEm.Instance.DefaultSpeed},
-                    {"UP",    new Vector2(-1, -0.5f) * VehicleEm.Instance.DefaultSpeed}
+                    {"LEFT",  new Vector2(-1, 0.5f)  * 0.5f},
+                    {"RIGHT", new Vector2(1, -0.5f)  * 0.5f},
+                    {"DOWN",  new Vector2(1, 0.5f)   * 0.5f},
+                    {"UP",    new Vector2(-1, -0.5f) * 0.5f}
                 },
                 _lastDirection = directionMap.directions[0].direction,
                 _id = VehicleEm.Instance.GetNextId(),

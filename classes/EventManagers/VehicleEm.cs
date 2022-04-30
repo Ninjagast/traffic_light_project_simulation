@@ -129,14 +129,33 @@ namespace traffic_light_simulation.classes.EventManagers
             return -1;
         }
 
-        public void DebugDrawMarkers(SpriteBatch spriteBatch)
+        public void DebugDrawCarMarkers(SpriteBatch spriteBatch)
         {
             foreach (var claimedCell in _claimedCells)
             {
                 spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
-                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 99, 50), Color.White);
+                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 99, 50), Color.Red);
             }
         }
+        
+        public void DebugDrawPeopleMarkers(SpriteBatch spriteBatch)
+        {
+            foreach (var claimedCell in _peopleClaimedCells)
+            {
+                spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
+                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 99, 50), Color.Cyan);
+            }
+        }
+        
+        public void DebugDrawBikeMarkers(SpriteBatch spriteBatch)
+        {
+            foreach (var claimedCell in _bikeClaimedCells)
+            {
+                spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
+                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 99, 50), Color.Purple);
+            }
+        }
+
 
         public void DebugDrawIds(SpriteBatch spriteBatch)
         {

@@ -70,9 +70,13 @@ namespace traffic_light_simulation.classes.debug
                             break;
                     
                         case "Bike":
+                            Bike bike = Bike.CreateReplayInstance(_entitySpawn[_currentEntity].DirectionMap);
+                            VehicleEm.Instance.Subscribe(bike);
                             break;
                     
                         case "Person":
+                            People guy = People.CreateReplayInstance(_entitySpawn[_currentEntity].DirectionMap);
+                            VehicleEm.Instance.Subscribe(guy);
                             break;
                     
                         case "Boat":

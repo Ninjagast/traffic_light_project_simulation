@@ -2,11 +2,16 @@
 {
     public enum DebugOptions
     {
-        DrawClaimedCells,
+        DrawCarClaimedCells,
+        DrawBikeClaimedCells,
+        DrawPeopleClaimedCells,
         DrawCarIds,
         DrawTrafficLightIds,
         DrawBicycleLightIds,
         DrawPedestrianLightIds,
+        DrawBicycleLightTargetArea,
+        DrawPedestrianLightTargetArea,
+        DrawTrafficLightTargetArea,
         Logging
     }
 }

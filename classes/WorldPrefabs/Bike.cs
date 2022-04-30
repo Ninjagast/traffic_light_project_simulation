@@ -50,7 +50,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     if (VehicleEm.Instance.IsBikeCellFree(targetPos))
                     {
                         VehicleEm.Instance.ClaimBikeCell(targetPos, _id);        
-                        _state = _state == States.Stopping ? States.Idle : States.Driving;
+                        _state = States.Transit;
                         _repetition++;
                     }
                 }

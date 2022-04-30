@@ -49,8 +49,16 @@ namespace traffic_light_simulation.classes.debug
             {
                 switch (option)
                 {
-                    case DebugOptions.DrawClaimedCells:
-                        VehicleEm.Instance.DebugDrawMarkers(spriteBatch);
+                    case DebugOptions.DrawCarClaimedCells:
+                        VehicleEm.Instance.DebugDrawCarMarkers(spriteBatch);
+                        break;
+                    
+                    case DebugOptions.DrawBikeClaimedCells:
+                        VehicleEm.Instance.DebugDrawBikeMarkers(spriteBatch);
+                        break;
+                    
+                    case DebugOptions.DrawPeopleClaimedCells:
+                        VehicleEm.Instance.DebugDrawPeopleMarkers(spriteBatch);
                         break;
                     
                     case DebugOptions.DrawCarIds:
@@ -58,9 +66,11 @@ namespace traffic_light_simulation.classes.debug
                         break;
                     
                     case DebugOptions.DrawBicycleLightIds:
+                        BicycleLightEm.Instance.DebugDrawIds(spriteBatch);
                         break;
                     
                     case DebugOptions.DrawPedestrianLightIds:
+                        BicycleLightEm.Instance.DebugDrawIds(spriteBatch);
                         break;
                     
                     case DebugOptions.DrawTrafficLightIds:

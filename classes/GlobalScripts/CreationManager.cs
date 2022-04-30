@@ -92,12 +92,15 @@ namespace traffic_light_simulation.classes.GlobalScripts
 
         public static void CreateDebugButtons()
         {
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,50),  "Show claimed cells",     DebugOptions.DrawClaimedCells,       new Vector2(-180,15),  "ClaimedCells"));
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,100), "Show CarIds",            DebugOptions.DrawCarIds,             new Vector2(-180,15),  "CarIds"));
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,150), "Show TrafficLightIds",   DebugOptions.DrawTrafficLightIds,    new Vector2(-180,15),  "TrafficLightIds"));
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,200), "Show BicycleLightIds",   DebugOptions.DrawBicycleLightIds,    new Vector2(-180,15),  "BicycleLightIds"));
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,250), "Show PedestrianLightIds",DebugOptions.DrawPedestrianLightIds, new Vector2(-180, 15), "PedestrianLightIds"));
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,300), "Turn on the logger?",    DebugOptions.Logging,                new Vector2(-180, 15), "Logger"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,50),  "Show car claimed cells",     DebugOptions.DrawCarClaimedCells,     new Vector2(-190,15),  "CarClaimedCells"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,100),  "Show bike claimed cells",    DebugOptions.DrawBikeClaimedCells,    new Vector2(-190,15),  "BikeClaimedCells"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,150),  "Show people claimed cells",  DebugOptions.DrawPeopleClaimedCells,  new Vector2(-190,15),  "PeopleClaimedCells"));
+            
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,250), "Show CarIds",            DebugOptions.DrawCarIds,             new Vector2(-190,15),  "CarIds"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,300), "Show TrafficLightIds",   DebugOptions.DrawTrafficLightIds,    new Vector2(-190,15),  "TrafficLightIds"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,350), "Show BicycleLightIds",   DebugOptions.DrawBicycleLightIds,    new Vector2(-190,15),  "BicycleLightIds"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,400), "Show PedestrianLightIds",DebugOptions.DrawPedestrianLightIds, new Vector2(-190, 15), "PedestrianLightIds"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,500), "Turn on the logger?",    DebugOptions.Logging,                new Vector2(-190, 15), "Logger"));
             
             UiHandler.Instance.Subscribe(new BaseButton(new Vector2(300, 650), ButtonStates.DebugPlayButton, "PlayButton"));
             UiHandler.Instance.Subscribe(new BaseButton(new Vector2(400, 650), ButtonStates.Replay, "ReplayButton"));

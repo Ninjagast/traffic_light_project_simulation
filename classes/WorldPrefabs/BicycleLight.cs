@@ -15,7 +15,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private Vector2 _pos;
         private States _state; 
         private Vector2 _targetArea;
-        private int _stoppedCarId = -1;
+        private int _stoppedBikeId = -1;
         private string _direction;
         
         public void Update()
@@ -23,21 +23,21 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             if (_state == States.Red || _state == States.Orange)
             {
                 int id = VehicleEm.Instance.GetBikeId(_targetArea, _direction);
-                if(id > -1 && _stoppedCarId == -1)
+                if(id > -1 && _stoppedBikeId == -1)
                 {
-                    _stoppedCarId = id;
+                    _stoppedBikeId = id;
                     VehicleEm.Instance.OnStateChange(id, States.Stopping);
                     Server.Instance.EntityEnteredZone(_laneId);
                 }
             }
             else if (_state == States.Green)
             {
-                if (_stoppedCarId > -1)
+                if (_stoppedBikeId > -1)
                 {
-                    VehicleEm.Instance.OnStateChange(_stoppedCarId, States.Driving);
+                    VehicleEm.Instance.OnStateChange(_stoppedBikeId, States.Transit);
                     Server.Instance.EntityExitedZone(_laneId);
    
-                    _stoppedCarId = -1;
+                    _stoppedBikeId = -1;
                 }
             }
         }

@@ -100,7 +100,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(500,100), "Show BikeLight target cells",       DebugOptions.DrawBicycleLightTargetArea,    new Vector2(-250,15),  "BikeLightTargetArea"));
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(500,150), "Show PedestrianLight claimed cells",DebugOptions.DrawPedestrianLightTargetArea, new Vector2(-250,15),  "PedestrianTargetArea"));
             
-            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,250), "Show CarIds",            DebugOptions.DrawCarIds,             new Vector2(-190,15),  "CarIds"));
+            UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,250), "Show all entity ids",    DebugOptions.DrawCarIds,             new Vector2(-190,15),  "CarIds"));
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,300), "Show TrafficLightIds",   DebugOptions.DrawTrafficLightIds,    new Vector2(-190,15),  "TrafficLightIds"));
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,350), "Show BicycleLightIds",   DebugOptions.DrawBicycleLightIds,    new Vector2(-190,15),  "BicycleLightIds"));
             UiHandler.Instance.Subscribe(new CheckBox(new Vector2(200,400), "Show PedestrianLightIds",DebugOptions.DrawPedestrianLightIds, new Vector2(-190, 15), "PedestrianLightIds"));

@@ -13,6 +13,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 {
     public class Bike: IDrawAble
     {
+        private string _currentDirection;
         private string _lastDirection;
         private int _currentFrame;
         private int _id;
@@ -31,10 +32,17 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             {
                 if (_currentFrame == 3)
                 {
-                    VehicleEm.Instance.UnClaimBikeCell(_pos - (_orientation[_lastDirection] * 3));
+                    if (_repetition == 1 && _step != 0)
+                    {
+                        VehicleEm.Instance.UnClaimBikeCell(_pos - (_orientation[_currentDirection] * 3), _lastDirection);
+                    }
+                    else
+                    {
+                        VehicleEm.Instance.UnClaimBikeCell(_pos - (_orientation[_currentDirection] * 3), _currentDirection);
+                    }
                 }
                 _currentFrame++;
-                _pos += (_orientation[_lastDirection]);
+                _pos += (_orientation[_currentDirection]);
                 if (_currentFrame == (100 / _speed))
                 {
                     _state = _state == States.Stopping ? States.Idle : States.Driving;
@@ -47,35 +55,37 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 if (_repetition < _directionMap.directions[_step].repeat)
                 {          
                     Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * 100 / _speed);
-                    if (VehicleEm.Instance.IsBikeCellFree(targetPos))
+                    if (VehicleEm.Instance.IsBikeCellFree(targetPos, _currentDirection))
                     {
-                        VehicleEm.Instance.ClaimBikeCell(targetPos, _id);        
+                        VehicleEm.Instance.ClaimBikeCell(targetPos, _id, _currentDirection);        
                         _state = States.Transit;
                         _repetition++;
                         _currentFrame++;
-                        _pos += (_orientation[_lastDirection]);
+                        _pos += (_orientation[_currentDirection]);
                     }
                 }
                 else
                 {
-//                  delete this car if we have done the last step
+//                  delete this bike if we have done the last step
                     if ((_step + 1 >= _directionMap.directions.Count) || (_directionMap.directions.Count == 1 && _repetition == _directionMap.directions[0].repeat))
                     {
-                        VehicleEm.Instance.UnClaimBikeCell(_pos); 
+                        Console.WriteLine($"{_pos} last pos");
+                        VehicleEm.Instance.UnClaimBikeCell(_pos, _currentDirection); 
                         VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
                     }
                     else
                     {
                         Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step + 1].direction] * 100 / _speed);
-                        if (VehicleEm.Instance.IsBikeCellFree(targetPos))
+                        if (VehicleEm.Instance.IsBikeCellFree(targetPos, _directionMap.directions[_step + 1].direction))
                         {
-                            VehicleEm.Instance.ClaimBikeCell(targetPos, _id);  
+                            VehicleEm.Instance.ClaimBikeCell(targetPos, _id, _directionMap.directions[_step + 1].direction);
+                            _lastDirection = _directionMap.directions[_step].direction;
                             _state = States.Transit;
                             _step++;
                             _repetition = 1;
-                            _lastDirection = _directionMap.directions[_step].direction;
+                            _currentDirection = _directionMap.directions[_step].direction;
                             _currentFrame++;
-                            _pos += (_orientation[_lastDirection]);
+                            _pos += (_orientation[_currentDirection]);
                         }
                     }
                 }
@@ -114,7 +124,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             while (10 > i)
             {
                 map = WeightTableHandler.Instance.GetRandomSideWalkRoute();
-                if (VehicleEm.Instance.IsBikeCellFree(new Vector2(map.vector2.x, map.vector2.y)))
+                if (VehicleEm.Instance.IsBikeCellFree(new Vector2(map.vector2.x, map.vector2.y), map.directions[0].direction))
                 {
                     break;
                 }
@@ -139,7 +149,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     {"DOWN",  new Vector2(1, 0.5f)},
                     {"UP",    new Vector2(-1, -0.5f)}
                 },
-                _lastDirection = map.directions[0].direction,
+                _currentDirection = map.directions[0].direction,
                 _id = VehicleEm.Instance.GetNextId(),
                 _speed = VehicleEm.Instance.DefaultSpeed,
             };
@@ -153,7 +163,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     EntityType = "Bike"
                 });
             }
-            VehicleEm.Instance.ClaimBikeCell(returnObject._pos, returnObject._id); 
+            VehicleEm.Instance.ClaimBikeCell(returnObject._pos, returnObject._id, returnObject._currentDirection); 
             return returnObject;
         }
 
@@ -172,12 +182,12 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     {"DOWN",  new Vector2(1, 0.5f)},
                     {"UP",    new Vector2(-1, -0.5f)}
                 },
-                _lastDirection = directionMap.directions[0].direction,
+                _currentDirection = directionMap.directions[0].direction,
                 _id = VehicleEm.Instance.GetNextId(),
                 _speed = VehicleEm.Instance.DefaultSpeed,
             };
 
-            VehicleEm.Instance.ClaimBikeCell(returnObject._pos, returnObject._id);        
+            VehicleEm.Instance.ClaimBikeCell(returnObject._pos, returnObject._id, returnObject._currentDirection);        
 
             return returnObject;
         }

@@ -16,12 +16,13 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private States _state; 
         private Vector2 _targetArea;
         private int _stoppedCarId = -1;
+        private string _direction;
         
         public void Update()
         {
             if (_state == States.Red || _state == States.Orange)
             {
-                int id = VehicleEm.Instance.GetBikeId(_targetArea);
+                int id = VehicleEm.Instance.GetBikeId(_targetArea, _direction);
                 if(id > -1 && _stoppedCarId == -1)
                 {
                     _stoppedCarId = id;
@@ -61,15 +62,31 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void DrawTargetArea(SpriteBatch spriteBatch)
         {
+            Vector2 offset = Vector2.Zero;
+            switch (_direction)
+            {
+                case "RIGHT":
+                    offset = new Vector2(50, 0);
+                    break;
+                case "LEFT":
+                    offset = Vector2.Zero;
+                    break;
+                case "DOWN":
+                    offset = new Vector2(23, 13);
+                    break;
+                case "UP":
+                    offset = new Vector2(22, -10);
+                    break;
+            }
             spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
-                new Rectangle((int) _targetArea.X - 22, (int) _targetArea.Y + 12, 99, 50), Color.Yellow);
+                new Rectangle((int) ((_targetArea.X - 25) + offset.X), (int) ((_targetArea.Y + 15) + offset.Y), 50, 25), Color.Yellow);
         }
 
-        public static BicycleLight CreateInstance(Vector2 pos, int routeId, Vector2 targetArea)
+        public static BicycleLight CreateInstance(Vector2 pos, int routeId, Vector2 targetArea, string direction)
         {
             BicycleLight returnInstance = new BicycleLight
             {
-                _laneId = routeId, _pos = pos, _state = States.Red, _targetArea = targetArea
+                _laneId = routeId, _pos = pos, _state = States.Red, _targetArea = targetArea, _direction = direction
             };
             return returnInstance;
         }

@@ -31,7 +31,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             {
                 if (_currentFrame == 3)
                 {
-                    VehicleEm.Instance.UnClaimPeopleCell(_pos - (_orientation[_lastDirection] * 3));
+                    VehicleEm.Instance.UnClaimPeopleCell(_pos - (_orientation[_lastDirection] * 3), _lastDirection);
                 }
                 _currentFrame++;
                 _pos += (_orientation[_lastDirection]);
@@ -47,9 +47,9 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 if (_repetition < _directionMap.directions[_step].repeat)
                 {          
                     Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * 200 / _speed);
-                    if (VehicleEm.Instance.IsPeopleCellFree(targetPos))
+                    if (VehicleEm.Instance.IsPeopleCellFree(targetPos, _lastDirection))
                     {
-                        VehicleEm.Instance.ClaimPeopleCell(targetPos, _id);        
+                        VehicleEm.Instance.ClaimPeopleCell(targetPos, _id, _directionMap.directions[_step].direction);        
                         _state = States.Transit;
                         _lastDirection = _directionMap.directions[_step].direction;
                         _repetition++;
@@ -59,18 +59,18 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 }
                 else
                 {
-//                  delete this car if we have done the last step
+//                  delete this person if we have done the last step
                     if ((_step + 1 >= _directionMap.directions.Count) || (_directionMap.directions.Count == 1 && _repetition == _directionMap.directions[0].repeat))
                     {
-                        VehicleEm.Instance.UnClaimPeopleCell(_pos); 
+                        VehicleEm.Instance.UnClaimPeopleCell(_pos, _lastDirection); 
                         VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
                     }
                     else
                     {
                         Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step + 1].direction] * 200 / _speed);
-                        if (VehicleEm.Instance.IsPeopleCellFree(targetPos))
+                        if (VehicleEm.Instance.IsPeopleCellFree(targetPos, _directionMap.directions[_step + 1].direction))
                         {
-                            VehicleEm.Instance.ClaimPeopleCell(targetPos, _id);  
+                            VehicleEm.Instance.ClaimPeopleCell(targetPos, _id, _directionMap.directions[_step + 1].direction);  
                             _state = States.Transit;
                             _step++;
                             _repetition = 1;
@@ -115,7 +115,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             while (10 > i)
             {
                 map = WeightTableHandler.Instance.GetRandomSideWalkRoute();
-                if (VehicleEm.Instance.IsPeopleCellFree(new Vector2(map.vector2.x, map.vector2.y)))
+                if (VehicleEm.Instance.IsPeopleCellFree(new Vector2(map.vector2.x, map.vector2.y), map.directions[0].direction))
                 {
                     break;
                 }
@@ -154,7 +154,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     EntityType = "People"
                 });
             }
-            VehicleEm.Instance.ClaimPeopleCell(returnObject._pos, returnObject._id); 
+            VehicleEm.Instance.ClaimPeopleCell(returnObject._pos, returnObject._id, returnObject._lastDirection); 
             Console.WriteLine($"{returnObject._pos} start position");
             return returnObject;
         }
@@ -179,7 +179,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _speed = VehicleEm.Instance.DefaultSpeed,
             };
 
-            VehicleEm.Instance.ClaimPeopleCell(returnObject._pos, returnObject._id);        
+            VehicleEm.Instance.ClaimPeopleCell(returnObject._pos, returnObject._id, returnObject._lastDirection);        
             
             return returnObject;
         }

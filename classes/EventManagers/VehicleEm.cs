@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using traffic_light_simulation.classes.dataClasses;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.GlobalScripts;
 using traffic_light_simulation.classes.WorldPrefabs;
@@ -34,8 +35,8 @@ namespace traffic_light_simulation.classes.EventManagers
         private int _id = 0;
 
         private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
-        private Dictionary<Vector2, int> _peopleClaimedCells = new Dictionary<Vector2, int>();
-        private Dictionary<Vector2, int> _bikeClaimedCells = new Dictionary<Vector2, int>();
+        private Dictionary<Vector2, DivCell> _peopleClaimedCells = new Dictionary<Vector2, DivCell>();
+        private Dictionary<Vector2, DivCell> _bikeClaimedCells = new Dictionary<Vector2, DivCell>();
         
         public void Subscribe(IDrawAble drawAble)
         {
@@ -81,39 +82,71 @@ namespace traffic_light_simulation.classes.EventManagers
         {
             _claimedCells.Remove(id);
         }
-        public void UnClaimPeopleCell(Vector2 id)
+        public void UnClaimPeopleCell(Vector2 id, string direction)
         {
-            _peopleClaimedCells.Remove(id);
+            _peopleClaimedCells[id].UnClaimCell(direction);
         }
-        public void UnClaimBikeCell(Vector2 id)
+        public void UnClaimBikeCell(Vector2 id, string direction)
         {
-            _bikeClaimedCells.Remove(id);
+            _bikeClaimedCells[id].UnClaimCell(direction);
         }
         public void ClaimCell(Vector2 targetPos, int id)
         {
             _claimedCells.Add(targetPos, id);
         }
-        public void ClaimPeopleCell(Vector2 targetPos, int id)
+        public void ClaimPeopleCell(Vector2 targetPos, int id, string direction)
         {
-            _peopleClaimedCells.Add(targetPos, id);
+            if (_peopleClaimedCells.ContainsKey(targetPos))
+            {
+                _peopleClaimedCells[targetPos].ClaimCell(id, direction);
+            }
+            else
+            {
+                DivCell newCellDiv = new DivCell();
+                newCellDiv.ClaimCell(id, direction);
+                _peopleClaimedCells.Add(targetPos, newCellDiv);
+            }
         }
 
-        public void ClaimBikeCell(Vector2 targetPos, int id)
+        public void ClaimBikeCell(Vector2 targetPos, int id, string direction)
         {
-            _bikeClaimedCells.Add(targetPos, id);
+            if (_bikeClaimedCells.ContainsKey(targetPos))
+            {
+                _bikeClaimedCells[targetPos].ClaimCell(id, direction);
+            }
+            else
+            {
+                DivCell newCellDiv = new DivCell();
+                newCellDiv.ClaimCell(id, direction);
+                _bikeClaimedCells.Add(targetPos, newCellDiv);
+            }
         }
         public bool IsCellFree(Vector2 targetPos)
         {
             return !_claimedCells.ContainsKey(targetPos);
         }
-        public bool IsPeopleCellFree(Vector2 targetPos)
+        public bool IsPeopleCellFree(Vector2 targetPos, string direction)
         {
-            return !_peopleClaimedCells.ContainsKey(targetPos);
+            if (_peopleClaimedCells.ContainsKey(targetPos))
+            {
+                return _peopleClaimedCells[targetPos].IsCellFree(direction);
+            }
+            else
+            {
+                return true;
+            }
         }
 
-        public bool IsBikeCellFree(Vector2 targetPos)
+        public bool IsBikeCellFree(Vector2 targetPos, string direction)
         {
-            return !_bikeClaimedCells.ContainsKey(targetPos);
+            if (_bikeClaimedCells.ContainsKey(targetPos))
+            {
+                return _bikeClaimedCells[targetPos].IsCellFree(direction);
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public int GetCellCarId(Vector2 targetArea)
@@ -134,7 +167,7 @@ namespace traffic_light_simulation.classes.EventManagers
             foreach (var claimedCell in _claimedCells)
             {
                 spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
-                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 99, 50), Color.Red);
+                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 100, 50), Color.Red);
             }
         }
         
@@ -143,7 +176,7 @@ namespace traffic_light_simulation.classes.EventManagers
             foreach (var claimedCell in _peopleClaimedCells)
             {
                 spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
-                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 99, 50), Color.Cyan);
+                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 100, 50), Color.Cyan);
             }
         }
         
@@ -151,8 +184,15 @@ namespace traffic_light_simulation.classes.EventManagers
         {
             foreach (var claimedCell in _bikeClaimedCells)
             {
-                spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
-                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 99, 50), Color.Purple);
+                List<Vector2> claimedCells = claimedCell.Value.GetClaimedCells();
+                if (claimedCells.Count > 0)
+                {
+                    foreach (var offset in claimedCells)
+                    {
+                        spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
+                            new Rectangle((int) ((claimedCell.Key.X - 25) + offset.X), (int) ((claimedCell.Key.Y + 15) + offset.Y), 50, 25), Color.Purple);
+                    }
+                }
             }
         }
 
@@ -165,30 +205,28 @@ namespace traffic_light_simulation.classes.EventManagers
             }
         }
 
-        public int GetCellPeopleId(Vector2 targetArea)
+        public int GetCellPeopleId(Vector2 targetArea, string direction)
         {
-            foreach (var cell in _peopleClaimedCells)
+            if (_peopleClaimedCells.ContainsKey(targetArea))
             {
-                if (cell.Key == targetArea)
-                {
-                    return cell.Value;
-                }
+                return _peopleClaimedCells[targetArea].GetCellId(direction);
             }
-
-            return -1;
+            else
+            {
+                return -1;
+            }
         }
 
-        public int GetBikeId(Vector2 targetArea)
+        public int GetBikeId(Vector2 targetArea, string direction)
         {
-            foreach (var cell in _bikeClaimedCells)
+            if (_bikeClaimedCells.ContainsKey(targetArea))
             {
-                if (cell.Key == targetArea)
-                {
-                    return cell.Value;
-                }
+                return _bikeClaimedCells[targetArea].GetCellId(direction);
             }
-
-            return -1;
+            else
+            {
+                return -1;
+            }
         }
     }
 }

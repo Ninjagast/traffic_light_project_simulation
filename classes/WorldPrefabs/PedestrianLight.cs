@@ -16,12 +16,13 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private Vector2 _targetArea;
         private int _stoppedCarId = -1;
         private int _currentFrame = 0;
+        private string _direction;
         
         public void Update()
         {
             if (_state == States.Red || _state == States.Orange)
             {
-                int id = VehicleEm.Instance.GetCellPeopleId(_targetArea);
+                int id = VehicleEm.Instance.GetCellPeopleId(_targetArea, _direction);
                 if(id > -1 && _stoppedCarId == -1)
                 {
                     _stoppedCarId = id;
@@ -80,11 +81,11 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 new Rectangle((int) _targetArea.X - 22, (int) _targetArea.Y + 12, 99, 50), Color.Aqua);
         }
 
-        public static PedestrianLight CreateInstance(Vector2 pos, int routeId, Vector2 targetArea)
+        public static PedestrianLight CreateInstance(Vector2 pos, int routeId, Vector2 targetArea, string direction)
         {
             PedestrianLight returnInstance = new PedestrianLight
             {
-                _laneId = routeId, _pos = pos, _state = States.Red, _targetArea = targetArea
+                _laneId = routeId, _pos = pos, _state = States.Red, _targetArea = targetArea, _direction = direction
             };
             return returnInstance;
         }

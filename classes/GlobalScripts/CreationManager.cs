@@ -39,40 +39,40 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public static void CreatePedestrianLights()
         {
 //          Bottom of the intersection
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(815, 1185), 34, new Vector2(825, 1195)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(925, 1145), 34, new Vector2(925, 1145)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(915, 1130), 33, new Vector2(925, 1145)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(1125, 1045),33, new Vector2(1125, 1045)));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(815, 1185), 34, new Vector2(825, 1195), "RIGHT"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(925, 1145), 34, new Vector2(925, 1145), "RIGHT"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(915, 1130), 33, new Vector2(925, 1145), "LEFT"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(1125, 1045),33, new Vector2(1125, 1045),"LEFT"));
             
 //          Left of the intersection
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(700, 1260), 35, new Vector2(675, 1270)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(425, 1145), 35, new Vector2(425, 1145)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(435, 1135), 36, new Vector2(425, 1145)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(235, 1040), 36, new Vector2(225, 1045)));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(700, 1260), 35, new Vector2(675, 1270), "UP"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(425, 1145), 35, new Vector2(425, 1145), "UP"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(435, 1135), 36, new Vector2(425, 1145), "DOWN"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(235, 1040), 36, new Vector2(225, 1045), "DOWN"));
             
 //          Right of the intersection
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(925, 945),  32, new Vector2(925, 945))); 
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(1085, 1010),32, new Vector2(1075, 1020)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(935, 935),  31, new Vector2(925, 945)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(675, 820),  31, new Vector2(675, 820)));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(925, 945),  32, new Vector2(925, 945),  "DOWN")); 
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(1085, 1010),32, new Vector2(1075, 1020),"DOWN"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(935, 935),  31, new Vector2(925, 945),  "UP"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(675, 820),  31, new Vector2(675, 820),  "UP"));
             
 //          Top of the intersection
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(620, 835), 38, new Vector2(625, 845)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(485, 910), 38, new Vector2(475, 920)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(495, 920), 37, new Vector2(475, 920)));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(275, 1020),37, new Vector2(275, 1020)));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(620, 835), 38, new Vector2(625, 845), "LEFT"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(485, 910), 38, new Vector2(475, 920), "LEFT"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(495, 920), 37, new Vector2(475, 920), "RIGHT"));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(275, 1020),37, new Vector2(275, 1020),"RIGHT"));
         }
 
         public static void CreateBicycleLights()
         {
 //          Bottom of the intersection
-            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(825, 1195), 22, new Vector2(825, 1195)));
+            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(825, 1195), 22, new Vector2(825, 1195), "RIGHT"));
 //          Top of the intersection
-            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(625, 845), 24, new Vector2(625, 845)));
+            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(575, 870), 24, new Vector2(575, 870), "LEFT"));
 //          Right of the intersection
-            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(1075, 1020), 21, new Vector2(1075, 1020)));
+            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(1025, 995), 21, new Vector2(1025, 995), "UP"));
 //          Left of the intersection
-            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(225, 1045), 23, new Vector2(225, 1045)));
+            BicycleLightEm.Instance.Subscribe(BicycleLight.CreateInstance(new Vector2(275, 1070), 23, new Vector2(275, 1070), "DOWN"));
             
         }
 

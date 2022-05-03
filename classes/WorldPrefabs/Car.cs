@@ -74,9 +74,8 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                         {
                             _step = 0;
                             _repetition = 0;
+                            _currentFrame = 0;
                             _directionMap = newMap;
-                            _currentFrame++;
-                            _pos += (_orientation[_directionMap.directions[_step].direction]);
                         }
                     }
                     else

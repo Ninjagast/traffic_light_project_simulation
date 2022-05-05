@@ -125,7 +125,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             {
                 return null;
             }
-            
+
             int neo = _random.Next(0, _extensionTables[posKey].GetTableSum()); // the one
             int key = 0;
             

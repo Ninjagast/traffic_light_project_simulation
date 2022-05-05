@@ -6,17 +6,22 @@ namespace traffic_light_simulation.classes.dataClasses
 {
     public class DivCell
     {
-        private int _tr = -1;
-        private int _tl = -1;
-        private int _br = -1;
-        private int _bl = -1;
+        private int _tr = -1; // top right of the divided cell
+        private int _tl = -1; // top left of the divided cell
+        private int _br = -1; // bottom right of the divided cell
+        private int _bl = -1; // bottom left of the divided cell
 
 
         public void ClaimCell(int id, string direction)
         {
             SetDivCell(direction, id);
         }
-
+        
+        public void UnClaimCell(string direction)
+        {
+            SetDivCell(direction, -1);
+        }
+        
         public bool IsCellFree(string direction)
         {
             switch (direction)
@@ -33,11 +38,6 @@ namespace traffic_light_simulation.classes.dataClasses
                 default:
                     throw new Exception($"{direction} does not exist");
             }
-        }
-
-        public void UnClaimCell(string direction)
-        {
-            SetDivCell(direction, -1);
         }
 
         public int GetCellId(string direction)
@@ -80,6 +80,18 @@ namespace traffic_light_simulation.classes.dataClasses
             }
 
             return returnList;
+        }
+
+        public bool IsCellFree()
+        {
+            if (_br > 0 || _bl > 0 || _tl > 0 || _tr > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         
         private void SetDivCell(string direction, int value)

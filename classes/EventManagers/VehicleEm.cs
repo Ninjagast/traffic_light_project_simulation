@@ -37,6 +37,7 @@ namespace traffic_light_simulation.classes.EventManagers
         private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
         private Dictionary<Vector2, DivCell> _peopleClaimedCells = new Dictionary<Vector2, DivCell>();
         private Dictionary<Vector2, DivCell> _bikeClaimedCells = new Dictionary<Vector2, DivCell>();
+        private List<Vector2> _expections = new List<Vector2> {new Vector2(1025, 995), new Vector2(575, 870), new Vector2(825, 1195), new Vector2(475, 1170)};
         
         public void Subscribe(IDrawAble drawAble)
         {
@@ -123,7 +124,32 @@ namespace traffic_light_simulation.classes.EventManagers
         }
         public bool IsCellFree(Vector2 targetPos)
         {
-            return !_claimedCells.ContainsKey(targetPos);
+            if (_expections.Contains(targetPos))
+            {
+                return true;
+            }
+            if (_claimedCells.ContainsKey(targetPos))
+            {
+                return false;
+            }
+
+            if (_bikeClaimedCells.ContainsKey(targetPos))
+            {
+                if (!_bikeClaimedCells[targetPos].IsCellFree())
+                {
+                    return false;
+                }
+            }
+            
+            if (_peopleClaimedCells.ContainsKey(targetPos))
+            {
+                if (!_peopleClaimedCells[targetPos].IsCellFree())
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
         public bool IsPeopleCellFree(Vector2 targetPos, string direction)
         {
@@ -175,8 +201,15 @@ namespace traffic_light_simulation.classes.EventManagers
         {
             foreach (var claimedCell in _peopleClaimedCells)
             {
-                spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
-                    new Rectangle((int) claimedCell.Key.X - 22, (int) claimedCell.Key.Y + 12, 100, 50), Color.Cyan);
+                List<Vector2> claimedCells = claimedCell.Value.GetClaimedCells();
+                if (claimedCells.Count > 0)
+                {
+                    foreach (var offset in claimedCells)
+                    {
+                        spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("ClaimMarker"),
+                            new Rectangle((int) ((claimedCell.Key.X - 25) + offset.X), (int) ((claimedCell.Key.Y + 15) + offset.Y), 50, 25), Color.Black);
+                    }
+                }
             }
         }
         

@@ -13,6 +13,8 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 {
     public class People: IDrawAble
     {
+        private readonly int _framesTillDone = 200;
+        private string _currentDirection;
         private string _lastDirection;
         private int _currentFrame;
         private int _id;
@@ -27,17 +29,24 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         
         public void Update()
         {
-            if(_state == States.Transit || _state == States.Stopping)
+            if(_state == States.Transit)
             {
                 if (_currentFrame == 3)
                 {
-                    VehicleEm.Instance.UnClaimPeopleCell(_pos - (_orientation[_lastDirection] * 3), _lastDirection);
+                    if (_repetition == 1 && _step != 0)
+                    {
+                        VehicleEm.Instance.UnClaimPeopleCell(_pos - (_orientation[_currentDirection] * 3), _lastDirection);
+                    }
+                    else
+                    {
+                        VehicleEm.Instance.UnClaimPeopleCell(_pos - (_orientation[_currentDirection] * 3), _currentDirection);
+                    }
                 }
                 _currentFrame++;
-                _pos += (_orientation[_lastDirection]);
-                if (_currentFrame == (200 / _speed))
+                _pos += (_orientation[_currentDirection]);
+                if (_currentFrame == (_framesTillDone / _speed))
                 {
-                    _state = _state == States.Stopping ? States.Idle : States.Driving;
+                    _state = States.Driving;
                     _currentFrame = 0;
                 }
             }
@@ -46,15 +55,15 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 //              if have not yet repeated this step enough time
                 if (_repetition < _directionMap.directions[_step].repeat)
                 {          
-                    Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * 200 / _speed);
-                    if (VehicleEm.Instance.IsPeopleCellFree(targetPos, _lastDirection))
+                    Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * _framesTillDone / _speed);
+                    if (VehicleEm.Instance.IsPeopleCellFree(targetPos, _currentDirection))
                     {
                         VehicleEm.Instance.ClaimPeopleCell(targetPos, _id, _directionMap.directions[_step].direction);        
                         _state = States.Transit;
-                        _lastDirection = _directionMap.directions[_step].direction;
+                        _currentDirection = _directionMap.directions[_step].direction;
                         _repetition++;
                         _currentFrame++;
-                        _pos += (_orientation[_lastDirection]);
+                        _pos += (_orientation[_currentDirection]);
                     }
                 }
                 else
@@ -62,21 +71,23 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 //                  delete this person if we have done the last step
                     if ((_step + 1 >= _directionMap.directions.Count) || (_directionMap.directions.Count == 1 && _repetition == _directionMap.directions[0].repeat))
                     {
-                        VehicleEm.Instance.UnClaimPeopleCell(_pos, _lastDirection); 
+                        Console.WriteLine(_pos);
+                        VehicleEm.Instance.UnClaimPeopleCell(_pos, _currentDirection); 
                         VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
                     }
                     else
                     {
-                        Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step + 1].direction] * 200 / _speed);
+                        Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step + 1].direction] * _framesTillDone / _speed);
                         if (VehicleEm.Instance.IsPeopleCellFree(targetPos, _directionMap.directions[_step + 1].direction))
                         {
                             VehicleEm.Instance.ClaimPeopleCell(targetPos, _id, _directionMap.directions[_step + 1].direction);  
+                            _lastDirection = _directionMap.directions[_step].direction;
                             _state = States.Transit;
                             _step++;
                             _repetition = 1;
-                            _lastDirection = _directionMap.directions[_step].direction;
+                            _currentDirection = _directionMap.directions[_step].direction;
                             _currentFrame++;
-                            _pos += (_orientation[_lastDirection]);
+                            _pos += (_orientation[_currentDirection]);
                         }
                     }
                 }
@@ -85,7 +96,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.Instance.GetDebugTexture("mensen"), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
+            spriteBatch.Draw(TextureManager.Instance.GetTexture("personA_" + _currentDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 25, 38), Color.White);
         }
 
         public void StateChange(int id, States state)
@@ -140,7 +151,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     {"DOWN",  new Vector2(1, 0.5f)   * 0.5f},
                     {"UP",    new Vector2(-1, -0.5f) * 0.5f}
                 },
-                _lastDirection = map.directions[0].direction,
+                _currentDirection = map.directions[0].direction,
                 _id = VehicleEm.Instance.GetNextId(),
                 _speed = VehicleEm.Instance.DefaultSpeed,
             };
@@ -154,8 +165,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     EntityType = "People"
                 });
             }
-            VehicleEm.Instance.ClaimPeopleCell(returnObject._pos, returnObject._id, returnObject._lastDirection); 
-            Console.WriteLine($"{returnObject._pos} start position");
+            VehicleEm.Instance.ClaimPeopleCell(returnObject._pos, returnObject._id, returnObject._currentDirection); 
             return returnObject;
         }
 
@@ -174,12 +184,12 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     {"DOWN",  new Vector2(1, 0.5f)   * 0.5f},
                     {"UP",    new Vector2(-1, -0.5f) * 0.5f}
                 },
-                _lastDirection = directionMap.directions[0].direction,
+                _currentDirection = directionMap.directions[0].direction,
                 _id = VehicleEm.Instance.GetNextId(),
                 _speed = VehicleEm.Instance.DefaultSpeed,
             };
 
-            VehicleEm.Instance.ClaimPeopleCell(returnObject._pos, returnObject._id, returnObject._lastDirection);        
+            VehicleEm.Instance.ClaimPeopleCell(returnObject._pos, returnObject._id, returnObject._currentDirection);        
             
             return returnObject;
         }

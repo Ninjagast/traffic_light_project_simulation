@@ -80,6 +80,7 @@ namespace traffic_light_simulation
             _backGround = Content.Load<Texture2D>("BackGround");
 
             Dictionary<string, Texture2D> sedanTextures           = new Dictionary<string, Texture2D>();
+            Dictionary<string, Texture2D> personATextures         = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> trafficLightTextures    = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> pedestrianLightTextures = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> bicycleLightTextures    = new Dictionary<string, Texture2D>();
@@ -87,6 +88,7 @@ namespace traffic_light_simulation
             foreach (var orientation in _orientations)
             {
                  sedanTextures.Add($"sedan_{orientation}", Content.Load<Texture2D>($"sedan_{orientation}"));
+                 personATextures.Add($"personA_{orientation}", Content.Load<Texture2D>($"personA_{orientation}"));
             }
             foreach (var color in _lightStates)
             {
@@ -99,10 +101,11 @@ namespace traffic_light_simulation
 
             TextureManager.Instance.AddFont(Content.Load<SpriteFont>("SmallFont"), "SmallFont");
             TextureManager.Instance.AddFont(Content.Load<SpriteFont>("BigFont"), "BigFont");
-            TextureManager.Instance.SetTexture(sedanTextures, 0);
-            TextureManager.Instance.SetTexture(trafficLightTextures, 1);
-            TextureManager.Instance.SetTexture(bicycleLightTextures, 2);
-            TextureManager.Instance.SetTexture(pedestrianLightTextures, 3);
+            TextureManager.Instance.SetTexture(sedanTextures);
+            TextureManager.Instance.SetTexture(trafficLightTextures);
+            TextureManager.Instance.SetTexture(bicycleLightTextures);
+            TextureManager.Instance.SetTexture(pedestrianLightTextures);
+            TextureManager.Instance.SetTexture(personATextures);
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("FieldTexture"), "FieldTexture");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("FieldSelectedTexture"), "FieldSelectedTexture");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("DebugButton"), "DebugButton");
@@ -116,14 +119,11 @@ namespace traffic_light_simulation
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("PeopleGreen"), "People");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("BikeGreen"), "Bike");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("fietser"), "fietser");
-            TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("mensen"), "mensen");
             
             CreationManager.CreateTrafficLights();
             CreationManager.CreateStartScreenButtons();
             CreationManager.CreateBicycleLights();
             CreationManager.CreatePedestrianLights();
-            // CreationManager.CreatePedestrianLights();
-            // CreationManager.CreateBicycleLights();
             // CreationManager.CreateBoatLights();
         }
 
@@ -140,31 +140,7 @@ namespace traffic_light_simulation
             {
                 DebugManager.Instance.UpdateTick += 1;
                 _checkKeyPress(Keys.Space,SimulationStates.Paused);
-
-                // if (_random.Next(0, 400) > 398) // 0.25% chance per tick to spawn a random Guy
-                // {
-                    // People people = People.CreateInstance(_random);
-                    // if (people != null)
-                    // {
-                        // VehicleEm.Instance.Subscribe(people);
-                    // }
-                // }
-                if (_random.Next(0, 50) > 48) // 2% chance per tick to spawn a random car
-                {
-                    Car car = Car.CreateInstance(_random);
-                    if (car != null)
-                    {
-                        VehicleEm.Instance.Subscribe(car);
-                    }
-                }
-                if (_random.Next(0, 200) > 198) // 0.5% chance per tick to spawn a random Bike
-                {
-                    Bike bike = Bike.CreateInstance(_random);
-                    if (bike != null)
-                    {
-                        VehicleEm.Instance.Subscribe(bike);
-                    }
-                }
+                _randomSpawn();
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
                 EventManagerEm.Instance.Update();
             }
@@ -270,6 +246,34 @@ namespace traffic_light_simulation
             if (Keyboard.GetState().IsKeyDown(key) && _prevKeyboardState.IsKeyUp(key))
             {
                 EventManagerEm.Instance.State = state;
+            }
+        }
+
+        private void _randomSpawn()
+        {
+            if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Guy
+            {
+                People people = People.CreateInstance(_random);
+                if (people != null)
+                {
+                    VehicleEm.Instance.Subscribe(people);
+                }
+            }
+            if (_random.Next(0, 100) > 98) // 1% chance per tick to spawn a random car
+            {
+                Car car = Car.CreateInstance(_random);
+                if (car != null)
+                {
+                    VehicleEm.Instance.Subscribe(car);
+                }
+            }
+            if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Bike
+            {
+                Bike bike = Bike.CreateInstance(_random);
+                if (bike != null)
+                {
+                    VehicleEm.Instance.Subscribe(bike);
+                }
             }
         }
     }

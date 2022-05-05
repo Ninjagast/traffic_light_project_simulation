@@ -25,10 +25,8 @@ namespace traffic_light_simulation.classes.GlobalScripts
             }
         }
         
-        private Dictionary<string, Texture2D> _sedanTextures;
-        private Dictionary<string, Texture2D> _trafficLightTextures;
-        private Dictionary<string, Texture2D> _bicycleLightTextures;
-        private Dictionary<string, Texture2D> _pedestrianLightTextures;
+        private Dictionary<string, Texture2D> _textures = new Dictionary<string, Texture2D>();
+        
         private Dictionary<string, Texture2D> _buttons = new Dictionary<string, Texture2D>();
         private Dictionary<string, Texture2D> _debugTextures = new Dictionary<string, Texture2D>();
         private Dictionary<string, SpriteFont> _fonts = new Dictionary<string, SpriteFont>();
@@ -48,52 +46,22 @@ namespace traffic_light_simulation.classes.GlobalScripts
             _fonts.Add(name, font);
         }
         
-        public void SetTexture(Dictionary<string, Texture2D> textures, int id)
+        public void SetTexture(Dictionary<string, Texture2D> textures)
         {
-            switch (id)
+            foreach (var texture in textures)
             {
-                case 0:
-                    _sedanTextures = textures;
-                    break;
-
-                case 1:
-                    _trafficLightTextures = textures;
-                    break;
-                
-                case 2:
-                    _bicycleLightTextures = textures;
-                    break;
-                
-                case 3:
-                    _pedestrianLightTextures = textures;
-                    break;
-                
-                default:
-                    break;
+                _textures.Add(texture.Key, texture.Value);
             }
         }
 
-        public Texture2D GetTexture(int id, string textureName)
+        public Texture2D GetTexture(string textureName)
         {
-            switch (id)
+
+            if (_textures.ContainsKey(textureName))
             {
-                case 0:
-                    return _sedanTextures[textureName];
-
-                case 1:
-                    return _trafficLightTextures[textureName];
-                
-                case 2:
-                    return _bicycleLightTextures[textureName];
-                
-                case 3:
-                    return _pedestrianLightTextures[textureName];
-                
-                default:
-                    break;
+                return _textures[textureName];
             }
-
-            throw new ArgumentException($"There is not a texture with this id:{id}");
+            throw new ArgumentException($"There is not a texture with this name: {textureName}");
         }
 
         public SpriteFont GetFont(string name = "SmallFont")

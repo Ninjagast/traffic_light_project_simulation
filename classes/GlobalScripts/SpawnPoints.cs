@@ -78,7 +78,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             {
                 if (extensionsMap.key == positionId)
                 {
-                    return extensionsMap.directions[1];
+                    return extensionsMap.directions[key];
                 }
             }
 

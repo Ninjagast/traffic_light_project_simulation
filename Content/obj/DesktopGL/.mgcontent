@@ -20,9 +20,12 @@
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightRed.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightYellow.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/mensen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleGreen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleRed.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/personA_NE.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/personA_NW.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/personA_SE.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/personA_SW.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PlayButton.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/RadioButton.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/ReplayButton.png</File>
@@ -51,7 +54,10 @@
     <File>LightOrange.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
-    <File xsi:nil="true" />
+    <File>personA_RIGHT.png</File>
+    <File>personA_UP.png</File>
+    <File>personA_DOWN.png</File>
+    <File>personA_LEFT.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

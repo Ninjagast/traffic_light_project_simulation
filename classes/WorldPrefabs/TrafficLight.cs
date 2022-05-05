@@ -24,7 +24,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 if(id > -1 && _stoppedCarId == -1)
                 {
                     _stoppedCarId = id;
-                    VehicleEm.Instance.OnStateChange(id, States.Stopping);
+                    VehicleEm.Instance.OnStateChange(id, States.Idle);
                     Server.Instance.EntityEnteredZone(_laneId);
                 }
             }
@@ -32,7 +32,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             {
                 if (_stoppedCarId > -1)
                 {
-                    VehicleEm.Instance.OnStateChange(_stoppedCarId, States.Driving);
+                    VehicleEm.Instance.OnStateChange(_stoppedCarId, States.Transit);
                     Server.Instance.EntityExitedZone(_laneId);
    
                     _stoppedCarId = -1;
@@ -42,7 +42,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.Instance.GetTexture(1, "Light" + _state.ToString()), new Rectangle((int) _pos.X, (int)_pos.Y, 20, 50), Color.White);
+            spriteBatch.Draw(TextureManager.Instance.GetTexture("Light" + _state.ToString()), new Rectangle((int) _pos.X, (int)_pos.Y, 20, 50), Color.White);
         }
 
         public void StateChange(int id, States state)

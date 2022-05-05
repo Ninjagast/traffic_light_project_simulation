@@ -74,7 +74,7 @@ namespace traffic_light_simulation.classes.debug
                             VehicleEm.Instance.Subscribe(bike);
                             break;
                     
-                        case "Person":
+                        case "People":
                             People guy = People.CreateReplayInstance(_entitySpawn[_currentEntity].DirectionMap);
                             VehicleEm.Instance.Subscribe(guy);
                             break;

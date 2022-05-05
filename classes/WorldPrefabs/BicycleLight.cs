@@ -26,7 +26,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 if(id > -1 && _stoppedBikeId == -1)
                 {
                     _stoppedBikeId = id;
-                    VehicleEm.Instance.OnStateChange(id, States.Stopping);
+                    VehicleEm.Instance.OnStateChange(id, States.Idle);
                     Server.Instance.EntityEnteredZone(_laneId);
                 }
             }
@@ -44,7 +44,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.Instance.GetTexture(2, "Bike" + _state.ToString()), new Rectangle((int) _pos.X, (int)_pos.Y, 20, 50), Color.White);
+            spriteBatch.Draw(TextureManager.Instance.GetTexture("Bike" + _state.ToString()), new Rectangle((int) _pos.X, (int)_pos.Y, 20, 50), Color.White);
         }
 
         public void StateChange(int id, States state)

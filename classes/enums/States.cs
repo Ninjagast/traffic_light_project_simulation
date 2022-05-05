@@ -7,7 +7,6 @@
         Red,
         Driving,
         Idle,
-        Transit,
-        Stopping
+        Transit
     }
 }

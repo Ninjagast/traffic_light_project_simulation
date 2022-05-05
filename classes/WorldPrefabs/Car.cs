@@ -14,6 +14,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 {
     public class Car: IDrawAble
     {
+        private readonly int _framesTillDone = 50;
         private string _lastDirection;
         private int _currentFrame;
         private int _id;
@@ -28,7 +29,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         
         public void Update()
         {
-            if(_state == States.Transit || _state == States.Stopping)
+            if(_state == States.Transit)
             {
                 if (_currentFrame == 3)
                 {
@@ -36,10 +37,10 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 }
                 _currentFrame++;
                 _pos += (_orientation[_lastDirection]);
-                if (_currentFrame == (50 / _speed))
+                if (_currentFrame == (_framesTillDone / _speed))
                 {
                     _currentFrame = 0;
-                    _state = _state == States.Stopping ? States.Idle : States.Driving;
+                    _state = States.Driving;
                 }
             }
             else if (_state == States.Driving)
@@ -47,7 +48,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 //              if have not yet repeated this step enough time
                 if (_repetition < _directionMap.directions[_step].repeat)
                 {          
-                    Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * 50 / _speed);
+                    Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * _framesTillDone / _speed);
                     if (VehicleEm.Instance.IsCellFree(targetPos))
                     {
                         VehicleEm.Instance.ClaimCell(targetPos, _id);        
@@ -66,7 +67,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                         DirectionMap newMap = WeightTableHandler.Instance.GetRandomExtension(_pos);
                         if (newMap == null)
                         {
-                            Console.WriteLine($"My last position: {_pos}");
                             VehicleEm.Instance.UnClaimCell(_pos); 
                             VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
                         }
@@ -80,7 +80,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                     }
                     else
                     {
-                        Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step + 1].direction] * 50 / _speed);
+                        Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step + 1].direction] * _framesTillDone / _speed);
                         if (VehicleEm.Instance.IsCellFree(targetPos))
                         {
                             VehicleEm.Instance.ClaimCell(targetPos, _id);  
@@ -98,12 +98,12 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.Instance.GetTexture(0, "sedan_" + _lastDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
+            spriteBatch.Draw(TextureManager.Instance.GetTexture("sedan_" + _lastDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
         }
 
         public void StateChange(int id, States state)
         {
-            if (_id == id)
+            if (id == _id)
             {
                 _state = state;
             }
@@ -168,7 +168,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 });
             }
             VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id); 
-            Console.WriteLine($"{returnObject._pos} start position");
             return returnObject;
         }
 

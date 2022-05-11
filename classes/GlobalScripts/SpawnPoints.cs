@@ -52,6 +52,12 @@ namespace traffic_light_simulation.classes.GlobalScripts
                 {
                     string json = r.ReadToEnd();
                     _sideWalkRoutes = JsonSerializer.Deserialize<List<DirectionMap>>(json);
+                }                
+                
+                using (StreamReader r = new StreamReader("../../../SeaRoutes.json"))
+                {
+                    string json = r.ReadToEnd();
+                    _waterSpawnPoints = JsonSerializer.Deserialize<List<DirectionMap>>(json);
                 }
             }
             catch (Exception e)
@@ -65,11 +71,6 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public DirectionMap GetLandSpawnPoint(int key)
         {
             return _landSpawnPoints[key];
-        }
-
-        public DirectionMap GetWaterSpawnPoint()
-        {
-            throw new NotImplementedException();
         }
 
         public List<Directions> GetExtension(string positionId, int key)
@@ -88,6 +89,11 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public DirectionMap GetSideWalkSpawn(int key)
         {
             return _sideWalkRoutes[key];
+        }
+
+        public DirectionMap GetSeaRoute(int key)
+        {
+            return _waterSpawnPoints[key];
         }
     }
 }

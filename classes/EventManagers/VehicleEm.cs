@@ -37,6 +37,7 @@ namespace traffic_light_simulation.classes.EventManagers
         private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
         private Dictionary<Vector2, DivCell> _peopleClaimedCells = new Dictionary<Vector2, DivCell>();
         private Dictionary<Vector2, DivCell> _bikeClaimedCells = new Dictionary<Vector2, DivCell>();
+        private Dictionary<Vector2, DivCell> _boatClaimedCells = new Dictionary<Vector2, DivCell>();
         private List<Vector2> _exceptions = new List<Vector2> {new Vector2(1025, 995), new Vector2(575, 870), new Vector2(825, 1195), new Vector2(475, 1170)};
         
         public void Subscribe(IDrawAble drawAble)
@@ -94,6 +95,11 @@ namespace traffic_light_simulation.classes.EventManagers
             _bikeClaimedCells[id].UnClaimCell(direction);
         }
         
+        public void UnClaimBoatCell(Vector2 pos, string direction)
+        {
+            _boatClaimedCells[pos].UnClaimCell(direction);
+        }
+        
         public void ClaimCell(Vector2 targetPos, int id)
         {
             _claimedCells.Add(targetPos, id);
@@ -113,6 +119,20 @@ namespace traffic_light_simulation.classes.EventManagers
             }
         }
 
+        public void ClaimBoatCell(Vector2 targetPos, int id, string direction)
+        {
+            if (_boatClaimedCells.ContainsKey(targetPos))
+            {
+                _boatClaimedCells[targetPos].ClaimCell(id, direction);
+            }
+            else
+            {
+                DivCell newCellDiv = new DivCell();
+                newCellDiv.ClaimCell(id, direction);
+                _boatClaimedCells.Add(targetPos, newCellDiv);
+            }
+        }
+        
         public void ClaimBikeCell(Vector2 targetPos, int id, string direction)
         {
             if (_bikeClaimedCells.ContainsKey(targetPos))
@@ -181,6 +201,18 @@ namespace traffic_light_simulation.classes.EventManagers
             }
         }
 
+        public bool IsBoatCellFree(Vector2 targetPos, string direction)
+        {
+            if (_boatClaimedCells.ContainsKey(targetPos))
+            {
+                return _boatClaimedCells[targetPos].IsCellFree(direction);
+            }
+            else
+            {
+                return true;
+            }
+        }
+        
         public int GetCellCarId(Vector2 targetArea)
         {
             foreach (var cell in _claimedCells)

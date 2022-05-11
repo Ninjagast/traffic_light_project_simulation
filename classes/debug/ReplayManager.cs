@@ -80,6 +80,8 @@ namespace traffic_light_simulation.classes.debug
                             break;
                     
                         case "Boat":
+                            Boat boat = Boat.CreateReplayInstance(_entitySpawn[_currentEntity].DirectionMap);
+                            VehicleEm.Instance.Subscribe(boat);
                             break;
                     
                         default:

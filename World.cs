@@ -83,6 +83,7 @@ namespace traffic_light_simulation
 
             Dictionary<string, Texture2D> sedanTextures           = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> personATextures         = new Dictionary<string, Texture2D>();
+            Dictionary<string, Texture2D> smallBoatTextures       = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> trafficLightTextures    = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> pedestrianLightTextures = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> bicycleLightTextures    = new Dictionary<string, Texture2D>();
@@ -91,6 +92,7 @@ namespace traffic_light_simulation
             {
                  sedanTextures.Add($"sedan_{orientation}", Content.Load<Texture2D>($"sedan_{orientation}"));
                  personATextures.Add($"personA_{orientation}", Content.Load<Texture2D>($"personA_{orientation}"));
+                 smallBoatTextures.Add($"boat_small_{orientation}", Content.Load<Texture2D>($"boat_small_{orientation}"));
             }
             foreach (var color in _lightStates)
             {
@@ -109,6 +111,7 @@ namespace traffic_light_simulation
             TextureManager.Instance.SetTexture(bicycleLightTextures);
             TextureManager.Instance.SetTexture(pedestrianLightTextures);
             TextureManager.Instance.SetTexture(personATextures);
+            TextureManager.Instance.SetTexture(smallBoatTextures);
             TextureManager.Instance.SetTexture(Content.Load<Texture2D>("bridgeClosed"), "bridgeClosed");
             TextureManager.Instance.SetTexture(Content.Load<Texture2D>("bridgeOpen"), "bridgeOpen");
             TextureManager.Instance.SetTexture(Content.Load<Texture2D>("HitTreeOpen"), "HitTreeOpen");
@@ -262,28 +265,36 @@ namespace traffic_light_simulation
 
         private void _randomSpawn()
         {
-            if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Guy
+            // if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Guy
+            // {
+                // People people = People.CreateInstance(_random);
+                // if (people != null)
+                // {
+                    // VehicleEm.Instance.Subscribe(people);
+                // }
+            // }
+            // if (_random.Next(0, 100) > 98) // 1% chance per tick to spawn a random car
+            // {
+                // Car car = Car.CreateInstance(_random);
+                // if (car != null)
+                // {
+                    // VehicleEm.Instance.Subscribe(car);
+                // }
+            // }
+            // if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Bike
+            // {
+                // Bike bike = Bike.CreateInstance(_random);
+                // if (bike != null)
+                // {
+                    // VehicleEm.Instance.Subscribe(bike);
+                // }
+            // }
+            if (_random.Next(0, 1200) > 1198) // 0.08% chance per tick to spawn a random Bike
             {
-                People people = People.CreateInstance(_random);
-                if (people != null)
+                Boat boat = Boat.CreateInstance(_random);
+                if (boat != null)
                 {
-                    VehicleEm.Instance.Subscribe(people);
-                }
-            }
-            if (_random.Next(0, 100) > 98) // 1% chance per tick to spawn a random car
-            {
-                Car car = Car.CreateInstance(_random);
-                if (car != null)
-                {
-                    VehicleEm.Instance.Subscribe(car);
-                }
-            }
-            if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Bike
-            {
-                Bike bike = Bike.CreateInstance(_random);
-                if (bike != null)
-                {
-                    VehicleEm.Instance.Subscribe(bike);
+                    VehicleEm.Instance.Subscribe(boat);
                 }
             }
         }

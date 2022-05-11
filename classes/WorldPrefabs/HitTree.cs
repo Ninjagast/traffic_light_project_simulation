@@ -134,9 +134,9 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             }   
         }
 
-        public static HitTree CreateInstance(Vector2 pos, Dictionary<string, Vector2> targetAreas, string direction, string offset)
+        public static HitTree CreateInstance(Vector2 pos, Dictionary<string, Vector2> targetAreas, string direction, string offset, int bridgeId)
         {
-            return new HitTree{_pos = pos, _targetAreas = targetAreas, _direction = direction, _offset = offset};
+            return new HitTree{_pos = pos, _targetAreas = targetAreas, _direction = direction, _offset = offset, _id = bridgeId};
         }
     }
 }

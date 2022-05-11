@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/HitTreeClosed.png</SourceFile>
-  <SourceTime>2022-05-09T13:54:40.3992702+02:00</SourceTime>
+  <SourceTime>2022-05-09T15:03:53.4173161+02:00</SourceTime>
   <DestFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/bin/DesktopGL/HitTreeClosed.xnb</DestFile>
-  <DestTime>2022-05-09T13:55:17.7477509+02:00</DestTime>
+  <DestTime>2022-05-11T21:43:08.431983+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

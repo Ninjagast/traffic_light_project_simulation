@@ -42,8 +42,6 @@ namespace traffic_light_simulation.classes.GlobalScripts
             {
                 Pos.Y = newPosition.Y;
             }
-            
-            Console.WriteLine(Pos);
         }
 
         public void UpdateCamera(Viewport bounds)

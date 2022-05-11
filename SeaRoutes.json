@@ -1,0 +1,44 @@
+﻿[
+  {
+    "_comment": "top to bottom boat",
+    "vector2": {
+      "x": 1675,
+      "y": -30
+    },
+    "directions": [
+      {
+        "repeat": 8,
+        "direction": "DOWN"
+      },
+      {
+        "repeat": 2,
+        "direction": "RIGHT"
+      },
+      {
+        "repeat": 7,
+        "direction": "DOWN"
+      },
+      {
+        "repeat": 2,
+        "direction": "LEFT"
+      },
+      {
+        "repeat": 9,
+        "direction": "DOWN"
+      }
+    ]
+  },
+  {
+    "_comment": "bottom to top boat",
+    "vector2": {
+      "x": 2925,
+      "y": 495
+    },
+    "directions": [
+      {
+        "repeat": 22,
+        "direction": "UP"
+      }
+    ]
+  }
+]

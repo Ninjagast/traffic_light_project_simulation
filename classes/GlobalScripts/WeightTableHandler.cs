@@ -28,6 +28,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
 
         private WeightTable _routeTable = new WeightTable();
         private WeightTable _sideWalkTable = new WeightTable();
+        private WeightTable _seaRouteTable = new WeightTable();
         private Dictionary<string, WeightTable> _extensionTables = new Dictionary<string, WeightTable>();
         private Random _random;
 
@@ -36,20 +37,20 @@ namespace traffic_light_simulation.classes.GlobalScripts
             _random = random;
 
             _routeTable
-                .AddRow(3, "Route 12")
-                .AddRow(3, "Route 11")
-                .AddRow(3, "Route 10")
-                .AddRow(4, "Route 9")
-                .AddRow(5, "Route top 8")
-                .AddRow(5, "Route bot 8")
-                .AddRow(4, "Route 7")
-                .AddRow(3, "Route 5 Going left")
-                .AddRow(3, "Route 5 Going top")
-                .AddRow(5, "Route Left 4")
-                .AddRow(6, "Route Right 4")
-                .AddRow(1, "Route 15")
-                .AddRow(8, "right roundabout")
-                .AddRow(2, "bottom roundabout first right")
+                .AddRow(0, "Route 12")
+                .AddRow(0, "Route 11")
+                .AddRow(0, "Route 10")
+                .AddRow(0, "Route 9")
+                .AddRow(0, "Route top 8")
+                .AddRow(0, "Route bot 8")
+                .AddRow(0, "Route 7")
+                .AddRow(0, "Route 5 Going left")
+                .AddRow(0, "Route 5 Going top")
+                .AddRow(0, "Route Left 4")
+                .AddRow(0, "Route Right 4")
+                .AddRow(0, "Route 15")
+                .AddRow(0, "right roundabout")
+                .AddRow(0, "bottom roundabout first right")
                 .AddRow(3, "bottom roundabout full send");
 //              max sum 60 for now
 
@@ -75,7 +76,13 @@ namespace traffic_light_simulation.classes.GlobalScripts
                 .AddRow(1, "bike 5 to bike 3")
                 .AddRow(1, "bike 5 to bike 4");
 
-
+            _seaRouteTable
+                .AddRow(1, "top to bottom boat")
+                .AddRow(1, "bottom to top boat");
+                
+                
+                
+//          extensions
             WeightTable joinedRouteAfterRoundabout = new WeightTable();
             WeightTable afterCrossroad = new WeightTable();
 
@@ -173,6 +180,29 @@ namespace traffic_light_simulation.classes.GlobalScripts
 //          Have fun with your field medal!
             return SpawnPoints.Instance.GetSideWalkSpawn(0);
         }
-        
+
+        public DirectionMap GetRandomSeaRoute()
+        {
+            int neo = _random.Next(0, _seaRouteTable.GetTableSum()); // the one
+            int key = 0;
+            foreach (var route in _seaRouteTable)
+            {
+                neo -= route.Value;
+
+                if (neo < 0)
+                {
+                    return SpawnPoints.Instance.GetSeaRoute(key);
+                }
+                else
+                {
+                    key++;
+                }
+            }
+//          If it ever gets here.
+//          Then You better get dressed for your ceremony.
+//          Since you just broke the laws of mathematics!!! 
+//          Have fun with your field medal!
+            return SpawnPoints.Instance.GetSeaRoute(0);
+        }
     }
 }

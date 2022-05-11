@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -18,7 +19,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public Camera(Viewport viewport)
         {
             _bounds = viewport.Bounds;
-            Pos = new Vector2(1000,1000);
+            Pos = new Vector2(1000,700);
         }
 
         private void _updateMatrix()
@@ -31,7 +32,18 @@ namespace traffic_light_simulation.classes.GlobalScripts
         private void _moveCamera(Vector2 movePosition)
         {
             Vector2 newPosition = Pos + movePosition;
-            Pos = newPosition;
+
+            if (!(newPosition.X < 680 || newPosition.X > 2260))
+            {
+                Pos.X = newPosition.X;
+            }
+
+            if (!(newPosition.Y < 640 || newPosition.Y > 860))
+            {
+                Pos.Y = newPosition.Y;
+            }
+            
+            Console.WriteLine(Pos);
         }
 
         public void UpdateCamera(Viewport bounds)
@@ -67,22 +79,35 @@ namespace traffic_light_simulation.classes.GlobalScripts
             Vector2 stabilizationVector = Vector2.Zero; 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                stabilizationVector.Y = -MovementSpeed;
+                if (Pos.Y != 640)
+                {
+                    stabilizationVector.Y = -MovementSpeed;
+                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                stabilizationVector.Y = MovementSpeed;
+                if (Pos.Y != 860)
+                {
+                    stabilizationVector.Y = MovementSpeed;
+                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                stabilizationVector.X = -MovementSpeed;
+                
+                if (Pos.X != 680)
+                {
+                    stabilizationVector.X = -MovementSpeed;
+                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                stabilizationVector.X = MovementSpeed;
+                if (Pos.X != 2260)
+                {
+                    stabilizationVector.X = MovementSpeed;
+                }
             }
 
             return Pos - stabilizationVector;

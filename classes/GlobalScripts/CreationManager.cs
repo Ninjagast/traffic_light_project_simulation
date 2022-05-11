@@ -54,7 +54,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
 //          Right of the intersection
             PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(935, 935),  31, new Vector2(875, 920),  "UP", new List<int>{31}));
             PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(675, 820),  31, new Vector2(675, 820),  "DOWN", new List<int>{31, 32}));
-            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(1085, 1010),32, new Vector2(1075, 1020),"UP", new List<int>{32, 31}));
+            PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(1085,1010), 32, new Vector2(1075, 1020),"UP", new List<int>{32, 31}));
             PedestrianLightEm.Instance.Subscribe(PedestrianLight.CreateInstance(new Vector2(925, 945),  32, new Vector2(925, 945),  "DOWN", new List<int>{32}));
             
 //          Top of the intersection
@@ -77,6 +77,19 @@ namespace traffic_light_simulation.classes.GlobalScripts
             
         }
 
+        public static void CreateBridges()
+        {
+            BridgeEm.Instance.Subscribe(Bridge.CreateInstance(new Vector2(2204, 204)));
+        }
+
+        public static void CreateHitTrees()
+        {
+            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2300, 30), new Dictionary<string, Vector2>(){{"car", new Vector2(2375, 220)}, {"notCar", new Vector2(2325, 195)}}, "LEFT", "DOWN"));
+            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2550, 175), new Dictionary<string, Vector2>(), "", "UP"));
+            
+            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2200, 100), new Dictionary<string, Vector2>(), "", "DOWN"));
+            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2425, 235), new Dictionary<string, Vector2>{{"car", new Vector2(2325, 295)}, {"notCar", new Vector2(2375,320)}}, "RIGHT", "UP"));
+        }
         public static void CreateBoatLights()
         {
             throw new System.NotImplementedException();

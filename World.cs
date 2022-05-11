@@ -31,10 +31,12 @@ namespace traffic_light_simulation
 
         public World()
         {
+            EventManagerEm.Instance.Subscribe(BridgeEm.Instance);
             EventManagerEm.Instance.Subscribe(TrafficLightEm.Instance);
             EventManagerEm.Instance.Subscribe(PedestrianLightEm.Instance);
             EventManagerEm.Instance.Subscribe(BicycleLightEm.Instance);
             EventManagerEm.Instance.Subscribe(VehicleEm.Instance);
+            EventManagerEm.Instance.Subscribe(BridgeHitTreeEm.Instance);
 
             _orientations = new List<string>
             {
@@ -101,11 +103,17 @@ namespace traffic_light_simulation
 
             TextureManager.Instance.AddFont(Content.Load<SpriteFont>("SmallFont"), "SmallFont");
             TextureManager.Instance.AddFont(Content.Load<SpriteFont>("BigFont"), "BigFont");
+            
             TextureManager.Instance.SetTexture(sedanTextures);
             TextureManager.Instance.SetTexture(trafficLightTextures);
             TextureManager.Instance.SetTexture(bicycleLightTextures);
             TextureManager.Instance.SetTexture(pedestrianLightTextures);
             TextureManager.Instance.SetTexture(personATextures);
+            TextureManager.Instance.SetTexture(Content.Load<Texture2D>("bridgeClosed"), "bridgeClosed");
+            TextureManager.Instance.SetTexture(Content.Load<Texture2D>("bridgeOpen"), "bridgeOpen");
+            TextureManager.Instance.SetTexture(Content.Load<Texture2D>("HitTreeOpen"), "HitTreeOpen");
+            TextureManager.Instance.SetTexture(Content.Load<Texture2D>("HitTreeClosed"), "HitTreeClosed");
+            
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("FieldTexture"), "FieldTexture");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("FieldSelectedTexture"), "FieldSelectedTexture");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("DebugButton"), "DebugButton");
@@ -115,6 +123,7 @@ namespace traffic_light_simulation
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("SelectedRadioButton"), "SelectedRadioButton");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("ReplayButton"), "ReplayButton");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("RadioButton"), "RadioButton");
+            
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("ClaimMarker"), "ClaimMarker");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("PeopleGreen"), "People");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("BikeGreen"), "Bike");
@@ -124,6 +133,8 @@ namespace traffic_light_simulation
             CreationManager.CreateStartScreenButtons();
             CreationManager.CreateBicycleLights();
             CreationManager.CreatePedestrianLights();
+            CreationManager.CreateBridges();
+            CreationManager.CreateHitTrees();
             // CreationManager.CreateBoatLights();
         }
 
@@ -160,7 +171,7 @@ namespace traffic_light_simulation
 
                 DebugManager.Instance.UpdateTick += 1;
                 ReplayManager.Instance.CheckTick();
-                                
+                
                 _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
                 EventManagerEm.Instance.Update();
             }

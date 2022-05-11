@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BackGround.png</SourceFile>
-  <SourceTime>2022-04-24T20:00:49.0594173+02:00</SourceTime>
+  <SourceTime>2022-05-11T18:03:44.0411735+02:00</SourceTime>
   <DestFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/bin/DesktopGL/Content/BackGround.xnb</DestFile>
-  <DestTime>2022-04-24T20:01:36.5181178+02:00</DestTime>
+  <DestTime>2022-05-11T18:04:05.2729076+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

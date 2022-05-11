@@ -37,7 +37,7 @@ namespace traffic_light_simulation.classes.EventManagers
         private Dictionary<Vector2, int> _claimedCells = new Dictionary<Vector2, int>();
         private Dictionary<Vector2, DivCell> _peopleClaimedCells = new Dictionary<Vector2, DivCell>();
         private Dictionary<Vector2, DivCell> _bikeClaimedCells = new Dictionary<Vector2, DivCell>();
-        private List<Vector2> _expections = new List<Vector2> {new Vector2(1025, 995), new Vector2(575, 870), new Vector2(825, 1195), new Vector2(475, 1170)};
+        private List<Vector2> _exceptions = new List<Vector2> {new Vector2(1025, 995), new Vector2(575, 870), new Vector2(825, 1195), new Vector2(475, 1170)};
         
         public void Subscribe(IDrawAble drawAble)
         {
@@ -83,18 +83,22 @@ namespace traffic_light_simulation.classes.EventManagers
         {
             _claimedCells.Remove(id);
         }
+        
         public void UnClaimPeopleCell(Vector2 id, string direction)
         {
             _peopleClaimedCells[id].UnClaimCell(direction);
         }
+        
         public void UnClaimBikeCell(Vector2 id, string direction)
         {
             _bikeClaimedCells[id].UnClaimCell(direction);
         }
+        
         public void ClaimCell(Vector2 targetPos, int id)
         {
             _claimedCells.Add(targetPos, id);
         }
+        
         public void ClaimPeopleCell(Vector2 targetPos, int id, string direction)
         {
             if (_peopleClaimedCells.ContainsKey(targetPos))
@@ -122,9 +126,10 @@ namespace traffic_light_simulation.classes.EventManagers
                 _bikeClaimedCells.Add(targetPos, newCellDiv);
             }
         }
+        
         public bool IsCellFree(Vector2 targetPos)
         {
-            if (_expections.Contains(targetPos))
+            if (_exceptions.Contains(targetPos))
             {
                 return true;
             }
@@ -151,6 +156,7 @@ namespace traffic_light_simulation.classes.EventManagers
 
             return true;
         }
+        
         public bool IsPeopleCellFree(Vector2 targetPos, string direction)
         {
             if (_peopleClaimedCells.ContainsKey(targetPos))
@@ -228,7 +234,6 @@ namespace traffic_light_simulation.classes.EventManagers
                 }
             }
         }
-
 
         public void DebugDrawIds(SpriteBatch spriteBatch)
         {

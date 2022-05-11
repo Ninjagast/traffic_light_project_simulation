@@ -54,6 +54,11 @@ namespace traffic_light_simulation.classes.GlobalScripts
             }
         }
 
+        public void SetTexture(Texture2D texture, string name)
+        {
+            _textures.Add(name, texture);
+        }
+
         public Texture2D GetTexture(string textureName)
         {
 

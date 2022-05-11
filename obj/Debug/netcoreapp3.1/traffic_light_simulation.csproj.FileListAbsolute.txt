@@ -138,3 +138,7 @@ C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\D
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\personA_LEFT.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\personA_RIGHT.xnb
 C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\personA_UP.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\bridgeClosed.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\bridgeOpen.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\HitTreeClosed.xnb
+C:\Users\Steven\Desktop\simulatie_traffic\traffic_light_project_simulation\bin\Debug\netcoreapp3.1\Content\HitTreeOpen.xnb

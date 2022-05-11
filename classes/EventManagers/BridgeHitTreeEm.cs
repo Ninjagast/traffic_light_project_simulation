@@ -10,7 +10,7 @@ namespace traffic_light_simulation.classes.EventManagers
     public class BridgeHitTreeEm: IEventManager
     {
         private static BridgeHitTreeEm _instance;
-        private List<HitTree> _subscribed = new List<HitTree>();
+        private List<IDrawAble> _subscribed = new List<IDrawAble>();
         private static readonly object Padlock = new object();
         private BridgeHitTreeEm() {}
         public static BridgeHitTreeEm Instance
@@ -30,27 +30,38 @@ namespace traffic_light_simulation.classes.EventManagers
 
         public void Subscribe(IDrawAble drawAble)
         {
-            throw new NotImplementedException();
+            _subscribed.Add(drawAble);
         }
 
         public void OnStateChange(int id, States state)
         {
-            throw new NotImplementedException();
+            foreach (var subbed in _subscribed)
+            {
+                subbed.StateChange(id, state);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            foreach (var subbed in _subscribed)
+            {
+                subbed.Draw(spriteBatch);
+            }
         }
-
         public void DebugDrawIds(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            foreach (var subbed in _subscribed)
+            {
+                subbed.DrawId(spriteBatch);
+            }
         }
 
         public void Update()
         {
-            throw new NotImplementedException();
+            foreach (var subbed in _subscribed)
+            {
+                subbed.Update();
+            }
         }
     }
 }

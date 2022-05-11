@@ -67,6 +67,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                         DirectionMap newMap = WeightTableHandler.Instance.GetRandomExtension(_pos);
                         if (newMap == null)
                         {
+                            Console.WriteLine($"{_pos} = final position");
                             VehicleEm.Instance.UnClaimCell(_pos); 
                             VehicleEm.Instance.UnSubscribe(_id); //todo might create a memory leak
                         }

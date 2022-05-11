@@ -7,6 +7,8 @@
         Red,
         Driving,
         Idle,
-        Transit
+        Transit,
+        Open,
+        Closed
     }
 }

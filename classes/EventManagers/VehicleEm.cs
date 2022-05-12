@@ -286,7 +286,18 @@ namespace traffic_light_simulation.classes.EventManagers
                 return -1;
             }
         }
-
+        public int GetCellBoatId(Vector2 targetArea, string direction)
+        {
+            if (_boatClaimedCells.ContainsKey(targetArea))
+            {
+                return _boatClaimedCells[targetArea].GetCellId(direction);
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        
         public int GetBikeId(Vector2 targetArea, string direction)
         {
             if (_bikeClaimedCells.ContainsKey(targetArea))
@@ -298,5 +309,6 @@ namespace traffic_light_simulation.classes.EventManagers
                 return -1;
             }
         }
+        
     }
 }

@@ -8,6 +8,7 @@ using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.EventManagers;
 using Logger = traffic_light_simulation.classes.debug.Logger;
+using System.Threading;
 
 
 namespace traffic_light_simulation.classes.Communication
@@ -87,7 +88,7 @@ namespace traffic_light_simulation.classes.Communication
                     Console.WriteLine($"{data.eventType}]");
                     return;
                 }
-
+                
                 if (DebugManager.Instance.Logging)
                 {
                     DebugLogServerData log = new DebugLogServerData
@@ -98,6 +99,54 @@ namespace traffic_light_simulation.classes.Communication
                     };
                     Logger.Instance.LogServerMessage(log);
                 }
+
+                if (data.eventType == "REQUEST_BRIDGE_ROAD_EMPTY")
+                {
+                    Thread.Sleep(10000);
+                    AcknowledgeBridgeEmpty();
+                    return;
+                }
+
+                if (data.eventType == "REQUEST_BARRIERS_STATE")
+                {
+                    if (data.data.state == "DOWN")
+                    {
+                        BridgeHitTreeEm.Instance.OnStateChange(0, States.Closed);
+                        Thread.Sleep(5000);
+                        AcknowledgeHitTreeState(false);
+                    }
+                    else
+                    {
+                        BridgeHitTreeEm.Instance.OnStateChange(0, States.Open);
+                        Thread.Sleep(5000);
+                        AcknowledgeHitTreeState(true);
+                    }
+                    return;
+                }
+
+                if (data.eventType == "REQUEST_BRIDGE_STATE")
+                {
+                    if (data.data.state == "DOWN")
+                    {
+                        BridgeEm.Instance.OnStateChange(0, States.Closed);
+                        Thread.Sleep(5000);
+                        AcknowledgeBridgeState(false);
+                    }
+                    else
+                    {
+                        BridgeEm.Instance.OnStateChange(0, States.Open);
+                        Thread.Sleep(5000);
+                        AcknowledgeBridgeState(true);
+                    }                    
+                    return;
+                }
+
+                if (data.eventType == "REQUEST_BRIDGE_WATER_EMPTY")
+                {
+                    Thread.Sleep(10000);
+                    AcknowledgeWaterEmpty();
+                    return;
+                }
                 
                 States state;
                 switch (data.data.state)
@@ -107,6 +156,15 @@ namespace traffic_light_simulation.classes.Communication
                         break;
                     case "ORANGE":
                         state = States.Orange;
+                        break;
+                    case "GREENRED":
+                        state = States.Orange;
+                        break;
+                    case "ON":
+                        state = States.Red;
+                        break;
+                    case "OFF":
+                        state = States.Green;
                         break;
                     case "BLINKING":
                         state = States.Orange;
@@ -134,6 +192,14 @@ namespace traffic_light_simulation.classes.Communication
                         PedestrianLightEm.Instance.OnStateChange(data.data.routeId, state);
                         Console.WriteLine("SET_PEDESTRIAN_ROUTE_STATE");
                         break;
+                    case "SET_BRIDGE_WARNING_LIGHT_STATE":
+                        BridgeWarningLightEm.Instance.OnStateChange(0, state);
+                        Console.WriteLine("SET_BRIDGE_WARNING_LIGHT_STATE");
+                        break;                    
+                    case "SET_BOAT_ROUTE_STATE":
+                        TrafficLightEm.Instance.OnStateChange(data.data.routeId, state);
+                        Console.WriteLine("SET_BOAT_ROUTE_STATE");
+                        break;
 
                     default:
                         Console.WriteLine($"unknown eventType {data.eventType}");
@@ -159,6 +225,42 @@ namespace traffic_light_simulation.classes.Communication
                 RouteSensorData data = new RouteSensorData {routeId = routeId, sensorId = 1};
                 ServerEntityEnteredZoneRequest serverRequest = new ServerEntityEnteredZoneRequest {data = data, eventType = "ENTITY_EXITED_ZONE"};
                 _webSocket.Send (JsonSerializer.Serialize(serverRequest));
+            }
+        }
+   
+        public void AcknowledgeBridgeEmpty()
+        {
+            if (EventManagerEm.Instance.State != SimulationStates.Replaying)
+            {
+                AcknowledgeRequest data = new AcknowledgeRequest {eventType = "ACKNOWLEDGE_BRIDGE_ROAD_EMPTY"};
+                _webSocket.Send (JsonSerializer.Serialize(data));
+            }
+        }        
+        
+        public void AcknowledgeWaterEmpty()
+        {
+            if (EventManagerEm.Instance.State != SimulationStates.Replaying)
+            {
+                AcknowledgeRequest data = new AcknowledgeRequest {eventType = "ACKNOWLEDGE_BRIDGE_WATER_EMPTY"};
+                _webSocket.Send (JsonSerializer.Serialize(data));
+            }
+        }
+
+        public void AcknowledgeHitTreeState(bool state)
+        {
+            if (EventManagerEm.Instance.State != SimulationStates.Replaying)
+            {
+                AcknowledgeDataRequest data = new AcknowledgeDataRequest {eventType = "ACKNOWLEDGE_BARRIERS_STATE", data = new states{state = !state ? "DOWN" : "UP"}};
+                _webSocket.Send (JsonSerializer.Serialize(data));
+            }
+        }
+
+        public void AcknowledgeBridgeState(bool state)
+        {   
+            if (EventManagerEm.Instance.State != SimulationStates.Replaying)
+            {
+                AcknowledgeDataRequest data = new AcknowledgeDataRequest {eventType = "ACKNOWLEDGE_BRIDGE_STATE", data = new states{state = !state ? "DOWN" : "UP"}};
+                _webSocket.Send (JsonSerializer.Serialize(data));
             }
         }
 

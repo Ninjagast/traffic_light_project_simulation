@@ -37,20 +37,20 @@ namespace traffic_light_simulation.classes.GlobalScripts
             _random = random;
 
             _routeTable
-                .AddRow(0, "Route 12")
-                .AddRow(0, "Route 11")
-                .AddRow(0, "Route 10")
-                .AddRow(0, "Route 9")
-                .AddRow(0, "Route top 8")
-                .AddRow(0, "Route bot 8")
-                .AddRow(0, "Route 7")
-                .AddRow(0, "Route 5 Going left")
-                .AddRow(0, "Route 5 Going top")
-                .AddRow(0, "Route Left 4")
-                .AddRow(0, "Route Right 4")
-                .AddRow(0, "Route 15")
-                .AddRow(0, "right roundabout")
-                .AddRow(0, "bottom roundabout first right")
+                .AddRow(3, "Route 12")
+                .AddRow(3, "Route 11")
+                .AddRow(3, "Route 10")
+                .AddRow(4, "Route 9")
+                .AddRow(5, "Route top 8")
+                .AddRow(5, "Route bot 8")
+                .AddRow(4, "Route 7")
+                .AddRow(3, "Route 5 Going left")
+                .AddRow(3, "Route 5 Going top")
+                .AddRow(5, "Route Left 4")
+                .AddRow(6, "Route Right 4")
+                .AddRow(1, "Route 15")
+                .AddRow(8, "right roundabout")
+                .AddRow(2, "bottom roundabout first right")
                 .AddRow(3, "bottom roundabout full send");
 //              max sum 60 for now
 

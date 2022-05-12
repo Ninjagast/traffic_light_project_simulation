@@ -37,6 +37,7 @@ namespace traffic_light_simulation
             EventManagerEm.Instance.Subscribe(BicycleLightEm.Instance);
             EventManagerEm.Instance.Subscribe(VehicleEm.Instance);
             EventManagerEm.Instance.Subscribe(BridgeHitTreeEm.Instance);
+            EventManagerEm.Instance.Subscribe(BridgeWarningLightEm.Instance);
 
             _orientations = new List<string>
             {
@@ -289,7 +290,7 @@ namespace traffic_light_simulation
                     // VehicleEm.Instance.Subscribe(bike);
                 // }
             // }
-            if (_random.Next(0, 1200) > 1198) // 0.08% chance per tick to spawn a random Bike
+            if (_random.Next(0, 1200000) > 1198) // 0.08% chance per tick to spawn a random Bike
             {
                 Boat boat = Boat.CreateInstance(_random);
                 if (boat != null)

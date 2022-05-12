@@ -80,15 +80,21 @@ namespace traffic_light_simulation.classes.GlobalScripts
         public static void CreateBridges()
         {
             BridgeEm.Instance.Subscribe(Bridge.CreateInstance(new Vector2(2204, 204)));
+            
+            TrafficLightEm.Instance.Subscribe(BoatTrafficLight.CreateInstance(new Vector2(2125, 195), 42, new Vector2(2125, 195), "DOWN"));
+            TrafficLightEm.Instance.Subscribe(BoatTrafficLight.CreateInstance(new Vector2(2625, 345), 41, new Vector2(2625, 345), "UP"));
+            
+            BridgeWarningLightEm.Instance.Subscribe(BridgeWarningLight.CreateInstance(new Vector2(2300, 130), new Dictionary<string, Vector2>(){{"car", new Vector2(2375, 220)}, {"notCar", new Vector2(2325, 195)}}, "LEFT", 0));
+            BridgeWarningLightEm.Instance.Subscribe(BridgeWarningLight.CreateInstance(new Vector2(2425, 335), new Dictionary<string, Vector2>{{"car", new Vector2(2325, 295)}, {"notCar", new Vector2(2375,320)}}, "RIGHT", 0));
         }
 
         public static void CreateHitTrees()
         {
-            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2300, 30), new Dictionary<string, Vector2>(){{"car", new Vector2(2375, 220)}, {"notCar", new Vector2(2325, 195)}}, "LEFT", "DOWN", 0));
-            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2550, 175), new Dictionary<string, Vector2>(), "", "UP", 0));
+            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2300, 30), "DOWN", 0));
+            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2550, 175),"UP",   0));
             
-            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2200, 100), new Dictionary<string, Vector2>(), "", "DOWN", 0));
-            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2425, 235), new Dictionary<string, Vector2>{{"car", new Vector2(2325, 295)}, {"notCar", new Vector2(2375,320)}}, "RIGHT", "UP", 0));
+            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2200, 100),"DOWN", 0));
+            BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2425, 235),"UP",   0));
         }
         public static void CreateBoatLights()
         {

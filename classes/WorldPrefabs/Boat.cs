@@ -137,6 +137,8 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 i++;
             }
 
+            Console.WriteLine($"spawned at {new Vector2(map.vector2.x, map.vector2.y)}");
+            
             Boat returnObject = new Boat
             {
                 _directionMap = map,

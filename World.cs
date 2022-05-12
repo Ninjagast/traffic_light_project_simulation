@@ -266,31 +266,31 @@ namespace traffic_light_simulation
 
         private void _randomSpawn()
         {
-            // if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Guy
-            // {
-                // People people = People.CreateInstance(_random);
-                // if (people != null)
-                // {
-                    // VehicleEm.Instance.Subscribe(people);
-                // }
-            // }
-            // if (_random.Next(0, 100) > 98) // 1% chance per tick to spawn a random car
-            // {
-                // Car car = Car.CreateInstance(_random);
-                // if (car != null)
-                // {
-                    // VehicleEm.Instance.Subscribe(car);
-                // }
-            // }
-            // if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Bike
-            // {
-                // Bike bike = Bike.CreateInstance(_random);
-                // if (bike != null)
-                // {
-                    // VehicleEm.Instance.Subscribe(bike);
-                // }
-            // }
-            if (_random.Next(0, 1200000) > 1198) // 0.08% chance per tick to spawn a random Bike
+            if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Guy
+            {
+                People people = People.CreateInstance(_random);
+                if (people != null)
+                {
+                    VehicleEm.Instance.Subscribe(people);
+                }
+            }
+            if (_random.Next(0, 200) > 198) // 0.5% chance per tick to spawn a random car
+            {
+                Car car = Car.CreateInstance(_random);
+                if (car != null)
+                {
+                    VehicleEm.Instance.Subscribe(car);
+                }
+            }
+            if (_random.Next(0, 600) > 598) // 0.16% chance per tick to spawn a random Bike
+            {
+                Bike bike = Bike.CreateInstance(_random);
+                if (bike != null)
+                {
+                    VehicleEm.Instance.Subscribe(bike);
+                }
+            }
+            if (_random.Next(0, 2400) > 2398) // 0.04% chance per tick to spawn a random Boat
             {
                 Boat boat = Boat.CreateInstance(_random);
                 if (boat != null)

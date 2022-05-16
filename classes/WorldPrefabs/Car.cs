@@ -27,6 +27,8 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private DirectionMap _directionMap;
         private Dictionary<string, Vector2> _orientation;
         
+        private int _carTexture;
+
         public void Update()
         {
             if(_state == States.Transit)
@@ -99,7 +101,20 @@ namespace traffic_light_simulation.classes.WorldPrefabs
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.Instance.GetTexture("sedan_" + _lastDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
+            switch (_carTexture)
+            {
+                case 0:
+                    spriteBatch.Draw(TextureManager.Instance.GetTexture("sedan_" + _lastDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
+                    break;
+                
+                case 1:
+                    spriteBatch.Draw(TextureManager.Instance.GetTexture("taxi_" + _lastDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
+                    break;
+                
+                case 2:
+                    spriteBatch.Draw(TextureManager.Instance.GetTexture("hatchBack_" + _lastDirection), new Rectangle((int)_pos.X, (int)_pos.Y, 50, 50), Color.White);
+                    break;
+            }
         }
 
         public void StateChange(int id, States state)
@@ -157,6 +172,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _lastDirection = map.directions[0].direction,
                 _id = VehicleEm.Instance.GetNextId(),
                 _speed = VehicleEm.Instance.DefaultSpeed,
+                _carTexture = random.Next(0,3)
             };
 
             if (DebugManager.Instance.Logging)
@@ -190,6 +206,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 _lastDirection = directionMap.directions[0].direction,
                 _id = VehicleEm.Instance.GetNextId(),
                 _speed = VehicleEm.Instance.DefaultSpeed,
+                _carTexture = 0
             };
 
             VehicleEm.Instance.ClaimCell(returnObject._pos, returnObject._id);        

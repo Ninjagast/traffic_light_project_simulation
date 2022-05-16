@@ -102,7 +102,7 @@ namespace traffic_light_simulation.classes.Communication
 
                 if (data.eventType == "REQUEST_BRIDGE_ROAD_EMPTY")
                 {
-                    Thread.Sleep(10000);
+                    Thread.Sleep(4000);
                     AcknowledgeBridgeEmpty();
                     return;
                 }
@@ -112,13 +112,11 @@ namespace traffic_light_simulation.classes.Communication
                     if (data.data.state == "DOWN")
                     {
                         BridgeHitTreeEm.Instance.OnStateChange(0, States.Closed);
-                        Thread.Sleep(5000);
                         AcknowledgeHitTreeState(false);
                     }
                     else
                     {
                         BridgeHitTreeEm.Instance.OnStateChange(0, States.Open);
-                        Thread.Sleep(5000);
                         AcknowledgeHitTreeState(true);
                     }
                     return;
@@ -129,13 +127,11 @@ namespace traffic_light_simulation.classes.Communication
                     if (data.data.state == "DOWN")
                     {
                         BridgeEm.Instance.OnStateChange(0, States.Closed);
-                        Thread.Sleep(5000);
                         AcknowledgeBridgeState(false);
                     }
                     else
                     {
                         BridgeEm.Instance.OnStateChange(0, States.Open);
-                        Thread.Sleep(5000);
                         AcknowledgeBridgeState(true);
                     }                    
                     return;
@@ -200,7 +196,6 @@ namespace traffic_light_simulation.classes.Communication
                         TrafficLightEm.Instance.OnStateChange(data.data.routeId, state);
                         Console.WriteLine("SET_BOAT_ROUTE_STATE");
                         break;
-
                     default:
                         Console.WriteLine($"unknown eventType {data.eventType}");
                         break;

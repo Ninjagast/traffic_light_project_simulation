@@ -325,11 +325,11 @@
         "direction": "DOWN"
       },
       {
-        "repeat": 4,
+        "repeat": 13,
         "direction": "LEFT"
       },
       {
-        "repeat": 12,
+        "repeat": 2,
         "direction": "UP"
       }
     ]

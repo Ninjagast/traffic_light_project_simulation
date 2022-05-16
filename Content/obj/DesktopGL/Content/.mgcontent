@@ -23,6 +23,10 @@
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/FieldTexture.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/fietser.jpg</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/File.spritefont</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/hatchBack_NE.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/hatchBack_NW.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/hatchBack_SE.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/hatchBack_SW.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/HitTreeClosed.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/HitTreeOpen.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightGreen.png</File>
@@ -42,6 +46,10 @@
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_SE.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_SW.png</File>
     <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/SelectedRadioButton.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/taxi_NE.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/taxi_NW.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/taxi_SE.png</File>
+    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/taxi_SW.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
@@ -63,6 +71,10 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>SmallFont.spritefont</File>
+    <File>hatchBack_DOWN.png</File>
+    <File>hatchBack_RIGHT.png</File>
+    <File>hatchBack_LEFT.png</File>
+    <File>hatchBack_UP.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
@@ -82,5 +94,9 @@
     <File>sedan_LEFT.png</File>
     <File>sedan_UP.png</File>
     <File xsi:nil="true" />
+    <File>taxi_DOWN.png</File>
+    <File>taxi_RIGHT.png</File>
+    <File>taxi_LEFT.png</File>
+    <File>taxi_UP.png</File>
   </DestFiles>
 </SourceFileCollection>

@@ -83,6 +83,8 @@ namespace traffic_light_simulation
             _backGround = Content.Load<Texture2D>("BackGround");
 
             Dictionary<string, Texture2D> sedanTextures           = new Dictionary<string, Texture2D>();
+            Dictionary<string, Texture2D> taxiTextures            = new Dictionary<string, Texture2D>();
+            Dictionary<string, Texture2D> hatchBackTextures       = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> personATextures         = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> smallBoatTextures       = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> trafficLightTextures    = new Dictionary<string, Texture2D>();
@@ -94,6 +96,8 @@ namespace traffic_light_simulation
                  sedanTextures.Add($"sedan_{orientation}", Content.Load<Texture2D>($"sedan_{orientation}"));
                  personATextures.Add($"personA_{orientation}", Content.Load<Texture2D>($"personA_{orientation}"));
                  smallBoatTextures.Add($"boat_small_{orientation}", Content.Load<Texture2D>($"boat_small_{orientation}"));
+                 taxiTextures.Add($"taxi_{orientation}", Content.Load<Texture2D>($"taxi_{orientation}"));
+                 hatchBackTextures.Add($"hatchBack_{orientation}", Content.Load<Texture2D>($"hatchBack_{orientation}"));
             }
             foreach (var color in _lightStates)
             {
@@ -113,6 +117,8 @@ namespace traffic_light_simulation
             TextureManager.Instance.SetTexture(pedestrianLightTextures);
             TextureManager.Instance.SetTexture(personATextures);
             TextureManager.Instance.SetTexture(smallBoatTextures);
+            TextureManager.Instance.SetTexture(taxiTextures);
+            TextureManager.Instance.SetTexture(hatchBackTextures);
             TextureManager.Instance.SetTexture(Content.Load<Texture2D>("bridgeClosed"), "bridgeClosed");
             TextureManager.Instance.SetTexture(Content.Load<Texture2D>("bridgeOpen"), "bridgeOpen");
             TextureManager.Instance.SetTexture(Content.Load<Texture2D>("HitTreeOpen"), "HitTreeOpen");

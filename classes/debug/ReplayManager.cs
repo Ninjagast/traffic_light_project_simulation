@@ -62,6 +62,7 @@ namespace traffic_light_simulation.classes.debug
             {
                 while (_entitySpawn[_currentEntity].Tick == DebugManager.Instance.UpdateTick)
                 {
+                    Console.WriteLine(DebugManager.Instance.UpdateTick);
                     switch (_entitySpawn[_currentEntity].EntityType)
                     {
                         case "Car":
@@ -108,6 +109,52 @@ namespace traffic_light_simulation.classes.debug
             {
                 while (_serverData[_currentServerRequest].Tick == DebugManager.Instance.UpdateTick)
                 {
+                    if (_serverData[_currentServerRequest].eventType == "REQUEST_BARRIERS_STATE")
+                    {
+                        if (_serverData[_currentServerRequest].data.state == "DOWN")
+                        {
+                            BridgeHitTreeEm.Instance.OnStateChange(0, States.Closed);
+                        }
+                        else
+                        {
+                            BridgeHitTreeEm.Instance.OnStateChange(0, States.Open);
+                        }
+                        _currentServerRequest += 1;
+                        if (_currentServerRequest == _serverData.Count)
+                        {
+                            break;
+                        }
+                        continue;
+                    }
+
+                    if (_serverData[_currentServerRequest].eventType == "REQUEST_BRIDGE_ROAD_EMPTY")
+                    {
+                        _currentServerRequest += 1;
+                        if (_currentServerRequest == _serverData.Count)
+                        {
+                            break;
+                        }
+                        continue;
+                    }
+                    
+                    if (_serverData[_currentServerRequest].eventType == "REQUEST_BRIDGE_STATE")
+                    {
+                        if (_serverData[_currentServerRequest].data.state == "DOWN")
+                        {
+                            BridgeEm.Instance.OnStateChange(0, States.Closed);
+                        }
+                        else
+                        {
+                            BridgeEm.Instance.OnStateChange(0, States.Open);
+                        }    
+                        _currentServerRequest += 1;
+                        if (_currentServerRequest == _serverData.Count)
+                        {
+                            break;
+                        }
+                        continue;
+                    }
+
                     States state;
                     switch (_serverData[_currentServerRequest].data.state)
                     {
@@ -123,11 +170,20 @@ namespace traffic_light_simulation.classes.debug
                         case "RED":
                             state = States.Red;
                             break;
+                        case "GREENRED":
+                            state = States.Orange;
+                            break;
+                        case "ON":
+                            state = States.Red;
+                            break;
+                        case "OFF":
+                            state = States.Green;
+                            break;
                         default:
                             state = States.Red;
                             break;
                     }
-                    
+
                     switch (_serverData[_currentServerRequest].eventType)
                     {
                         case "SET_AUTOMOBILE_ROUTE_STATE":
@@ -142,7 +198,14 @@ namespace traffic_light_simulation.classes.debug
                             PedestrianLightEm.Instance.OnStateChange(_serverData[_currentServerRequest].data.routeId, state);
                             Console.WriteLine("SET_PEDESTRIAN_ROUTE_STATE");
                             break;
-                    
+                        case "SET_BRIDGE_WARNING_LIGHT_STATE":
+                            BridgeWarningLightEm.Instance.OnStateChange(0, state);
+                            Console.WriteLine("SET_BRIDGE_WARNING_LIGHT_STATE");
+                            break;
+                        case "SET_BOAT_ROUTE_STATE":
+                            TrafficLightEm.Instance.OnStateChange(_serverData[_currentServerRequest].data.routeId, state);
+                            Console.WriteLine("SET_BOAT_ROUTE_STATE");
+                            break;
                         default:
                             break;
                     }

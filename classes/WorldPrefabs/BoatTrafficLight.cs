@@ -14,7 +14,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private States _state; 
         private Vector2 _targetArea;
         private int _stoppedBoatId = -1;
-        private string _direction;
+        private string _direction;  
         
         public void Update()
         {

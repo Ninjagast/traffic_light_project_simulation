@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/boat_small_NW.png</SourceFile>
-  <SourceTime>2022-05-11T22:37:44.3012247+02:00</SourceTime>
-  <DestFile>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/bin/DesktopGL/Content/boat_small_UP.xnb</DestFile>
-  <DestTime>2022-05-11T22:37:58.6281479+02:00</DestTime>
+  <SourceFile>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/boat_small_NW.png</SourceFile>
+  <SourceTime>2022-05-12T18:49:54.0338116+02:00</SourceTime>
+  <DestFile>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/bin/DesktopGL/Content/boat_small_UP.xnb</DestFile>
+  <DestTime>2022-05-19T11:47:52.8365983+02:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2020-08-10T16:17:54+02:00</ImporterTime>
+  <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2020-08-10T16:17:54+02:00</ProcessorTime>
+  <ProcessorTime>2020-08-10T18:17:54+02:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>

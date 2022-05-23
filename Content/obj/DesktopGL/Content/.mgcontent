@@ -4,52 +4,52 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BackGround.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BigFont.spritefont</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeGreen.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeOrange.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/BikeRed.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/boat_small_NE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/boat_small_NW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/boat_small_SE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/boat_small_SW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/bridgeClosed.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/bridgeOpen.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/CheckBox.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/CheckedCheckBox.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/ClaimMarker.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/DebugButton.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/FieldSelectedTexture.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/FieldTexture.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/fietser.jpg</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/File.spritefont</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/hatchBack_NE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/hatchBack_NW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/hatchBack_SE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/hatchBack_SW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/HitTreeClosed.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/HitTreeOpen.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightGreen.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightRed.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/LightYellow.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleGreen.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PeopleRed.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/personA_NE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/personA_NW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/personA_SE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/personA_SW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/PlayButton.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/RadioButton.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/ReplayButton.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_NE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_NW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_SE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/sedan_SW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/SelectedRadioButton.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/taxi_NE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/taxi_NW.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/taxi_SE.png</File>
-    <File>C:/Users/Steven/Desktop/simulatie_traffic/traffic_light_project_simulation/Content/taxi_SW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/BackGround.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/BigFont.spritefont</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/BikeGreen.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/BikeOrange.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/BikeRed.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/boat_small_NE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/boat_small_NW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/boat_small_SE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/boat_small_SW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/bridgeClosed.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/bridgeOpen.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/CheckBox.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/CheckedCheckBox.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/ClaimMarker.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/DebugButton.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/FieldSelectedTexture.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/FieldTexture.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/fietser.jpg</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/File.spritefont</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/hatchBack_NE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/hatchBack_NW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/hatchBack_SE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/hatchBack_SW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/HitTreeClosed.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/HitTreeOpen.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/LightGreen.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/LightRed.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/LightYellow.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/PeopleGreen.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/PeopleRed.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/personA_NE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/personA_NW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/personA_SE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/personA_SW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/PlayButton.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/RadioButton.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/ReplayButton.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/sedan_NE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/sedan_NW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/sedan_SE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/sedan_SW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/SelectedRadioButton.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/taxi_NE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/taxi_NW.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/taxi_SE.png</File>
+    <File>C:/Users/Erikv/Desktop/School/Minor/Software engineering/traffic_light_project_simulation/Content/taxi_SW.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

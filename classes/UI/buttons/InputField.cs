@@ -71,10 +71,19 @@ namespace traffic_light_simulation.classes.UI.buttons
                         if (_userInput.Length < 10)
                         {
                             string letter = pressedKeyId.ToString().Length > 1 ? pressedKeyId.ToString()[1].ToString(): pressedKeyId.ToString();
-                            if (!keyboardState.CapsLock || !keyboardState.IsKeyDown(Keys.LeftShift) ||
-                                !keyboardState.IsKeyDown(Keys.RightShift))
+                            letter = letter.ToLower();
+
+                            if (keyboardState.CapsLock)
                             {
-                                letter = letter.ToLower();
+                                letter = letter.ToUpper();
+                            }
+                            else if (keyboardState.IsKeyDown(Keys.LeftShift))
+                            {
+                                letter = letter.ToUpper();
+                            }
+                            else if(keyboardState.IsKeyDown(Keys.RightShift))
+                            {
+                                letter = letter.ToUpper();
                             }
 
                             _userInput += letter;

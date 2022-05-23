@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,38 +8,37 @@ namespace traffic_light_simulation.classes.GlobalScripts
     public class Camera
     {
         private Rectangle _bounds;
-        public Vector2 Pos;
+        private Vector2 _pos;
         public Matrix Transform;
 
-//      todo these will be changeable using debug mode
-        public int MovementSpeed { get; set; } = 20;
-        public float Zoom { get; set; } = 0.6f;
+        private int MovementSpeed { get; set; } = 20;
+        private float Zoom { get; set; } = 0.6f;
         
         public Camera(Viewport viewport)
         {
             _bounds = viewport.Bounds;
-            Pos = new Vector2(1000,700);
+            _pos = new Vector2(1000,700);
         }
 
         private void _updateMatrix()
         {
-            Transform = Matrix.CreateTranslation(new Vector3(-Pos.X, -Pos.Y, 0)) *
+            Transform = Matrix.CreateTranslation(new Vector3(-_pos.X, -_pos.Y, 0)) *
                         Matrix.CreateScale(Zoom) *
                         Matrix.CreateTranslation(new Vector3(_bounds.Width * 0.5f, _bounds.Height * 0.5f, 0));
         }
 
         private void _moveCamera(Vector2 movePosition)
         {
-            Vector2 newPosition = Pos + movePosition;
+            Vector2 newPosition = _pos + movePosition;
 
             if (!(newPosition.X < 680 || newPosition.X > 2260))
             {
-                Pos.X = newPosition.X;
+                _pos.X = newPosition.X;
             }
 
             if (!(newPosition.Y < 640 || newPosition.Y > 860))
             {
-                Pos.Y = newPosition.Y;
+                _pos.Y = newPosition.Y;
             }
         }
 
@@ -77,7 +75,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             Vector2 stabilizationVector = Vector2.Zero; 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                if (Pos.Y != 640)
+                if (_pos.Y != 640)
                 {
                     stabilizationVector.Y = -MovementSpeed;
                 }
@@ -85,7 +83,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                if (Pos.Y != 860)
+                if (_pos.Y != 860)
                 {
                     stabilizationVector.Y = MovementSpeed;
                 }
@@ -94,7 +92,7 @@ namespace traffic_light_simulation.classes.GlobalScripts
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 
-                if (Pos.X != 680)
+                if (_pos.X != 680)
                 {
                     stabilizationVector.X = -MovementSpeed;
                 }
@@ -102,13 +100,13 @@ namespace traffic_light_simulation.classes.GlobalScripts
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                if (Pos.X != 2260)
+                if (_pos.X != 2260)
                 {
                     stabilizationVector.X = MovementSpeed;
                 }
             }
 
-            return Pos - stabilizationVector;
+            return _pos - stabilizationVector;
         }
     }
 }

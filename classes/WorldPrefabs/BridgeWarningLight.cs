@@ -16,7 +16,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
         private Dictionary<String, int> _stoppedEntities = new Dictionary<string, int>();
         private string _direction;
         private int _id = 0;
-        private string _offset;
         
         public void Update()
         {

@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using traffic_light_simulation.classes.dataClasses;
-using traffic_light_simulation.classes.dataClasses.ServerRequestData;
-using traffic_light_simulation.classes.debug;
 using traffic_light_simulation.classes.enums;
-using traffic_light_simulation.classes.EventManagers;
 using traffic_light_simulation.classes.GlobalScripts;
 
 namespace traffic_light_simulation.classes.WorldPrefabs
 {
     public class Bridge: IDrawAble
     {
-        private int _bridgeId;
+        private int _bridgeId; //we support multiple bridges broker does not 
         private Vector2 _pos;
         private States _state = States.Closed;
         public void Update()

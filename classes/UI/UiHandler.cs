@@ -138,10 +138,10 @@ namespace traffic_light_simulation.classes.UI
                 inputField.Value.Update(keyboardState, prevKeyboardState);
             }
 
+//          _currentButtonState gets set when clicking on a button.
+//          we check here if a button was pressed and also where we do the button's logic.
             switch (_currentButtonState)
             {
-//              ##################################################################################################
-//              Start screen buttons 
                 case ButtonStates.PlayButton:
                     if (_inputFields["SessionNameField"].GetUserInput().Length > 0 && _inputFields["SessionVersionField"].GetUserInput().Length > 0)
                     {
@@ -214,6 +214,7 @@ namespace traffic_light_simulation.classes.UI
             _warningCounter = 300f;
         }
         
+//      checks if a mouse pos is within the bounds of a boundary
         public static bool CheckClick(MouseState mouseState, Vector2 pos, int textureWidth, int textureHeight)
         {
             Point point = new Point(mouseState.X, mouseState.Y);

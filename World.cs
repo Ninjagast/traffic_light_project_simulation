@@ -31,6 +31,7 @@ namespace traffic_light_simulation
 
         public World()
         {
+//          subscribe all EventManagers
             EventManagerEm.Instance.Subscribe(BridgeEm.Instance);
             EventManagerEm.Instance.Subscribe(TrafficLightEm.Instance);
             EventManagerEm.Instance.Subscribe(PedestrianLightEm.Instance);
@@ -39,6 +40,7 @@ namespace traffic_light_simulation
             EventManagerEm.Instance.Subscribe(BridgeHitTreeEm.Instance);
             EventManagerEm.Instance.Subscribe(BridgeWarningLightEm.Instance);
 
+//          orientations match the name of the variations in perspective on the graphics
             _orientations = new List<string>
             {
                 "UP", "DOWN", "LEFT", "RIGHT"
@@ -54,15 +56,20 @@ namespace traffic_light_simulation
             IsMouseVisible = true;
         }
 
+//      initialize content set Game configs
         protected override void Initialize()
         {
+//          loads in the spawn points from the routeFiles
             SpawnPoints.Instance.GetSpawnPoints();
             
+//          sets window size (we don't have a scalable window/dynamic positions)
             _graphics.PreferredBackBufferHeight = 750;
             _graphics.PreferredBackBufferWidth  = 750;
             
             _camera = new Camera(_graphics.GraphicsDevice.Viewport);
             _random = new Random();
+            
+//          creates the Weighted Probability tables for the spawn points
             WeightTableHandler.Instance.CreateTables(_random);
             
             _prevKeyboardState = Keyboard.GetState();
@@ -70,18 +77,21 @@ namespace traffic_light_simulation
             
             _graphics.ApplyChanges();
             
-            Window.AllowAltF4 = false; //Alt+F4 is not allowed
+            Window.AllowAltF4 = false;
+            
+//          subscribes the closingstatements function to the exiting event
             Exiting += _closingStatements;
             base.Initialize();
         }
         
-        
+//      load game content (graphics/textures/fonts)
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 //          Loading the textures
             _backGround = Content.Load<Texture2D>("BackGround");
-
+            
+//          prefab textures
             Dictionary<string, Texture2D> sedanTextures           = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> taxiTextures            = new Dictionary<string, Texture2D>();
             Dictionary<string, Texture2D> hatchBackTextures       = new Dictionary<string, Texture2D>();
@@ -107,9 +117,6 @@ namespace traffic_light_simulation
             
             pedestrianLightTextures.Add("PeopleGreen", Content.Load<Texture2D>("PeopleGreen"));
             pedestrianLightTextures.Add("PeopleRed",   Content.Load<Texture2D>("PeopleRed"));
-
-            TextureManager.Instance.AddFont(Content.Load<SpriteFont>("SmallFont"), "SmallFont");
-            TextureManager.Instance.AddFont(Content.Load<SpriteFont>("BigFont"), "BigFont");
             
             TextureManager.Instance.SetTexture(sedanTextures);
             TextureManager.Instance.SetTexture(trafficLightTextures);
@@ -124,6 +131,11 @@ namespace traffic_light_simulation
             TextureManager.Instance.SetTexture(Content.Load<Texture2D>("HitTreeOpen"), "HitTreeOpen");
             TextureManager.Instance.SetTexture(Content.Load<Texture2D>("HitTreeClosed"), "HitTreeClosed");
             
+//          Fonts
+            TextureManager.Instance.AddFont(Content.Load<SpriteFont>("SmallFont"), "SmallFont");
+            TextureManager.Instance.AddFont(Content.Load<SpriteFont>("BigFont"), "BigFont");
+
+//          Button textures
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("FieldTexture"), "FieldTexture");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("FieldSelectedTexture"), "FieldSelectedTexture");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("DebugButton"), "DebugButton");
@@ -134,71 +146,73 @@ namespace traffic_light_simulation
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("ReplayButton"), "ReplayButton");
             TextureManager.Instance.AddButtonTexture(Content.Load<Texture2D>("RadioButton"), "RadioButton");
             
+//          Debug Textures
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("ClaimMarker"), "ClaimMarker");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("PeopleGreen"), "People");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("BikeGreen"), "Bike");
             TextureManager.Instance.AddDebugTexture(Content.Load<Texture2D>("fietser"), "fietser");
             
+//          Content push all the static prefabs
             CreationManager.CreateTrafficLights();
             CreationManager.CreateStartScreenButtons();
             CreationManager.CreateBicycleLights();
             CreationManager.CreatePedestrianLights();
             CreationManager.CreateBridges();
             CreationManager.CreateHitTrees();
-            // CreationManager.CreateBoatLights();
         }
 
+//      update function gets called once per frame
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-            SimulationStates currentState = EventManagerEm.Instance.State;
-            
-            if (currentState == SimulationStates.Running)
+//          do stuff based on current simulation state
+            switch (EventManagerEm.Instance.State)
             {
-                DebugManager.Instance.UpdateTick += 1;
-                _checkKeyPress(Keys.Space,SimulationStates.Paused);
-                _randomSpawn();
-                _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
-                EventManagerEm.Instance.Update();
-            }
-            else if (currentState == SimulationStates.Paused)
-            {
-                _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
-                _checkKeyPress(Keys.Space, SimulationStates.Running);
-            }
-            else if (currentState == SimulationStates.PausedReplay)
-            {
-                _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
-                _checkKeyPress(Keys.Space, SimulationStates.Replaying);
-            }
-            else if (currentState == SimulationStates.Replaying)
-            {
-                _checkKeyPress(Keys.Space,SimulationStates.PausedReplay);
-
-                DebugManager.Instance.UpdateTick += 1;
-                ReplayManager.Instance.CheckTick();
+                case SimulationStates.Running:
+                    DebugManager.Instance.UpdateTick += 1;
+                    _checkKeyPress(Keys.Space,SimulationStates.Paused);
+                    _randomSpawn();
+                    _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
+                    EventManagerEm.Instance.Update();
+                    break;
                 
-                _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
-                EventManagerEm.Instance.Update();
-            }
-            else if (currentState == SimulationStates.StartScreen)
-            {
-                _checkMousePress();
-            }
-            else if (currentState == SimulationStates.SettingUpDebugMode)
-            {
-                _checkMousePress();
-            }
-            else if (currentState == SimulationStates.WaitingForConnection)
-            {
-                if (Server.Instance.HasConnection)
-                {
-                    EventManagerEm.Instance.State = SimulationStates.Running;
-                }
+                case SimulationStates.Paused:
+                    _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
+                    _checkKeyPress(Keys.Space, SimulationStates.Running);
+                    break;
+                
+                case SimulationStates.PausedReplay:
+                    _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
+                    _checkKeyPress(Keys.Space, SimulationStates.Replaying);
+                    break;
+                
+                case SimulationStates.Replaying:
+                    _checkKeyPress(Keys.Space,SimulationStates.PausedReplay);
+
+                    DebugManager.Instance.UpdateTick += 1;
+                    ReplayManager.Instance.CheckTick();
+                
+                    _camera.UpdateCamera(_graphics.GraphicsDevice.Viewport);
+                    EventManagerEm.Instance.Update();
+                    break;
+                
+                case SimulationStates.StartScreen:
+                    _checkMousePress();
+                    break;                
+                
+                case SimulationStates.SettingUpDebugMode:
+                    _checkMousePress();
+                    break;
+                
+                case SimulationStates.WaitingForConnection:
+                    if (Server.Instance.HasConnection)
+                    {
+                        EventManagerEm.Instance.State = SimulationStates.Running;
+                    }
+                    break;
             }
 
             UiHandler.Instance.Update(Keyboard.GetState(), _prevKeyboardState);
@@ -207,31 +221,31 @@ namespace traffic_light_simulation
             base.Update(gameTime);   
         }
         
+//      gets called once per frame after the update function
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            SimulationStates currentState = EventManagerEm.Instance.State;
 
-            if (currentState == SimulationStates.Running || currentState == SimulationStates.Replaying)
+            if (EventManagerEm.Instance.State == SimulationStates.Running || EventManagerEm.Instance.State == SimulationStates.Replaying)
             {
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
                 _spriteBatch.Draw(_backGround, new Rectangle(0,0,2945,1491), Color.White);
                 UiHandler.Instance.Draw(_spriteBatch, _camera.GetPos());
                 EventManagerEm.Instance.Draw(_spriteBatch);
             }
-            else if (currentState == SimulationStates.Paused || currentState == SimulationStates.PausedReplay)
+            else if (EventManagerEm.Instance.State == SimulationStates.Paused || EventManagerEm.Instance.State == SimulationStates.PausedReplay)
             {
                 GraphicsDevice.Clear(Color.Gray);
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: _camera.Transform);
                 _spriteBatch.Draw(_backGround, new Rectangle(0,0,2945,1491), Color.White);
                 EventManagerEm.Instance.Draw(_spriteBatch);
             }
-            else if (currentState == SimulationStates.StartScreen)
+            else if (EventManagerEm.Instance.State == SimulationStates.StartScreen)
             {
                 _spriteBatch.Begin();
                 UiHandler.Instance.Draw(_spriteBatch, Vector2.One);
             }
-            else if (currentState == SimulationStates.SettingUpDebugMode)
+            else if (EventManagerEm.Instance.State == SimulationStates.SettingUpDebugMode)
             {
                 _spriteBatch.Begin();
                 _spriteBatch.DrawString(TextureManager.Instance.GetFont(), "", new Vector2(5,5), Color.Black);

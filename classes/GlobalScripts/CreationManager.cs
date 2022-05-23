@@ -96,10 +96,6 @@ namespace traffic_light_simulation.classes.GlobalScripts
             BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2200, 100),"DOWN", 0));
             BridgeHitTreeEm.Instance.Subscribe(HitTree.CreateInstance(new Vector2(2425, 235),"UP",   0));
         }
-        public static void CreateBoatLights()
-        {
-            throw new System.NotImplementedException();
-        }
 
         public static void CreateStartScreenButtons()
         {

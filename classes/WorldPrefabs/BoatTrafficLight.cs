@@ -33,6 +33,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
                 if (_stoppedBoatId > -1)
                 {
                     VehicleEm.Instance.OnStateChange(_stoppedBoatId, States.Transit);
+                    Server.Instance.EntityExitedZone(_laneId);
                     _stoppedBoatId = -1;
                 }
             }

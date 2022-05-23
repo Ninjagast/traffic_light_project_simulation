@@ -47,7 +47,7 @@ namespace traffic_light_simulation.classes.WorldPrefabs
             }
             else if (_state == States.Driving)
             {
-//              if have not yet repeated this step enough time
+//              if have not yet repeated this step enough times
                 if (_repetition < _directionMap.directions[_step].repeat)
                 {          
                     Vector2 targetPos = _pos + (_orientation[_directionMap.directions[_step].direction] * _framesTillDone / _speed);

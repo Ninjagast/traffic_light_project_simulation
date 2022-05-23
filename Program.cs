@@ -1,5 +1,6 @@
 ﻿using System;
 using traffic_light_simulation.classes.debug;
+using System.Runtime.InteropServices;
 
 namespace traffic_light_simulation
 {
@@ -8,6 +9,7 @@ namespace traffic_light_simulation
         [STAThread]
         static void Main()
         {
+//          runs the program. Put it into a try catch in order to log even when the program crashes
             using (var game = new World())
                 try
                 {

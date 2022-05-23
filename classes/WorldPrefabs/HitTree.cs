@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using traffic_light_simulation.classes.enums;
 using traffic_light_simulation.classes.GlobalScripts;
@@ -10,7 +9,6 @@ namespace traffic_light_simulation.classes.WorldPrefabs
     public class HitTree: IDrawAble
     {
         private Vector2 _pos;
-        private Dictionary<string, Vector2> _targetAreas;
         private States _state = States.Open;
         private int _id = 0;
         private string _offset;
